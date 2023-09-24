@@ -26,7 +26,7 @@
     <link href="~/Assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="~/Assets/css/style.css" rel="stylesheet">
 
-  
+
 </head>
 
 <body>
@@ -37,16 +37,16 @@
         <div class="container d-flex align-items-center justify-content-lg-between">
 
             <!--<h1 class="logo me-auto me-lg-0"><a href="index.html">Gp<span>.</span></a></h1>
-    Uncomment below if you prefer to use an image logo -->
+            Uncomment below if you prefer to use an image logo -->
             <a class="logo me-auto me-lg-0"><img src="~/Assets/img/logo.png" alt="" class="img-fluid" style="height:90px;"></a>
 
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
                     <li> <a class="nav-link scrollto active" @Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</a></li>
-                    <li><a class="nav-link scrollto" href="#">Acerca de Nosotros</a></li>
+                    <li><a class="nav-link scrollto" @Html.ActionLink("Acerca de Nosotros", "About", "Home", new { area = "" }, new { @class = "nav-link" })</a></li>
                     <li><a class="nav-link scrollto" href="#">Catálogo</a></li>
                     <li><a class="nav-link scrollto " href="#">Carrito de Compras</a></li>
-                    <li><a class="nav-link scrollto" href="#">Contacto</a></li>
+                    <li><a class="nav-link scrollto" @Html.ActionLink("Contacto", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
@@ -57,7 +57,7 @@
     @*HEADER*@
 
     @*MENU PRINCIPAL*@
-     @RenderBody() 
+    @RenderBody()
     @*MENU PRINCIPAL*@
 
     @*FOOTER*@
