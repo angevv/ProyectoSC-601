@@ -81,22 +81,22 @@ h6 {
   bottom: 0;
   z-index: 9999;
   overflow: hidden;
-  background: #151515;
+  background: #6282a9;
 }
 
-#preloader:before {
-  content: "";
-  position: fixed;
-  top: calc(50% - 0px);
-  left: calc(50% - 30px);
-  border: 6px solid #ffc451;
-  border-top-color: #151515;
-  border-bottom-color: #151515;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  animation: animate-preloader 1s linear infinite;
-}
+    #preloader:before {
+        content: "";
+        position: fixed;
+        top: calc(50% - 0px);
+        left: calc(50% - 30px);
+        border: 6px solid #ffc451;
+        border-top-color: #6282a9;
+        border-bottom-color: #6282a9;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: animate-preloader 1s linear infinite;
+    }
 
 @keyframes animate-preloader {
   0% {

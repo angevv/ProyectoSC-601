@@ -6,7 +6,8 @@
 }
 
 body {
-    background: #f6f5f7;
+    background: url("../img/fondo-login.jpg") top center;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,8 +47,8 @@ a {
 
 button {
     border-radius: 20px;
-    border: 1px solid #FF4B2B;
-    background-color: #FF4B2B;
+    border: 1px solid #6282a9;
+    background-color: #6282a9;
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
@@ -87,6 +88,15 @@ input {
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
+}
+
+input:focus{
+    border: 1px solid #6282a9;
+}
+
+.overlay {
+    background: -webkit-linear-gradient(to right, #6282a9, #354461)!important;
+    background: linear-gradient(to right, #6282a9, #354461)!important;
 }
 
 .container {
@@ -215,6 +225,7 @@ input {
 }
 
     .social-container a {
+        color: #6282a9;
         border: 1px solid #DDDDDD;
         border-radius: 50%;
         display: inline-flex;
