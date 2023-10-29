@@ -37,7 +37,7 @@
         <div class="container d-flex align-items-center justify-content-lg-between">
 
             <!--<h1 class="logo me-auto me-lg-0"><a href="index.html">Gp<span>.</span></a></h1>
-            Uncomment below if you prefer to use an image logo -->
+    Uncomment below if you prefer to use an image logo -->
             <a class="logo me-auto me-lg-0"><img src="~/Assets/img/logo.png" alt="" class="img-fluid" style="height:90px;"></a>
 
             <nav id="navbar" class="navbar order-last order-lg-0">
@@ -50,7 +50,15 @@
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
-            <a class="get-started-btn scrollto" @Html.ActionLink("Iniciar Sesión", "Login", "Home", new { area = "" }, new { @class = "nav-link" })</a>
+            @if (Session["Ced_Cliente"] != null)
+            {
+                @Html.ActionLink("Perfil", "PerfilCliente", "Cliente", new { area = "" }, new { @class = "get-started-btn scrollto nav-link" })
+            }
+            else
+            {
+                @Html.ActionLink("Iniciar Sesión", "Login", "Cliente", new { area = "" }, new { @class = "get-started-btn scrollto nav-link" })
+            }
+
 
         </div>
     </header>

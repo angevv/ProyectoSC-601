@@ -1,0 +1,60 @@
+﻿@model ProyectoSC_601.Entities.ClienteEnt
+@{
+    ViewBag.Title = "PerfilCLiente";
+    <link href="~/Assets/css/perfilClienteStyle.css" rel="stylesheet">
+}
+
+<div class="container-xl px-4 mt-4">
+    <!-- Account page navigation-->
+    <nav class="nav nav-borders">
+        <a class="nav-link active ms-0" href="https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details" target="__blank">Profile</a>
+        <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-profile-billing-page" target="__blank">Billing</a>
+        <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-profile-security-page" target="__blank">Security</a>
+        <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-edit-notifications-page" target="__blank">Notifications</a>
+    </nav>
+    <hr class="mt-0 mb-4">
+    <div class="row">
+        <div class="col-xl-8" style="margin-left:18%;margin-top:4%; margin-bottom:4%;">
+            <div class="card mb-4">
+                <div class="card-header">Detalles de la Cuenta</div>
+                <div class="card-body ">
+                    <form>
+                        <div class="mb-3">
+                            <label class="small mb-1" for="identificacion">Identificación</label>
+                            @Html.TextBoxFor(m => m.Ced_Cliente, new { @class = "form-control", @placeholder = "Identificación", @type = "text", required = "required" })
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="nombre">Nombre</label>
+                                @Html.TextBoxFor(m => m.Nombre_Cliente, new { @class = "form-control", @placeholder = "Nombre", @type = "text", required = "required" })
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="apellido">Primer Apellido</label>
+                                @Html.TextBoxFor(m => m.Apellido_Cliente, new { @class = "form-control", @placeholder = "Primer Apellido", @type = "text", required = "required" })
+                            </div>
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="correo">Correo Electrónico</label>
+                                @Html.TextBoxFor(m => m.Correo_Cliente, new { @class = "form-control", @placeholder = "Correo Electrónic", @type = "email", required = "required" })
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="telefono">Teléfono</label>
+                                @Html.TextBoxFor(m => m.Tel_Cliente, new { @class = "form-control", @placeholder = "Teléfono", @type = "text", required = "required" })
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="small mb-1" for="direccion">Ubicación Exacta</label>
+                            @Html.TextAreaFor(m => m.Direccion_Cliente, new { rows = 3, cols = 20, @class = "form-control", @placeholder = "Ubicación Exacta", @type = "text", required = "required" })
+                        </div
+                        <div class="justify-content-center">
+                            <button class="btn btn-success" type="submit" style="margin-left:40%!important;"><i class="bi bi-pencil-square"></i></button>
+                            <a href='@Url.Action("InactivarCliente", "Cliente")' class="btn btn-danger" style="color: white;"><i class="bi bi-trash3"></i></a>
+                            <a href='@Url.Action("CerrarSesionCliente", "Cliente")' class="btn btn-dark" style="color: white;"><i class="bi bi-box-arrow-left"></i></a>
+                      </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
