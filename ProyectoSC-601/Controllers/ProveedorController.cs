@@ -66,13 +66,22 @@ namespace ProyectoSC_601.Controllers
 
             if (respuesta == "OK")
             {
-                return RedirectToAction("ConsultaProveedor", "Proveedor");
+                return RedirectToAction("ConsultaProveedores", "Proveedor");
             }
             else
             {
                 ViewBag.MensajeUsuario = "No se ha podido cambiar el estado del usuario";
                 return View();
             }
+        }
+
+
+        [HttpGet]
+        public ActionResult ActualizarProveedor(long q)
+        {
+            var datos = modelProveedor.ConsultaProveedor(q);
+            ViewBag.combo = modelProveedor.ConsultarEmpresas();
+            return View(datos);
         }
 
 
@@ -83,7 +92,7 @@ namespace ProyectoSC_601.Controllers
 
             if (respuesta == "OK")
             {
-                return RedirectToAction("ConsultaUsuarios", "Usuario");
+                return RedirectToAction("ConsultaProveedores", "Proveedor");
             }
             else
             {
@@ -92,6 +101,7 @@ namespace ProyectoSC_601.Controllers
                 return View();
             }
         }
+
 
     }
 }

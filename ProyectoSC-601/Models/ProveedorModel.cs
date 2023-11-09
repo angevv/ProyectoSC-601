@@ -72,5 +72,16 @@ namespace ProyectoSC_601.Models
             }
         }
 
+
+        public ProveedorEnt ConsultaProveedor(long q)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "ConsultaProveedor?q=" + q;
+                var res = client.GetAsync(urlApi).Result;
+                return res.Content.ReadFromJsonAsync<ProveedorEnt>().Result;
+            }
+        }
+
     }
 }

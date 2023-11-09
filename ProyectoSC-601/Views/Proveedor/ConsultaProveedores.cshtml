@@ -4,6 +4,14 @@
 @{
     ViewBag.Title = "ConsultaProveedores";
     Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
+    ViewBag.Mensaje = TempData["Mensaje"];
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert" style="text-align:center">
+        @TempData["SuccessMessage"]
+    </div>
 }
 
 
@@ -20,9 +28,11 @@
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>Identificación</th>
                                 <th>Nombre</th>
-                                <th>Correo Electrónico</th>
+                                <th>Apellido</th>
+                                <th>Cedula</th>
+                                <th>Direccion</th>
+                                <th>Empresa</th>
                                 <th>Estado</th>
                                 <th>Cambiar Estado</th>
                                 <th>Actualizar</th>
@@ -36,7 +46,18 @@
                                     <td>@item.Apellido_Proveedor</td>
                                     <td>@item.Cedula_Proveedor</td>
                                     <td>@item.Direccion_Exacta</td>
-                                    <td>@item.Empresa</td>
+                                    @if (item.Empresa == 1)
+                                    {
+                                        <td>Seleccione una empresa</td>
+                                    }
+                                    else if (item.Empresa == 2)
+                                    {
+                                        <td>Empresa 1</td>
+                                    }
+                                    else if (item.Empresa == 3)
+                                    {
+                                        <td>Empresa 3</td>
+                                    }
 
                                     @if (item.Estado_Proveedor == 1)
                                     {
@@ -46,13 +67,14 @@
                                     {
                                         <td>Inactivo</td>
                                     }
+                                    
 
                                     <td class="text-center">
                                         <a href="@Url.Action("ActualizarEstadoProveedor", "Proveedor", new { q = item.ID_Proveedor })"><i class="fa fa-exchange fa-lg"></i></a>
                                     </td>
 
                                     <td class="text-center">
-                                        <a href="@Url.Action("ActualizarUsuario", "Usuario", new { q = item.ID_Proveedor })"><i class="fa fa-user fa-lg"></i></a>
+                                        <a href="@Url.Action("ActualizarProveedor", "Proveedor", new { q = item.ID_Proveedor })"><i class="fa fa-user fa-lg"></i></a>
                                     </td>
                                 </tr>
                             }
