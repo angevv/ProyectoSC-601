@@ -119,6 +119,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="ActualizarEstadoProveedorSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_Proveedor" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="IniciarSesionSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Correo" Type="varchar" Mode="In" />
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
@@ -342,6 +345,9 @@
             <Parameter Name="Estado_Proveedor" Mode="In" Type="Int32" />
             <Parameter Name="Empresa" Mode="In" Type="Int64" />
           </FunctionImport>
+          <FunctionImport Name="ActualizarEstadoProveedorSP">
+          <Parameter Name="ID_Proveedor" Mode="In" Type="Int64" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="IniciarSesionSP_Result">
           <Property Type="Int64" Name="ID_Cliente" Nullable="false" />
@@ -468,6 +474,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="RegistrarClienteSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarClienteSP" />
           <FunctionImportMapping FunctionImportName="RegistrarProveedorSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarProveedorSP" />
+          <FunctionImportMapping FunctionImportName="ActualizarEstadoProveedorSP" FunctionName="ImportadoraMoyaUlateModel.Store.ActualizarEstadoProveedorSP" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

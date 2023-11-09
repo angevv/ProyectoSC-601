@@ -47,5 +47,18 @@ namespace ProyectoSC_601.Models
             }
         }
 
+
+        [HttpGet]
+        public string ActualizarEstadoProveedor(ProveedorEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "ActualizarEstadoProveedor";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PutAsync(urlApi, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<string>().Result;
+            }
+        }
+
     }
 }

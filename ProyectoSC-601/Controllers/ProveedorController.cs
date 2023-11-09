@@ -55,5 +55,25 @@ namespace ProyectoSC_601.Controllers
 
         }
 
+
+        [HttpGet]
+        public ActionResult ActualizarEstadoProveedor(long q)
+        {
+            var entidad = new ProveedorEnt();
+            entidad.ID_Proveedor = q;
+
+            string respuesta = modelProveedor.ActualizarEstadoProveedor(entidad);
+
+            if (respuesta == "OK")
+            {
+                return RedirectToAction("ConsultaProveedor", "Proveedor");
+            }
+            else
+            {
+                ViewBag.MensajeUsuario = "No se ha podido cambiar el estado del usuario";
+                return View();
+            }
+        }
+
     }
 }

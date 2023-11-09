@@ -118,5 +118,14 @@ namespace APIProyectoSC_601
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarProveedorSP", nombre_ProveedorParameter, apellido_ProveedorParameter, cedula_ProveedorParameter, direccion_ExactaParameter, estado_ProveedorParameter, empresaParameter);
         }
+    
+        public virtual int ActualizarEstadoProveedorSP(Nullable<long> iD_Proveedor)
+        {
+            var iD_ProveedorParameter = iD_Proveedor.HasValue ?
+                new ObjectParameter("ID_Proveedor", iD_Proveedor) :
+                new ObjectParameter("ID_Proveedor", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarEstadoProveedorSP", iD_ProveedorParameter);
+        }
     }
 }
