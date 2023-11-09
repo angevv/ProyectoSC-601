@@ -12,10 +12,12 @@ namespace APIProyectoSC_601
     using System;
     using System.Collections.Generic;
     
-    public partial class Ubicaciones
+    public partial class sysdiagrams
     {
-        public long ID_Ubicacion { get; set; }
-        public string Tipo_Ubicacion { get; set; }
-        public string Ubicacion { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

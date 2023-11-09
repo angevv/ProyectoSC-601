@@ -154,12 +154,15 @@
     <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Entities\ClienteEnt.cs" />
+    <Compile Include="Entities\ProveedorEnt.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CarritoModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
+    <Compile Include="Models\ProveedorModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -352,6 +355,9 @@
     <Content Include="Views\Shared\_Layout_Login.cshtml" />
     <Content Include="Views\Cliente\RecuperarCuentaCliente.cshtml" />
     <Content Include="Views\carrito\carrito.cshtml" />
+    <Content Include="Views\Home\IndexAdmin.cshtml" />
+    <Content Include="Views\Shared\_Layout_deAdmin.cshtml" />
+    <Content Include="Views\Proveedor\RegistrarProveedor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

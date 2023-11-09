@@ -55,7 +55,22 @@ namespace ProyectoSC_601.Controllers
                 Session["Correo_Cliente"] = respuesta.Correo_Cliente;
                 Session["Direccion_Cliente"] = respuesta.Direccion_Cliente;
                 Session["Tel_Cliente"] = respuesta.Tel_Cliente;
+                Session["Rol_Cliente"] = respuesta.Rol_Cliente;
                 return RedirectToAction("Index", "Home");
+            }
+            else if (respuesta != null && respuesta.Rol_Cliente==1)
+            {
+                Session["Ced_Cliente"] = respuesta.Ced_Cliente;
+                Session["Nombre_Cliente"] = respuesta.Nombre_Cliente;
+                Session["Apellido_Cliente"] = respuesta.Apellido_Cliente;
+                Session["Correo_Cliente"] = respuesta.Correo_Cliente;
+                Session["Direccion_Cliente"] = respuesta.Direccion_Cliente;
+                Session["Tel_Cliente"] = respuesta.Tel_Cliente;
+                Session["Rol_Cliente"] = respuesta.Rol_Cliente;
+
+
+                return RedirectToAction("IndexAdmin", "Home");
+
             }
             else
             {

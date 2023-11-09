@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoSC_601.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,12 @@ namespace ProyectoSC_601.Controllers
         {
             return View();
         }
+
+        public ActionResult IndexAdmin() 
+        {
+            return View();
+        }
+
 
     }
 }
