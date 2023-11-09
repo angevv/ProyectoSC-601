@@ -7,12 +7,7 @@
     ViewBag.Mensaje = TempData["Mensaje"];
 }
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success" role="alert" style="text-align:center">
-        @TempData["SuccessMessage"]
-    </div>
-}
+
 
 
 <div class="container mt-5 pt-4">
@@ -22,6 +17,19 @@
                 <br>
                 <br>
                 <br>
+                @if (TempData["RegistroExito"] != null)
+                {
+                    <div class="alert alert-success" role="alert" style="text-align:center">
+                        @TempData["RegistroExito"]
+                    </div>
+                }
+
+                @if (TempData["ActualizacionExito"] != null)
+                {
+                    <div class="alert alert-success" role="alert" style="text-align:center">
+                        @TempData["ActualizacionExito"]
+                    </div>
+                }
                 <h4 class="card-title">Información de Proveedores</h4>
 
                 <div class="table-responsive">
@@ -56,7 +64,7 @@
                                     }
                                     else if (item.Empresa == 3)
                                     {
-                                        <td>Empresa 3</td>
+                                        <td>Empresa 2</td>
                                     }
 
                                     @if (item.Estado_Proveedor == 1)
@@ -67,7 +75,7 @@
                                     {
                                         <td>Inactivo</td>
                                     }
-                                    
+
 
                                     <td class="text-center">
                                         <a href="@Url.Action("ActualizarEstadoProveedor", "Proveedor", new { q = item.ID_Proveedor })"><i class="fa fa-exchange fa-lg"></i></a>
@@ -80,6 +88,11 @@
                             }
                         </tbody>
                     </table>
+                    <div class="text-center mt-4">
+                        <a href="@Url.Action("RegistrarProveedor", "Proveedor")" class="btn btn-success">
+                            <i class="fa fa-plus"></i> Agregar proveedor
+                        </a>
+                    </div>
                     <br>
                     <br>
                 </div>

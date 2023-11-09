@@ -35,12 +35,12 @@ namespace ProyectoSC_601.Controllers
 
             if (respuesta == "OK")
             {
-                TempData["SuccessMessage"] = "El movimiento se realizó correctamente.";
-                return RedirectToAction("IndexAdmin", "Home");
+                TempData["RegistroExito"] = "El proveedor se registró correctamente.";
+                return RedirectToAction("ConsultaProveedores", "Proveedor");
             }
             else
             {
-                ViewBag.MensajeUsuario = "No se ha podido registrar su información";
+                ViewBag.MensajeUsuario = "No se ha podido registrar la informacón del proveedor";
                 ViewBag.combo = modelProveedor.ConsultarEmpresas();
                 return View();
             }
@@ -70,7 +70,7 @@ namespace ProyectoSC_601.Controllers
             }
             else
             {
-                ViewBag.MensajeUsuario = "No se ha podido cambiar el estado del usuario";
+                ViewBag.MensajeUsuario = "No se ha podido cambiar el estado del proveedor";
                 return View();
             }
         }
@@ -92,11 +92,12 @@ namespace ProyectoSC_601.Controllers
 
             if (respuesta == "OK")
             {
+                TempData["ActualizacionExito"] = "Proveedor actualizado con éxito";
                 return RedirectToAction("ConsultaProveedores", "Proveedor");
             }
             else
             {
-                ViewBag.MensajeUsuario = "No se ha podido actualizar su información";
+                ViewBag.MensajeUsuario = "No se ha podido actualizar la información del proveedor";
                 ViewBag.combo = modelProveedor.ConsultarEmpresas();
                 return View();
             }
