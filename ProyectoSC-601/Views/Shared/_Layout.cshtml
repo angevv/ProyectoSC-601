@@ -43,9 +43,13 @@
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
                     <li> <a class="nav-link scrollto active" @Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</a></li>
+
                     <li><a class="nav-link scrollto" @Html.ActionLink("Acerca de Nosotros", "About", "Home", new { area = "" }, new { @class = "nav-link" })</a></li>
+
                     <li><a class="nav-link scrollto" href="#">Catálogo</a></li>
-                    <li><a class="nav-link scrollto " href="#">Carrito de Compras</a></li>
+
+                    <li><a class="nav-link scrollto " @Html.ActionLink("Carrito", "carrito", "carrito", new { area = "" }, new { @class = "nav-link" })</a></li>
+
                     <li><a class="nav-link scrollto" @Html.ActionLink("Contacto", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>

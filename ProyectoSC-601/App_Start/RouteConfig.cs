@@ -18,6 +18,11 @@ namespace ProyectoSC_601
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+            name: "Carrito",
+            url: "Carrito",
+            defaults: new { controller = "Carrito", action = "Carrito" }
+            );
         }
     }
 }
