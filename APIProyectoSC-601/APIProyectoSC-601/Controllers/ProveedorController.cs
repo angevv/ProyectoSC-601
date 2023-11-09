@@ -87,5 +87,24 @@ namespace APIProyectoSC_601.Controllers
             }
         }
 
+
+        [HttpPut]
+        [Route("ActualizarProveedor")]
+        public string ActualizarProveedor(ProveedorEnt entidad)
+        {
+            try
+            {
+                using (var context = new ImportadoraMoyaUlateEntities())
+                {
+                    context.ActualizarProveedorSP(entidad.ID_Proveedor,entidad.Nombre_Proveedor,entidad.Apellido_Proveedor,entidad.Cedula_Proveedor,entidad.Direccion_Exacta,entidad.Empresa);
+                    return "OK";
+                }
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+        }
+
     }
 }

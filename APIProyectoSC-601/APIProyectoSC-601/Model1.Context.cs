@@ -127,5 +127,34 @@ namespace APIProyectoSC_601
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarEstadoProveedorSP", iD_ProveedorParameter);
         }
+    
+        public virtual int ActualizarProveedorSP(Nullable<long> iD_Proveedor, string nombre_Proveedor, string apellido_Proveedor, string cedula_Proveedor, string direccion_Exacta, Nullable<long> empresa)
+        {
+            var iD_ProveedorParameter = iD_Proveedor.HasValue ?
+                new ObjectParameter("ID_Proveedor", iD_Proveedor) :
+                new ObjectParameter("ID_Proveedor", typeof(long));
+    
+            var nombre_ProveedorParameter = nombre_Proveedor != null ?
+                new ObjectParameter("Nombre_Proveedor", nombre_Proveedor) :
+                new ObjectParameter("Nombre_Proveedor", typeof(string));
+    
+            var apellido_ProveedorParameter = apellido_Proveedor != null ?
+                new ObjectParameter("Apellido_Proveedor", apellido_Proveedor) :
+                new ObjectParameter("Apellido_Proveedor", typeof(string));
+    
+            var cedula_ProveedorParameter = cedula_Proveedor != null ?
+                new ObjectParameter("Cedula_Proveedor", cedula_Proveedor) :
+                new ObjectParameter("Cedula_Proveedor", typeof(string));
+    
+            var direccion_ExactaParameter = direccion_Exacta != null ?
+                new ObjectParameter("Direccion_Exacta", direccion_Exacta) :
+                new ObjectParameter("Direccion_Exacta", typeof(string));
+    
+            var empresaParameter = empresa.HasValue ?
+                new ObjectParameter("Empresa", empresa) :
+                new ObjectParameter("Empresa", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarProveedorSP", iD_ProveedorParameter, nombre_ProveedorParameter, apellido_ProveedorParameter, cedula_ProveedorParameter, direccion_ExactaParameter, empresaParameter);
+        }
     }
 }
