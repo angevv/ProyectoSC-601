@@ -74,5 +74,25 @@ namespace APIProyectoSC_601.Controllers
                 return new List<Proveedores>();
             }
         }
+
+        [HttpGet]
+        [Route("ConsultaProveedor")]
+        public Proveedores ConsultaProveedor(long q)
+        {
+            try
+            {
+                using (var context = new ImportadoraMoyaUlateEntities())
+                {
+                    context.Configuration.LazyLoadingEnabled = false;
+                    return (from x in context.Proveedores
+                            where x.ID_Proveedor == q
+                            select x).FirstOrDefault();
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

@@ -1,0 +1,69 @@
+﻿
+@model IEnumerable<ProyectoSC_601.Entities.ProveedorEnt>
+
+@{
+    ViewBag.Title = "ConsultaProveedor";
+    Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
+}
+
+
+<div class="container mt-5 pt-4">
+    <div class="row justify-content-center">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card-body">
+                <br>
+                <br>
+                <br>
+                <h4 class="card-title">Información de Proveedores</h4>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Identificación</th>
+                                <th>Nombre</th>
+                                <th>Correo Electrónico</th>
+                                <th>Estado</th>
+                                <th>Cambiar Estado</th>
+                                <th>Actualizar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Nombre_Proveedor</td>
+                                    <td>@item.Apellido_Proveedor</td>
+                                    <td>@item.Cedula_Proveedor</td>
+                                    <td>@item.Direccion_Exacta</td>
+                                    <td>@item.Empresa</td>
+
+                                    @if (item.Estado_Proveedor == 1)
+                                    {
+                                        <td>Activo</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Inactivo</td>
+                                    }
+
+                                    <td class="text-center">
+                                        <a href="@Url.Action("ActualizarEstadoUsuario", "Usuario", new { q = item.ID_Proveedor })"><i class="fa fa-exchange fa-lg"></i></a>
+                                    </td>
+
+                                    <td class="text-center">
+                                        <a href="@Url.Action("ActualizarUsuario", "Usuario", new { q = item.ID_Proveedor })"><i class="fa fa-user fa-lg"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <br>
+                    <br>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

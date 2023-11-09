@@ -45,5 +45,15 @@ namespace ProyectoSC_601.Controllers
                 return View();
             }
         }
+
+
+        [HttpGet]
+        public ActionResult ConsultaProveedor()
+        {
+            var datos = modelProveedor.ConsultaProveedor();
+            return View(datos);
+
+        }
+
     }
 }

@@ -358,6 +358,7 @@
     <Content Include="Views\Home\IndexAdmin.cshtml" />
     <Content Include="Views\Shared\_Layout_deAdmin.cshtml" />
     <Content Include="Views\Proveedor\RegistrarProveedor.cshtml" />
+    <Content Include="Views\Proveedor\ConsultaProveedor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

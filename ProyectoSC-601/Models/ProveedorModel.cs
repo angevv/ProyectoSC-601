@@ -35,5 +35,17 @@ namespace ProyectoSC_601.Models
                 return res.Content.ReadFromJsonAsync<List<SelectListItem>>().Result;
             }
         }
+
+
+        public List<ProveedorEnt> ConsultaProveedor()
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "ConsultaProveedor";
+                var res = client.GetAsync(urlApi).Result;
+                return res.Content.ReadFromJsonAsync<List<ProveedorEnt>>().Result;
+            }
+        }
+
     }
 }
