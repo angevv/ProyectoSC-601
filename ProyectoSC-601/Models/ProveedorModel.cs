@@ -37,23 +37,35 @@ namespace ProyectoSC_601.Models
         }
 
 
-        public List<ProveedorEnt> ConsultaProveedor()
+        public List<ProveedorEnt> ConsultaProveedores()
         {
             using (var client = new HttpClient())
             {
-                var urlApi = rutaServidor + "ConsultaProveedor";
+                var urlApi = rutaServidor + "ConsultaProveedores";
                 var res = client.GetAsync(urlApi).Result;
                 return res.Content.ReadFromJsonAsync<List<ProveedorEnt>>().Result;
             }
         }
 
 
-        [HttpGet]
+
         public string ActualizarEstadoProveedor(ProveedorEnt entidad)
         {
             using (var client = new HttpClient())
             {
                 var urlApi = rutaServidor + "ActualizarEstadoProveedor";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PutAsync(urlApi, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<string>().Result;
+            }
+        }
+
+
+        public string ActualizarProveedor(ProveedorEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "ActualizarProveedor";
                 var jsonData = JsonContent.Create(entidad);
                 var res = client.PutAsync(urlApi, jsonData).Result;
                 return res.Content.ReadFromJsonAsync<string>().Result;

@@ -57,8 +57,8 @@ namespace APIProyectoSC_601.Controllers
 
 
         [HttpGet]
-        [Route("ConsultaProveedor")]
-        public List<Proveedores> ConsultaProveedor()
+        [Route("ConsultaProveedores")]
+        public List<Proveedores> ConsultaProveedores()
         {
             try
             {
@@ -72,6 +72,26 @@ namespace APIProyectoSC_601.Controllers
             catch (Exception)
             {
                 return new List<Proveedores>();
+            }
+        }
+
+        [HttpGet]
+        [Route("ConsultaProveedor")]
+        public Proveedores ConsultaProveedor(long q)
+        {
+            try
+            {
+                using (var context = new ImportadoraMoyaUlateEntities())
+                {
+                    context.Configuration.LazyLoadingEnabled = false;
+                    return (from x in context.Proveedores
+                            where x.ID_Proveedor == q
+                            select x).FirstOrDefault();
+                }
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
 

@@ -48,9 +48,9 @@ namespace ProyectoSC_601.Controllers
 
 
         [HttpGet]
-        public ActionResult ConsultaProveedor()
+        public ActionResult ConsultaProveedores()
         {
-            var datos = modelProveedor.ConsultaProveedor();
+            var datos = modelProveedor.ConsultaProveedores();
             return View(datos);
 
         }
@@ -71,6 +71,24 @@ namespace ProyectoSC_601.Controllers
             else
             {
                 ViewBag.MensajeUsuario = "No se ha podido cambiar el estado del usuario";
+                return View();
+            }
+        }
+
+
+        [HttpPost]
+        public ActionResult ActualizarProveedor(ProveedorEnt entidad)
+        {
+            string respuesta = modelProveedor.ActualizarProveedor(entidad);
+
+            if (respuesta == "OK")
+            {
+                return RedirectToAction("ConsultaUsuarios", "Usuario");
+            }
+            else
+            {
+                ViewBag.MensajeUsuario = "No se ha podido actualizar su información";
+                ViewBag.combo = modelProveedor.ConsultarEmpresas();
                 return View();
             }
         }
