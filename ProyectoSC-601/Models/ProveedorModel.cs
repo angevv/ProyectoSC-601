@@ -83,5 +83,36 @@ namespace ProyectoSC_601.Models
             }
         }
 
+
+        public string EliminarProveedor(long idProveedor)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + $"EliminarProveedor?q={idProveedor}";
+                var res = client.DeleteAsync(urlApi).Result;
+
+                if (res.IsSuccessStatusCode)
+                {
+                    var respuestaJson = res.Content.ReadAsStringAsync().Result;
+
+                    if (respuestaJson.Contains("OK"))
+                    {
+                        return "OK";
+                    }
+                    else
+                    {
+                        return "Error en la respuesta del servicio.";
+                    }
+                }
+                else
+                {
+                    return "Error en la solicitud al servicio.";
+                }
+            }
+        }
+
+
+
+
     }
 }

@@ -130,6 +130,9 @@
           <Parameter Name="Direccion_Exacta" Type="varchar" Mode="In" />
           <Parameter Name="Empresa" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="EliminarProveedorSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_Proveedor" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="IniciarSesionSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Correo" Type="varchar" Mode="In" />
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
@@ -364,6 +367,9 @@
             <Parameter Name="Direccion_Exacta" Mode="In" Type="String" />
             <Parameter Name="Empresa" Mode="In" Type="Int64" />
           </FunctionImport>
+          <FunctionImport Name="EliminarProveedorSP">
+            <Parameter Name="ID_Proveedor" Mode="In" Type="Int64" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="IniciarSesionSP_Result">
           <Property Type="Int64" Name="ID_Cliente" Nullable="false" />
@@ -492,6 +498,7 @@
           <FunctionImportMapping FunctionImportName="RegistrarProveedorSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarProveedorSP" />
           <FunctionImportMapping FunctionImportName="ActualizarEstadoProveedorSP" FunctionName="ImportadoraMoyaUlateModel.Store.ActualizarEstadoProveedorSP" />
           <FunctionImportMapping FunctionImportName="ActualizarProveedorSP" FunctionName="ImportadoraMoyaUlateModel.Store.ActualizarProveedorSP" />
+          <FunctionImportMapping FunctionImportName="EliminarProveedorSP" FunctionName="ImportadoraMoyaUlateModel.Store.EliminarProveedorSP" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

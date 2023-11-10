@@ -126,5 +126,38 @@ namespace APIProyectoSC_601.Controllers
             }
         }
 
+
+
+        [HttpDelete]
+        [Route("EliminarProveedor")]
+        public string EliminarProveedor(long q)
+        {
+            try
+            {
+                using (var context = new ImportadoraMoyaUlateEntities())
+                {
+                    var proveedorAEliminar = context.Proveedores.FirstOrDefault(p => p.ID_Proveedor == q);
+
+                    if (proveedorAEliminar != null)
+                    {
+                        context.Proveedores.Remove(proveedorAEliminar);
+                        context.SaveChanges();
+                        return "OK";
+                    }
+                    else
+                    {
+                        return "Proveedor no encontrado.";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+        }
+
+
+
+
     }
 }

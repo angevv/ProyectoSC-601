@@ -106,5 +106,29 @@ namespace ProyectoSC_601.Controllers
         }
 
 
+
+        [HttpGet]
+        public ActionResult EliminarProveedor(long q)
+        {
+            string respuesta = modelProveedor.EliminarProveedor(q);
+
+            // Imprime la respuesta en la consola para depuración
+            Console.WriteLine($"Respuesta del servicio: {respuesta}");
+
+            if (respuesta == "OK")
+            {
+                TempData["ActualizacionExito"] = "Proveedor eliminado con éxito";
+                return RedirectToAction("ConsultaProveedores", "Proveedor");
+            }
+            else
+            {
+                ViewBag.MensajeUsuario = "No se ha podido eliminar el proveedor.";
+                return View("ConsultaProveedores", "Proveedor");
+            }
+        }
+
+
+
+
     }
 }
