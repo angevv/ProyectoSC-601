@@ -4,59 +4,79 @@
 
 @{
     ViewBag.Title = "ActualizarProveedor";
-    Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
+    if (Session["Rol_Cliente"] != null && (int)Session["Rol_Cliente"] == 1)
+    {
+        Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
+    }
+    else if (Session["Rol_Cliente"] != null && (int)Session["Rol_Cliente"] == 2)
+    {
+        Layout = "~/Views/Shared/_Layout_Login.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 }
 
-<div class="col-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Información del Usuario</h4>
+<br>
+<br>
+<div class="content-wrapper d-flex align-items-center auth px-0">
+    <div class="row w-100 mx-0">
+        <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+                <br>
+                <h4 class="card-title">Información del Usuario</h4>
 
-            @if (ViewBag.MensajeUsuario != null)
-            {
-                <div class="alert alert-danger" role="alert" style="text-align:center">
-                    @ViewBag.MensajeUsuario
-                </div>
-            }
+                @if (ViewBag.MensajeUsuario != null)
+                {
+                    <div class="alert alert-danger" role="alert" style="text-align:center">
+                        @ViewBag.MensajeUsuario
+                    </div>
+                }
 
-            @using (Html.BeginForm("ActualizarProveedor", "Proveedor", FormMethod.Post, new { @class = "pt-3" }))
-            {
-                @Html.HiddenFor(m => m.ID_Proveedor)
+                @using (Html.BeginForm("ActualizarProveedor", "Proveedor", FormMethod.Post, new { @class = "pt-3" }))
+                {
+                    @Html.HiddenFor(m => m.ID_Proveedor)
 
-                <div class="form-group">
-                    <label for="exampleInputName1">Nombre</label>
-                    @Html.TextBoxFor(m => m.Nombre_Proveedor, new
-                    {
-                        @class = "form-control form-control-lg",
-                        @placeholder = "Identificación",
-                   @type = "text",
-               })
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputName1">Nombre</label>
-                    @Html.TextBoxFor(m => m.Apellido_Proveedor, new { @style = "background-color:#eeeeee", @class = "form-control form-control-lg", @placeholder = "Apellido", @type = "text" })
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputName1">Cedula</label>
-                    @Html.TextBoxFor(m => m.Cedula_Proveedor, new { @class = "form-control form-control-lg", @placeholder = "Cedula", @type = "text" })
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputName1">Direccion Exacta</label>
-                    @Html.TextBoxFor(m => m.Direccion_Exacta, new { @class = "form-control form-control-lg", @placeholder = "Direccion", @type = "text" })
-                </div>
-                <div class="form-group">
-                    <label for="exampleSelectGender">Empresa</label>
-                    @Html.DropDownListFor(m => m.Empresa, ViewBag.combo as List<SelectListItem>, new { @class = "form-control form-control-lg" })
-                </div>
-
-                <button type="submit" class="btn btn-primary mr-2">Actualizar</button>
-                <div class="form-group">
-                    <!--Boton para volver a la pagina anterior-->
-                    <a href="@Url.Action("ConsultaProveedores", "Proveedor")" class="btn btn-danger">
-                        <i class="fa fa-arrow-left"></i> Volver
-                    </a>
-                </div>
-            }
+                    <div class="form-group">
+                        <label for="exampleInputName1">Nombre</label>
+                        @Html.TextBoxFor(m => m.Nombre_Proveedor, new
+                        {
+                            @class = "form-control form-control-lg",
+                            @placeholder = "Identificación",
+                       @type = "text",
+                   })
+                        <br>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputName1">Apellido</label>
+                        @Html.TextBoxFor(m => m.Apellido_Proveedor, new { @style = "background-color:#eeeeee", @class = "form-control form-control-lg", @placeholder = "Apellido", @type = "text" })
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="exampleInputName1">Cedula</label>
+                        @Html.TextBoxFor(m => m.Cedula_Proveedor, new { @class = "form-control form-control-lg", @placeholder = "Cedula", @type = "text" })
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="exampleInputName1">Direccion Exacta</label>
+                        @Html.TextBoxFor(m => m.Direccion_Exacta, new { @class = "form-control form-control-lg", @placeholder = "Direccion", @type = "text" })
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="exampleSelectGender">Empresa</label>
+                        @Html.DropDownListFor(m => m.Empresa, ViewBag.combo as List<SelectListItem>, new { @class = "form-control form-control-lg" })
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">ACTUALIZAR</button>
+                        <span class="px-2"></span>
+                        <a href="@Url.Action("ConsultaProveedores", "Proveedor")" class="btn btn-danger">
+                            <i class="fa fa-arrow-left"></i> Volver
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </div>

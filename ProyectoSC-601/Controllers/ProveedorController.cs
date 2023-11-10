@@ -6,12 +6,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace ProyectoSC_601.Controllers
 {
     public class ProveedorController : Controller
     {
         
-        ProveedorModel modelProveedor=new ProveedorModel(); 
+        ProveedorModel modelProveedor=new ProveedorModel();
+
 
         [HttpGet]
         public ActionResult RegistrarProveedor()

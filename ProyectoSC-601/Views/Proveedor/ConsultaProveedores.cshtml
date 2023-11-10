@@ -3,8 +3,19 @@
 
 @{
     ViewBag.Title = "ConsultaProveedores";
-    Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
     ViewBag.Mensaje = TempData["Mensaje"];
+    if (Session["Rol_Cliente"] != null && (int)Session["Rol_Cliente"] == 1)
+    {
+        Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
+    }
+    else if (Session["Rol_Cliente"] != null && (int)Session["Rol_Cliente"] == 2)
+    {
+        Layout = "~/Views/Shared/_Layout_Login.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 }
 
 
@@ -13,92 +24,91 @@
 <div class="container mt-5 pt-4">
     <div class="row justify-content-center">
         <div class="col-12 grid-margin stretch-card">
-            <div class="card-body">
-                <br>
-                <br>
-                <br>
-                @if (TempData["RegistroExito"] != null)
-                {
-                    <div class="alert alert-success" role="alert" style="text-align:center">
-                        @TempData["RegistroExito"]
-                    </div>
-                }
+                <div class="card-body">
+                    <br>
+                    <br>
+                    <br>
+                    @if (TempData["RegistroExito"] != null)
+                    {
+                        <div class="alert alert-success" role="alert" style="text-align:center">
+                            @TempData["RegistroExito"]
+                        </div>
+                    }
 
-                @if (TempData["ActualizacionExito"] != null)
-                {
-                    <div class="alert alert-success" role="alert" style="text-align:center">
-                        @TempData["ActualizacionExito"]
-                    </div>
-                }
-                <h4 class="card-title">Información de Proveedores</h4>
+                    @if (TempData["ActualizacionExito"] != null)
+                    {
+                        <div class="alert alert-success" role="alert" style="text-align:center">
+                            @TempData["ActualizacionExito"]
+                        </div>
+                    }
+                    <h4 class="card-title">Información de Proveedores</h4>
 
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Cedula</th>
-                                <th>Direccion</th>
-                                <th>Empresa</th>
-                                <th>Estado</th>
-                                <th>Cambiar Estado</th>
-                                <th>Actualizar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
+                    <div class="table-responsive border border-white">
+                        <table class="table table-bordered table-hover mb-0">
+                            <thead>
                                 <tr>
-                                    <td>@item.Nombre_Proveedor</td>
-                                    <td>@item.Apellido_Proveedor</td>
-                                    <td>@item.Cedula_Proveedor</td>
-                                    <td>@item.Direccion_Exacta</td>
-                                    @if (item.Empresa == 1)
-                                    {
-                                        <td>Seleccione una empresa</td>
-                                    }
-                                    else if (item.Empresa == 2)
-                                    {
-                                        <td>Empresa 1</td>
-                                    }
-                                    else if (item.Empresa == 3)
-                                    {
-                                        <td>Empresa 2</td>
-                                    }
-
-                                    @if (item.Estado_Proveedor == 1)
-                                    {
-                                        <td>Activo</td>
-                                    }
-                                    else
-                                    {
-                                        <td>Inactivo</td>
-                                    }
-
-
-                                    <td class="text-center">
-                                        <a href="@Url.Action("ActualizarEstadoProveedor", "Proveedor", new { q = item.ID_Proveedor })"><i class="fa fa-exchange fa-lg"></i></a>
-                                    </td>
-
-                                    <td class="text-center">
-                                        <a href="@Url.Action("ActualizarProveedor", "Proveedor", new { q = item.ID_Proveedor })"><i class="fa fa-user fa-lg"></i></a>
-                                    </td>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Cedula</th>
+                                    <th>Direccion</th>
+                                    <th>Empresa</th>
+                                    <th>Estado</th>
+                                    <th>Cambiar Estado</th>
+                                    <th>Actualizar</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
-                    <div class="text-center mt-4">
-                        <a href="@Url.Action("RegistrarProveedor", "Proveedor")" class="btn btn-success">
-                            <i class="fa fa-plus"></i> Agregar proveedor
-                        </a>
-                    </div>
-                    <br>
-                    <br>
-                </div>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Nombre_Proveedor</td>
+                                        <td>@item.Apellido_Proveedor</td>
+                                        <td>@item.Cedula_Proveedor</td>
+                                        <td>@item.Direccion_Exacta</td>
+                                        @if (item.Empresa == 1)
+                                        {
+                                            <td>Seleccione una empresa</td>
+                                        }
+                                        else if (item.Empresa == 2)
+                                        {
+                                            <td>Empresa 1</td>
+                                        }
+                                        else if (item.Empresa == 3)
+                                        {
+                                            <td>Empresa 2</td>
+                                        }
 
+                                        @if (item.Estado_Proveedor == 1)
+                                        {
+                                            <td>Activo</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Inactivo</td>
+                                        }
+
+
+                                        <td class="text-center">
+                                            <a href="@Url.Action("ActualizarEstadoProveedor", "Proveedor", new { q = item.ID_Proveedor })"><i class="fa fa-exchange fa-lg"></i></a>
+                                        </td>
+
+                                        <td class="text-center">
+                                            <a href="@Url.Action("ActualizarProveedor", "Proveedor", new { q = item.ID_Proveedor })"><i class="fa fa-user fa-lg"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="text-center mt-4">
+                            <a href="@Url.Action("RegistrarProveedor", "Proveedor")" class="btn btn-success">
+                                <i class="fa fa-plus"></i> Agregar proveedor
+                            </a>
+                        </div>
+                        <br>
+                        <br>
+                    </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
