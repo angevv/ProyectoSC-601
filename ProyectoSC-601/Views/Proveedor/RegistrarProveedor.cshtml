@@ -3,6 +3,10 @@
 @model ProyectoSC_601.Entities.ProveedorEnt
 
 @{
+
+    /*configura el título de la vista y selecciona el diseño de la página según el rol del cliente almacenado
+    en la variable de sesión. Esto permite personalizar la apariencia y la estructura de la página según el tipo
+    de usuario que está accediendo.*/
     ViewBag.Title = "RegistrarProveedor";
     if (Session["Rol_Cliente"] != null && (int)Session["Rol_Cliente"] == 1)
     {

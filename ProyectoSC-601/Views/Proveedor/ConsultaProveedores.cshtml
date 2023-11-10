@@ -2,6 +2,11 @@
 @model IEnumerable<ProyectoSC_601.Entities.ProveedorEnt>
 
 @{
+
+    /*configura el título de la vista y selecciona el diseño de la página según el rol del cliente almacenado
+    en la variable de sesión. Esto permite personalizar la apariencia y la estructura de la página según el tipo de 
+    usuario que está accediendo.*/
+
     ViewBag.Title = "ConsultaProveedores";
     ViewBag.Mensaje = TempData["Mensaje"];
     if (Session["Rol_Cliente"] != null && (int)Session["Rol_Cliente"] == 1)
@@ -98,7 +103,7 @@
                                     </td>
 
                                     <td class="text-center">
-                                        <a href="@Url.Action("EliminarProveedor", "Proveedor", new { q = item.ID_Proveedor })" onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor?');">
+                                        <a href="@Url.Action("EliminarProveedor", "Proveedor", new { q = item.ID_Proveedor })" onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor permanentemente?');">
                                             <i class="fa fa-trash-alt fa-lg text-danger"></i>
                                         </a>
                                     </td>
