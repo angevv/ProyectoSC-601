@@ -10,7 +10,7 @@ namespace ProyectoSC_601.Controllers
 {
     public class ClienteController : Controller
     {
-
+        
         ClienteModel modelCliente = new ClienteModel();
 
         [HttpGet]
@@ -19,6 +19,7 @@ namespace ProyectoSC_601.Controllers
             return View();
         }
 
+        //Se llama al modelo para registrar al cliente y se devuelven mensajes de exito o error
         [HttpPost]
         public ActionResult RegistroCliente(ClienteEnt entidad)
         {
@@ -42,6 +43,7 @@ namespace ProyectoSC_601.Controllers
             return View();
         }
 
+        // Se llama al modelo para iniciar sesion y redirije a las paginas correspondientes basado en el rol 
         [HttpPost]
         public ActionResult Login(ClienteEnt entidad)
         {
@@ -50,25 +52,11 @@ namespace ProyectoSC_601.Controllers
             if (respuesta != null && respuesta.Rol_Cliente==2)
             {
                 Session["Ced_Cliente"] = respuesta.Ced_Cliente;
-                Session["Nombre_Cliente"] = respuesta.Nombre_Cliente;
-                Session["Apellido_Cliente"] = respuesta.Apellido_Cliente;
-                Session["Correo_Cliente"] = respuesta.Correo_Cliente;
-                Session["Direccion_Cliente"] = respuesta.Direccion_Cliente;
-                Session["Tel_Cliente"] = respuesta.Tel_Cliente;
-                Session["Rol_Cliente"] = respuesta.Rol_Cliente;
                 return RedirectToAction("Index", "Home");
             }
             else if (respuesta != null && respuesta.Rol_Cliente==1)
             {
                 Session["Ced_Cliente"] = respuesta.Ced_Cliente;
-                Session["Nombre_Cliente"] = respuesta.Nombre_Cliente;
-                Session["Apellido_Cliente"] = respuesta.Apellido_Cliente;
-                Session["Correo_Cliente"] = respuesta.Correo_Cliente;
-                Session["Direccion_Cliente"] = respuesta.Direccion_Cliente;
-                Session["Tel_Cliente"] = respuesta.Tel_Cliente;
-                Session["Rol_Cliente"] = respuesta.Rol_Cliente;
-
-
                 return RedirectToAction("IndexAdmin", "Home");
 
             }
@@ -85,6 +73,8 @@ namespace ProyectoSC_601.Controllers
             return View();
         }
 
+
+        //Se llama al modelo para recuperar la cuenta, si es exitoso lo redirije al login y si no muestra mensaje de error
         [HttpPost]
         public ActionResult RecuperarCuentaCliente(ClienteEnt entidad)
         {
@@ -101,19 +91,44 @@ namespace ProyectoSC_601.Controllers
             }
         }
 
+        //Devuelve la vista de perfil con los datos del cliente
         [HttpGet]
         public ActionResult PerfilCliente()
         {
-            var modelo = new ProyectoSC_601.Entities.ClienteEnt();
-            modelo.Ced_Cliente = Session["Ced_Cliente"] as string;
-            modelo.Nombre_Cliente = Session["Nombre_Cliente"] as string;
-            modelo.Apellido_Cliente = Session["Apellido_Cliente"] as string;
-            modelo.Correo_Cliente = Session["Correo_Cliente"] as string;
-            modelo.Direccion_Cliente = Session["Direccion_Cliente"] as string;
-            modelo.Tel_Cliente = Session["Tel_Cliente"] as string;
-            return View(modelo);
+            var datos = modelCliente.ConsultaClienteEspecifico();
+            Session["Ced_Cliente"] = datos.Ced_Cliente;
+            return View(datos);
         }
 
+        //Actualiza los datos del cliente
+        [HttpPost]
+        public ActionResult PerfilCliente(ClienteEnt entidad)
+        {
+            string respuesta = modelCliente.ActualizarCuentaCliente(entidad);
+
+            if (respuesta == "OK")
+            {
+                return RedirectToAction("PerfilCliente", "Cliente");
+            }
+            else
+            {
+                ViewBag.MensajeNoExitoso = "No se ha podido actualizar su información";
+                return View();
+            }
+        }
+
+        //Inactiva el usuario segun el id del cliente recibido
+        [HttpGet]
+        public ActionResult InactivarCliente(long q)
+        {
+            var entidad = new ClienteEnt();
+            entidad.ID_Cliente = q;
+            modelCliente.InactivarCliente(entidad);
+            return RedirectToAction("CerrarSesionCliente", "Cliente");
+
+        }
+
+         //Limpia los datos de la sesion y lo redirije al index
         [HttpGet]
         public ActionResult CerrarSesionCliente()
         {
@@ -121,11 +136,13 @@ namespace ProyectoSC_601.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // FALTA ACTUALIZAR PERFIL E INACTIVAR PERFIL
-        // FALTA CAMBIO DE CONTRASENNA EN EL PERFIL DEL CLIENTE (AGREGAR ATRIBUTOS ENTIDAD)
-        // FALTA NO PERMITIR 2 CORREOS IGUALES
-        // MEJORAR INTERFAZ
-        // MENSAJES PERSONALIZADOS EN ACCIONES DE ACTUALIZAR O BORRAR PERFIL
+        //Muestra los datos de todos los clientes en el administrador
+        [HttpGet]
+        public ActionResult GestionClientes()
+        {
+            var datos = modelCliente.ConsultarClientesAdministrador();
+            return View(datos);
+        }
 
     }
 }

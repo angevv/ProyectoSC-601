@@ -24,9 +24,9 @@
         @using (Html.BeginForm("RegistroCliente", "Cliente", FormMethod.Post, new { @class = "pt-3" }))
         {
             <h1 style="font-size:30px!important;">Crear Cuenta</h1>
-            @Html.TextBoxFor(m => m.Ced_Cliente, new { @placeholder = "Identificación", @type = "text", required = "required" })
-            @Html.TextBoxFor(m => m.Nombre_Cliente, new { @placeholder = "Nombre", @type = "text", required = "required" })
-            @Html.TextBoxFor(m => m.Apellido_Cliente, new { @placeholder = "Primer Apellido", @type = "text", required = "required" })
+            @Html.TextBoxFor(m => m.Ced_Cliente, new { @placeholder = "Identificación", @type = "text", required = "required" , onkeyup = "ConsultarNombreCliente();"})
+            @Html.TextBoxFor(m => m.Nombre_Cliente, new { @readOnly= "readOnly", @style= "background-color: #CBCBCB", @placeholder = "Nombre", @type = "text", required = "required" })
+            @Html.TextBoxFor(m => m.Apellido_Cliente, new { @readOnly = "readOnly", @style = "background-color: #CBCBCB", @placeholder = "Primer Apellido", @type = "text", required = "required" })
             @Html.TextBoxFor(m => m.Correo_Cliente, new { @placeholder = "Correo Electrónico", @type = "email", required = "required" })
             @Html.TextBoxFor(m => m.Contrasenna_Cliente, new { @placeholder = "Contraseña", @type = "password", required = "required" })
             <br />
@@ -45,28 +45,5 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var alertDiv = document.querySelector(".alert.alert-success");
-
-        if (alertDiv) {
-            alertDiv.style.display = "block";
-            setTimeout(function () {
-                alertDiv.style.display = "none";
-            }, 3000);
-        }
-    });
-</script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var alertDiv = document.querySelector(".alert.alert-danger");
-
-        if (alertDiv) {
-            alertDiv.style.display = "block";
-            setTimeout(function () {
-                alertDiv.style.display = "none";
-            }, 3000);
-        }
-    });
-</script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="~/Assets/js/Cliente.js"></script>

@@ -8,18 +8,19 @@
     de usuario que está accediendo.*/
 
     ViewBag.Title = "ActualizarProveedor";
-    if (Session["Rol_Cliente"] != null && (int)Session["Rol_Cliente"] == 1)
-    {
-        Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
-    }
-    else if (Session["Rol_Cliente"] != null && (int)Session["Rol_Cliente"] == 2)
-    {
-        Layout = "~/Views/Shared/_Layout_Login.cshtml";
-    }
-    else
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+    Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
+    //if (Session["Rol_Cliente"] != null && (int)Session["Rol_Cliente"] == 1)
+    //{
+    //    Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
+    //}
+    //else if (Session["Rol_Cliente"] != null && (int)Session["Rol_Cliente"] == 2)
+    //{
+    //    Layout = "~/Views/Shared/_Layout_Login.cshtml";
+    //}
+    //else
+    //{
+    //    Layout = "~/Views/Shared/_Layout.cshtml";
+    //}
 }
 
 <br>

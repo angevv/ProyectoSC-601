@@ -56,7 +56,7 @@ namespace APIProyectoSC_601.Controllers
                         combo.Add(new System.Web.Mvc.SelectListItem
                         {
                             Value = item.ID_Empresa.ToString(),
-                            Text = item.Nombre_empresa
+                            Text = item.Nombre_Empresa
                         });
                     }
 

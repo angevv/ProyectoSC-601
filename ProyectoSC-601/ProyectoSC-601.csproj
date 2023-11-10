@@ -211,6 +211,7 @@
     <Content Include="Assets\img\testimonials\testimonials-5.jpg" />
     <Content Include="Assets\js\loginjs.js" />
     <Content Include="Assets\js\main.js" />
+    <Content Include="Assets\js\Cliente.js" />
     <Content Include="Assets\scss\Readme.txt" />
     <Content Include="Assets\vendor\aos\aos.cjs.js" />
     <Content Include="Assets\vendor\aos\aos.css" />
@@ -360,6 +361,7 @@
     <Content Include="Views\Proveedor\RegistrarProveedor.cshtml" />
     <Content Include="Views\Proveedor\ConsultaProveedores.cshtml" />
     <Content Include="Views\Proveedor\ActualizarProveedor.cshtml" />
+    <Content Include="Views\Cliente\GestionClientes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

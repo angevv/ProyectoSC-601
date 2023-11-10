@@ -6,16 +6,14 @@
     <edmx:Diagrams>
       <Diagram DiagramId="7dac2742ddb54228b435f54bd8ef61e7" Name="Diagram1">
         <EntityTypeShape EntityType="ImportadoraMoyaUlateModel.Clientes" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ImportadoraMoyaUlateModel.Empresa" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ImportadoraMoyaUlateModel.Estado" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ImportadoraMoyaUlateModel.Proveedores" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ImportadoraMoyaUlateModel.Roles" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ImportadoraMoyaUlateModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ImportadoraMoyaUlateModel.Ubicaciones" Width="1.5" PointX="5.75" PointY="1.75" IsExpanded="true" />
         <AssociationConnector Association="ImportadoraMoyaUlateModel.FK_Clientes_Estado" ManuallyRouted="false" />
         <AssociationConnector Association="ImportadoraMoyaUlateModel.FK_Clientes_Roles" ManuallyRouted="false" />
-        <AssociationConnector Association="ImportadoraMoyaUlateModel.FK_Proveedores_Empresa" ManuallyRouted="false" />
-        <AssociationConnector Association="ImportadoraMoyaUlateModel.FK_Proveedores_Estado" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ImportadoraMoyaUlateModel.Empresa" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ImportadoraMoyaUlateModel.Proveedores" Width="1.5" PointX="6" PointY="4.125" />
+        <AssociationConnector Association="ImportadoraMoyaUlateModel.fk_empresa" />
+        <AssociationConnector Association="ImportadoraMoyaUlateModel.fk_estado" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
