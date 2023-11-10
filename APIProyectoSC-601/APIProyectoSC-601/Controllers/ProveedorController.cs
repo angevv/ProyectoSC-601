@@ -10,7 +10,11 @@ namespace APIProyectoSC_601.Controllers
 {
     public class ProveedorController : ApiController
     {
-        //En este metodo post se van a hacer todos los registros de proveedor
+
+        /*En este metodo post se van a hacer todos los registros de proveedor
+         procesa la solicitud de registro de un proveedor, interactúa con la base de 
+         datos a través de un procedimiento almacenado y devuelve un resultado indicando el éxito o fallo de la operación.*/
+
         [HttpPost]
         [Route("RegistrarProveedor")]
         public string RegistrarProveedor(ProveedorEnt entidad)
@@ -20,7 +24,7 @@ namespace APIProyectoSC_601.Controllers
                 using (var context = new ImportadoraMoyaUlateEntities())
                 {
 
-                    context.RegistrarProveedorSP(entidad.Nombre_Proveedor,entidad.Apellido_Proveedor,entidad.Cedula_Proveedor,entidad.Direccion_Exacta,entidad.Estado_Proveedor,entidad.Empresa);
+                    context.RegistrarProveedorSP(entidad.Nombre_Proveedor, entidad.Apellido_Proveedor, entidad.Cedula_Proveedor, entidad.Direccion_Exacta, entidad.Estado_Proveedor, entidad.Empresa);
                     return "OK";
                 }
             }
@@ -31,30 +35,45 @@ namespace APIProyectoSC_601.Controllers
         }
 
 
+
+        /*Esto una lista de elementos SelectListItem que sirve para poblar un cuadro de 
+         selección HTML en una interfaz de usuario, permitiendo al usuario elegir una empresa de una lista predefinida.*/
+
         [HttpGet]
         [Route("ConsultarEmpresas")]
         public List<System.Web.Mvc.SelectListItem> ConsultarEmpresas()
         {
-            using (var contexto = new ImportadoraMoyaUlateEntities())
+            try
             {
-                var datos = (from x in contexto.Empresa
-                             select x).ToList();
-
-                var combo = new List<System.Web.Mvc.SelectListItem>();
-                foreach (var item in datos)
+                using (var contexto = new ImportadoraMoyaUlateEntities())
                 {
-                    combo.Add(new System.Web.Mvc.SelectListItem
-                    {
-                        Value = item.ID_Empresa.ToString(),
-                        Text = item.Nombre_empresa
-                    });
-                }
+                    var datos = (from x in contexto.Empresa
+                                 select x).ToList();
 
-                return combo;
+                    var combo = new List<System.Web.Mvc.SelectListItem>();
+                    foreach (var item in datos)
+                    {
+                        combo.Add(new System.Web.Mvc.SelectListItem
+                        {
+                            Value = item.ID_Empresa.ToString(),
+                            Text = item.Nombre_empresa
+                        });
+                    }
+
+                    return combo;
+                }
+            }
+            catch (Exception)
+            {
+                // Devuelve una lista vacía en caso de error.
+                return new List<System.Web.Mvc.SelectListItem>();
             }
         }
 
 
+
+        /*lista de objetos Proveedores que representan la información de todos los proveedores almacenados en la base de datos. 
+         Si se produce alguna excepción durante la consulta, devuelve una lista vacía.*/
 
         [HttpGet]
         [Route("ConsultaProveedores")]
@@ -74,6 +93,10 @@ namespace APIProyectoSC_601.Controllers
                 return new List<Proveedores>();
             }
         }
+
+
+        /*Este metodo es para proporcionar la información de un proveedor específico
+         según el ID proporcionado. Si se produce alguna excepción durante la consulta, devuelve null.*/
 
         [HttpGet]
         [Route("ConsultaProveedor")]
@@ -96,17 +119,32 @@ namespace APIProyectoSC_601.Controllers
         }
 
 
+
+        /*Este metodo es para actualizar el estado de un proveedor utilizando un procedimiento almacenado en una base de datos.
+        Si la operación tiene éxito, devuelve "OK". En caso de errores, captura excepciones y devuelve un mensaje de error detallado.*/
+
         [HttpPut]
         [Route("ActualizarEstadoProveedor")]
         public string ActualizarEstadoProveedor(ProveedorEnt entidad)
         {
-            using (var context = new ImportadoraMoyaUlateEntities())
+            try
             {
-                context.ActualizarEstadoProveedorSP(entidad.ID_Proveedor);
-                return "OK";
+                using (var context = new ImportadoraMoyaUlateEntities())
+                {
+                    context.ActualizarEstadoProveedorSP(entidad.ID_Proveedor);
+                    return "OK";
+                }
+            }
+            catch (Exception ex)
+            {
+                return $"Error al actualizar el estado del proveedor: {ex.Message}";
             }
         }
 
+
+
+        /*Sirve para actualizar la información de un proveedor en la base de datos mediante un procedimiento almacenado. Si la operación tiene éxito, 
+        devuelve "OK". En caso de errores, captura excepciones y devuelve una caden*/
 
         [HttpPut]
         [Route("ActualizarProveedor")]
@@ -116,7 +154,7 @@ namespace APIProyectoSC_601.Controllers
             {
                 using (var context = new ImportadoraMoyaUlateEntities())
                 {
-                    context.ActualizarProveedorSP(entidad.ID_Proveedor,entidad.Nombre_Proveedor,entidad.Apellido_Proveedor,entidad.Cedula_Proveedor,entidad.Direccion_Exacta,entidad.Empresa);
+                    context.ActualizarProveedorSP(entidad.ID_Proveedor, entidad.Nombre_Proveedor, entidad.Apellido_Proveedor, entidad.Cedula_Proveedor, entidad.Direccion_Exacta, entidad.Empresa);
                     return "OK";
                 }
             }
@@ -127,6 +165,9 @@ namespace APIProyectoSC_601.Controllers
         }
 
 
+
+        /*Esto es para eliminar  un proveedor de la base de datos identificado por su ID. Si la operación tiene éxito, devuelve "OK" y se borra,
+         Si el proveedor no se encuentra, devuelve "Proveedor no encontrado".*/
 
         [HttpDelete]
         [Route("EliminarProveedor")]
