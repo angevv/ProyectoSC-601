@@ -93,7 +93,7 @@ namespace APIProyectoSC_601.Controllers
         //Devuelve los datos de la entidad basados en la cedula recibida
         [HttpGet]
         [Route("ConsultaClienteEspecifico")]
-        public Clientes ConsultaClienteEspecifico(String q)
+        public Clientes ConsultaClienteEspecifico(long q)
         {
             try
             {
@@ -101,7 +101,7 @@ namespace APIProyectoSC_601.Controllers
                 {
                     context.Configuration.LazyLoadingEnabled = false;
                     return (from x in context.Clientes
-                            where x.Ced_Cliente == q
+                            where x.ID_Cliente == q
                             select x).FirstOrDefault();
                 }
             }

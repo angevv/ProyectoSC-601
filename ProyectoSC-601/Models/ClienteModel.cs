@@ -51,11 +51,11 @@ namespace ProyectoSC_601.Models
         }
 
         //Funcion para mostrar los datos del cliente logueado en el perfil
-        public ClienteEnt ConsultaClienteEspecifico()
+        public ClienteEnt ConsultaClienteEspecifico(long q)
         {
             using (var client = new HttpClient())
             {
-                var urlApi = rutaServidor + "ConsultaClienteEspecifico?q=" + HttpContext.Current.Session["Ced_Cliente"];
+                var urlApi = rutaServidor + "ConsultaClienteEspecifico?q=" + q;
                 var res = client.GetAsync(urlApi).Result;
                 return res.Content.ReadFromJsonAsync<ClienteEnt>().Result;
             }

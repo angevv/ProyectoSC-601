@@ -54,7 +54,7 @@
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
-            @if (Session["Ced_Cliente"] != null)
+            @if (Session["ID_Cliente"] != null)
             {
                 @Html.ActionLink("Perfil", "PerfilCliente", "Cliente", new { area = "" }, new { @class = "get-started-btn scrollto nav-link" })
             }

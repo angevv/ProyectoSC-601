@@ -51,12 +51,12 @@ namespace ProyectoSC_601.Controllers
 
             if (respuesta != null && respuesta.Rol_Cliente==2)
             {
-                Session["Ced_Cliente"] = respuesta.Ced_Cliente;
+                Session["ID_Cliente"] = respuesta.ID_Cliente;
                 return RedirectToAction("Index", "Home");
             }
             else if (respuesta != null && respuesta.Rol_Cliente==1)
             {
-                Session["Ced_Cliente"] = respuesta.Ced_Cliente;
+                 Session["ID_Cliente"] = respuesta.ID_Cliente;
                 return RedirectToAction("IndexAdmin", "Home");
 
             }
@@ -95,8 +95,9 @@ namespace ProyectoSC_601.Controllers
         [HttpGet]
         public ActionResult PerfilCliente()
         {
-            var datos = modelCliente.ConsultaClienteEspecifico();
-            Session["Ced_Cliente"] = datos.Ced_Cliente;
+            long q = long.Parse(Session["ID_Cliente"].ToString());
+            var datos = modelCliente.ConsultaClienteEspecifico(q);
+            Session["ID_Cliente"] = datos.ID_Cliente;
             return View(datos);
         }
 
