@@ -446,3 +446,87 @@ BEGIN
     DELETE FROM dbo.Proveedores WHERE ID_Proveedor = @ID_Proveedor;
 END
 GO
+
+-- Inventario Table
+CREATE TABLE ImportadoraMoyaUlate.dbo.Inventario (
+    ID_Inventario INT PRIMARY KEY IDENTITY(1,1),
+    Code VARCHAR(50),
+    Name VARCHAR(100),
+    Style VARCHAR(50),
+    Color VARCHAR(50),
+    Description VARCHAR(255),
+    IsActive BIT DEFAULT 1
+);
+
+-- Registrar Inventario
+USE ImportadoraMoyaUlate;
+GO
+CREATE PROCEDURE RegistrarInventario
+    @Code VARCHAR(50),
+    @Name VARCHAR(100),
+    @Style VARCHAR(50),
+    @Color VARCHAR(50),
+    @Description VARCHAR(255)
+AS
+BEGIN
+    INSERT INTO Inventario (Code, Name, Style, Color, Description)
+    VALUES (@Code, @Name, @Style, @Color, @Description);
+
+    SELECT SCOPE_IDENTITY() AS ID_Inventario;
+END;
+
+-- Consulta Inventario
+CREATE PROCEDURE ConsultaInventario
+AS
+BEGIN
+    DECLARE @IsActive BIT;
+     SELECT * FROM Inventario WHERE IsActive = @IsActive;
+END;
+GO
+-- Actualizar Estado Inventario
+CREATE PROCEDURE ActualizarEstadoInventario
+    @ID_Inventario INT,
+    @IsActive BIT
+AS
+BEGIN
+    UPDATE Inventario
+    SET IsActive = @IsActive
+    WHERE ID_Inventario = @ID_Inventario;
+END;
+
+-- Actualizar Inventario
+CREATE PROCEDURE ActualizarInventario
+    @ID_Inventario INT,
+    @Code VARCHAR(50),
+    @Name VARCHAR(100),
+    @Style VARCHAR(50),
+    @Color VARCHAR(50),
+    @Description VARCHAR(255)
+AS
+BEGIN
+    UPDATE Inventario
+    SET Code = @Code,
+        Name = @Name,
+        Style = @Style,
+        Color = @Color,
+        Description = @Description
+    WHERE ID_Inventario = @ID_Inventario;
+END;
+
+-- Consulta Inventario por ID
+CREATE PROCEDURE ConsultaInventarioPorID
+    @ID_Inventario INT
+AS
+BEGIN
+    SELECT * FROM Inventario
+    WHERE ID_Inventario = @ID_Inventario;
+END;
+
+-- Eliminar Inventario
+CREATE PROCEDURE EliminarInventario
+    @ID_Inventario INT
+AS
+BEGIN
+    DELETE FROM Inventario
+    WHERE ID_Inventario = @ID_Inventario;
+END;
