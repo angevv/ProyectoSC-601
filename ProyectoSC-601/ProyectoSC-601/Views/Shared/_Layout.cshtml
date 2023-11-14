@@ -25,7 +25,6 @@
     <link href="~/Assets/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="~/Assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="~/Assets/css/style.css" rel="stylesheet">
-    <link href="~/Assets/css/catalogo.css" rel="stylesheet">
 
 
 </head>
@@ -45,13 +44,13 @@
                 <ul>
                     <li> <a class="nav-link scrollto active" @Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</a></li>
 
-                    <li><a class="nav-link scrollto" @Html.ActionLink("Acerca de Nosotros", "Acerca", "Home", new { area = "" }, new { @class = "nav-link" })</a></li>
+                    <li><a class="nav-link scrollto" @Html.ActionLink("Acerca de Nosotros", "Acerca", "Compartido", new { area = "" }, new { @class = "nav-link" })</a></li>
 
                     <li><a class="nav-link scrollto" @Html.ActionLink("Catalogo", "Index_Prod", "Producto", new { area = "" }, new { @class = "nav-link" })</a></li>
 
                     <li><a class="nav-link scrollto " @Html.ActionLink("Carrito", "carrito", "carrito", new { area = "" }, new { @class = "nav-link" })</a></li>
 
-                    <li><a class="nav-link scrollto" @Html.ActionLink("Contacto", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</a></li>
+                    <li><a class="nav-link scrollto" @Html.ActionLink("Contacto", "Contacto", "Compartido", new { area = "" }, new { @class = "nav-link" })</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
@@ -68,11 +67,9 @@
     </header>
     @*HEADER*@
 
-    @*CATALOGO*@
-    @*ACERCA*@
+
     @RenderBody()
-    @*AC*@
-    @*CATALOGO*@
+
 
     @*FOOTER*@
     <footer id="footer">
@@ -152,5 +149,3 @@
 </body>
 
 </html>
-
-
