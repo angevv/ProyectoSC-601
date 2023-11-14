@@ -342,7 +342,8 @@
     <Content Include="Views\Cliente\GestionClientes.cshtml" />
     <Content Include="Views\Producto\Index_Prod.cshtml" />
     <Content Include="Views\Producto\Registro.cshtml" />
-    <Content Include="Views\Home\Acerca.cshtml" />
+    <Content Include="Views\Compartido\Acerca.cshtml" />
+    <Content Include="Views\Compartido\Contacto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
