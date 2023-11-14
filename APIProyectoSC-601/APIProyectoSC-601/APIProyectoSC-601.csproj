@@ -166,10 +166,12 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\InventarioController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Empresa.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\InventarioEnt.cs" />
     <Compile Include="Entities\ProveedorEnt.cs" />
     <Compile Include="Entities\Utilitarios.cs" />
     <Compile Include="Controllers\HomeController.cs" />
