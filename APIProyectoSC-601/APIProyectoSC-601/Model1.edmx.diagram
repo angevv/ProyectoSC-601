@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="07af97de68c74dce85c827aed70aefde" Name="Diagram1">
+        <EntityTypeShape EntityType="ImportadoraMoyaUlateModel.Clientes" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ImportadoraMoyaUlateModel.Empresa" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ImportadoraMoyaUlateModel.Estado" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ImportadoraMoyaUlateModel.Proveedores" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ImportadoraMoyaUlateModel.Roles" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="ImportadoraMoyaUlateModel.FK_Clientes_Estado" ManuallyRouted="false" />
+        <AssociationConnector Association="ImportadoraMoyaUlateModel.FK_Clientes_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="ImportadoraMoyaUlateModel.FK_Proveedores_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="ImportadoraMoyaUlateModel.FK_Proveedores_Estado" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
