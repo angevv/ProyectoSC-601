@@ -154,13 +154,17 @@
     <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InventarioController.cs" />
+    <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
+    <Compile Include="Entities\InventarioEnt.cs" />
     <Compile Include="Entities\ClienteEnt.cs" />
     <Compile Include="Entities\ProveedorEnt.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\InventarioItem.cs" />
     <Compile Include="Models\CarritoModel.cs" />
     <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
@@ -343,9 +347,13 @@
     <Content Include="Views\Producto\Index_Prod.cshtml" />
     <Content Include="Views\Producto\Registro.cshtml" />
     <Content Include="Views\Home\Acerca.cshtml" />
+    <Content Include="Views\Inventario\ActualizarInventario.cshtml" />
+    <Content Include="Views\Inventario\ConsultaInventario.cshtml" />
+    <Content Include="Views\Inventario\RegistrarInventario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Logs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -392,7 +400,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49967</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44353/</IISUrl>
+          <IISUrl>http://localhost:44353/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
