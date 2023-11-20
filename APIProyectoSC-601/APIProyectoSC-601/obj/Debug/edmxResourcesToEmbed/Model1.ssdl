@@ -105,6 +105,9 @@
     <Parameter Name="Telefono" Type="varchar" Mode="In" />
     <Parameter Name="CodigoCliente" Type="bigint" Mode="In" />
   </Function>
+  <Function Name="ActualizarEstadoClienteSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_Cliente" Type="bigint" Mode="In" />
+  </Function>
   <Function Name="ActualizarEstadoProveedorSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ID_Proveedor" Type="bigint" Mode="In" />
   </Function>

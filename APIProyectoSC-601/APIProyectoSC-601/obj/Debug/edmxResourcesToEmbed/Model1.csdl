@@ -176,6 +176,16 @@
       <Parameter Name="Estado_Proveedor" Mode="In" Type="Int32" />
       <Parameter Name="Empresa" Mode="In" Type="Int64" />
     </FunctionImport>
+    <FunctionImport Name="ActualizarEstadoClienteSP">
+      <Parameter Name="ID_Cliente" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="VerificarCorreoExistente">
+      <Parameter Name="CorreoCliente" Mode="In" Type="String" />
+      <Parameter Name="CorreoExistente" Mode="InOut" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="VerificarCorreoExistenteSP">
+      <Parameter Name="CorreoCliente" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="IniciarSesionSP_Result">
     <Property Type="Int64" Name="ID_Cliente" Nullable="false" />

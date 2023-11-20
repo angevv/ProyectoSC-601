@@ -205,5 +205,32 @@ namespace APIProyectoSC_601
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarProveedorSP", nombre_ProveedorParameter, apellido_ProveedorParameter, cedula_ProveedorParameter, direccion_ExactaParameter, estado_ProveedorParameter, empresaParameter);
         }
+    
+        public virtual int ActualizarEstadoClienteSP(Nullable<long> iD_Cliente)
+        {
+            var iD_ClienteParameter = iD_Cliente.HasValue ?
+                new ObjectParameter("ID_Cliente", iD_Cliente) :
+                new ObjectParameter("ID_Cliente", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarEstadoClienteSP", iD_ClienteParameter);
+        }
+    
+        public virtual int VerificarCorreoExistente(string correoCliente, ObjectParameter correoExistente)
+        {
+            var correoClienteParameter = correoCliente != null ?
+                new ObjectParameter("CorreoCliente", correoCliente) :
+                new ObjectParameter("CorreoCliente", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("VerificarCorreoExistente", correoClienteParameter, correoExistente);
+        }
+    
+        public virtual int VerificarCorreoExistenteSP(string correoCliente)
+        {
+            var correoClienteParameter = correoCliente != null ?
+                new ObjectParameter("CorreoCliente", correoCliente) :
+                new ObjectParameter("CorreoCliente", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("VerificarCorreoExistenteSP", correoClienteParameter);
+        }
     }
 }

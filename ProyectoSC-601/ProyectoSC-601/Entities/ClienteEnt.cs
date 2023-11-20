@@ -15,7 +15,7 @@ namespace ProyectoSC_601.Entities
         public string Contrasenna_Cliente { get; set; }
         public string Direccion_Cliente { get; set; }
         public string Tel_Cliente { get; set; }
-        public int Estado_Cliente { get; set; }
+        public int Est_Cliente { get; set; }
         public int Rol_Cliente { get; set; }
     }
 }

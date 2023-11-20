@@ -23,17 +23,32 @@ namespace ProyectoSC_601.Controllers
         [HttpPost]
         public ActionResult RegistroCliente(ClienteEnt entidad)
         {
-            string respuesta = modelCliente.RegistroCliente(entidad);
-
-             if (respuesta == "OK")
+            string cedulaExistente = modelCliente.ComprobarCedulaExistente(entidad);
+            if(cedulaExistente == "Existe")
             {
-                ViewBag.MensajeExitoso = "La información se ha registrado exitosamente";
+                ViewBag.MensajeNoExitoso = "El usuario ya está registrado";
                 return View();
             }
-            else
-            {
-                ViewBag.MensajeNoExitoso = "No se ha podido registrar la información";
-                return View();
+            else { 
+                string correoExistente = modelCliente.ComprobarCorreoExistenteCliente(entidad);
+                if (correoExistente == "Existe")
+                {
+                    ViewBag.MensajeNoExitoso = "Ese correo está asociado a otra cuenta";
+                    return View();
+                } else {
+                    string respuesta = modelCliente.RegistroCliente(entidad);
+
+                    if (respuesta == "OK")
+                    {
+                        ViewBag.MensajeExitoso = "La información se ha registrado exitosamente";
+                        return View();
+                    }
+                    else
+                    {
+                        ViewBag.MensajeNoExitoso = "No se ha podido registrar la información";
+                        return View();
+                    }
+                }
             }
         }
 
@@ -145,5 +160,24 @@ namespace ProyectoSC_601.Controllers
             return View(datos);
         }
 
+        //Cambia el estado del cliente desde el admnistrador
+        [HttpGet]
+        public ActionResult ActualizarEstadoCliente(long q)
+        {
+            var entidad = new ClienteEnt();
+            entidad.ID_Cliente = q;
+
+            string respuesta = modelCliente.ActualizarEstadoCliente(entidad);
+
+            if (respuesta == "OK")
+            {
+                return RedirectToAction("GestionClientes", "Cliente");
+            }
+            else
+            {
+                ViewBag.Mensaje = "No se ha podido cambiar el estado del cliente";
+                return View();
+            }
+        }
     }
 }

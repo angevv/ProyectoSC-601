@@ -87,5 +87,6 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="RegistrarClienteSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarClienteSP" />
     <FunctionImportMapping FunctionImportName="RegistrarProveedorSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarProveedorSP" />
+    <FunctionImportMapping FunctionImportName="ActualizarEstadoClienteSP" FunctionName="ImportadoraMoyaUlateModel.Store.ActualizarEstadoClienteSP" />
   </EntityContainerMapping>
 </Mapping>

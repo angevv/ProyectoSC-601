@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ImportadoraMoyaUlateModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ImportadoraMoyaUlateModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="ID_Cliente" />
@@ -110,6 +110,9 @@
           <Parameter Name="Telefono" Type="varchar" Mode="In" />
           <Parameter Name="CodigoCliente" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="ActualizarEstadoClienteSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_Cliente" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="ActualizarEstadoProveedorSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_Proveedor" Type="bigint" Mode="In" />
         </Function>
@@ -174,8 +177,7 @@
             <End Role="Proveedores" EntitySet="Proveedores" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ImportadoraMoyaUlateModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -315,7 +317,7 @@
             <Parameter Name="CodigoCliente" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="ActualizarEstadoProveedorSP">
-            <Parameter Name="ID_Proveedor" Mode="In" Type="Int64" />
+          <Parameter Name="ID_Proveedor" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="ActualizarProveedorSP">
             <Parameter Name="ID_Proveedor" Mode="In" Type="Int64" />
@@ -326,17 +328,17 @@
             <Parameter Name="Empresa" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="EliminarProveedorSP">
-            <Parameter Name="ID_Proveedor" Mode="In" Type="Int64" />
+          <Parameter Name="ID_Proveedor" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="InactivarClienteSP">
-            <Parameter Name="CodigoCliente" Mode="In" Type="Int64" />
+          <Parameter Name="CodigoCliente" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="IniciarSesionSP" ReturnType="Collection(ImportadoraMoyaUlateModel.IniciarSesionSP_Result)">
             <Parameter Name="Correo" Mode="In" Type="String" />
             <Parameter Name="Contrasenna" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="RecuperarCuentaClienteSP" ReturnType="Collection(ImportadoraMoyaUlateModel.RecuperarCuentaClienteSP_Result)">
-            <Parameter Name="Identificacion" Mode="In" Type="String" />
+          <Parameter Name="Identificacion" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="RegistrarClienteSP">
             <Parameter Name="Identificacion" Mode="In" Type="String" />
@@ -354,6 +356,16 @@
             <Parameter Name="Direccion_Exacta" Mode="In" Type="String" />
             <Parameter Name="Estado_Proveedor" Mode="In" Type="Int32" />
             <Parameter Name="Empresa" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="ActualizarEstadoClienteSP">
+          <Parameter Name="ID_Cliente" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="VerificarCorreoExistente">
+            <Parameter Name="CorreoCliente" Mode="In" Type="String" />
+            <Parameter Name="CorreoExistente" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="VerificarCorreoExistenteSP">
+          <Parameter Name="CorreoCliente" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="IniciarSesionSP_Result">
@@ -466,6 +478,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="RegistrarClienteSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarClienteSP" />
           <FunctionImportMapping FunctionImportName="RegistrarProveedorSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarProveedorSP" />
+          <FunctionImportMapping FunctionImportName="ActualizarEstadoClienteSP" FunctionName="ImportadoraMoyaUlateModel.Store.ActualizarEstadoClienteSP" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

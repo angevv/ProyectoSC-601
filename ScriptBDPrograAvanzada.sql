@@ -200,6 +200,7 @@ BEGIN
 		   Contrasenna_Cliente
 	  FROM dbo.Clientes
 	  WHERE Ced_Cliente = @Identificacion
+	  AND	Est_Cliente = 1
 
 END
 GO
@@ -263,6 +264,17 @@ BEGIN
 END
 GO
 
+/****** Procedimiento Almacenado para Cambiar Estado al Cliente ******/
+CREATE PROCEDURE [dbo].[ActualizarEstadoClienteSP]
+    @ID_Cliente BIGINT
+AS
+BEGIN
+    UPDATE Clientes
+    SET Est_Cliente = (CASE WHEN Est_Cliente = 1 THEN 0 ELSE 1 END)
+    WHERE ID_Cliente = @ID_Cliente;
+END;
+GO
+
 /****** TABLAS EMPRESA Y PROVEEDORES ******/
 /*Creacion de la tabla Empresa*/
 
@@ -284,7 +296,6 @@ CREATE TABLE [dbo].[Empresa](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
 
 /*Insertar empresas de ejemplo*/
 

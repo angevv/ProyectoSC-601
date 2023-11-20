@@ -152,14 +152,98 @@ namespace APIProyectoSC_601.Controllers
                 {
                     context.Configuration.LazyLoadingEnabled = false;
                     return (from x in context.Clientes
-                            where x.Rol_Cliente == 2 && x.Est_Cliente==1
-                            select x).ToList();
+                            where x.Rol_Cliente == 2 select x).ToList();
                 }
             }
             catch (Exception)
             {
                 return null;
             }
+        }
+
+        // Permite al administrador cambiar el estado del cliente (activar o inactivar)
+        [HttpPut]
+        [Route("ActualizarEstadoCliente")]
+        public string ActualizarEstadoCliente(ClienteEnt entidad)
+        {
+            try
+            {
+                using (var context = new ImportadoraMoyaUlateEntities())
+                {
+                    context.ActualizarEstadoClienteSP(entidad.ID_Cliente);
+                    return "OK";
+                }
+            }
+            catch (Exception ex)
+            {
+                return $"Error al actualizar el estado del cliente: {ex.Message}";
+            }
+        }
+
+        //Verifica si el correo ya existe
+        [HttpPost]
+        [Route("ComprobarCorreoExistenteCliente")]
+        public string ComprobarCorreoExistenteCliente(ClienteEnt entidad)
+        {
+            try
+            {
+                using (var context = new ImportadoraMoyaUlateEntities())
+                {
+                    context.Configuration.LazyLoadingEnabled = false;
+
+                    // Verificar si el correo existe antes de ejecutar la consulta
+                    bool correoExiste = context.Clientes.Any(x => x.Correo_Cliente == entidad.Correo_Cliente);
+
+                    if (correoExiste)
+                    {
+                        // El correo existe, devuelve un valor que indica que existe
+                        return "Existe";
+                    }
+                    else
+                    {
+                        return "NoExiste";
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+           
+        }
+
+        //Verifica si la cedula ya existe
+        [HttpPost]
+        [Route("ComprobarCedulaExistente")]
+        public string ComprobarCedulaExistente(ClienteEnt entidad)
+        {
+            try
+            {
+                using (var context = new ImportadoraMoyaUlateEntities())
+                {
+                    context.Configuration.LazyLoadingEnabled = false;
+
+                    // Verificar si la cedula existe antes de ejecutar la consulta
+                    bool cedulaExiste = context.Clientes.Any(x => x.Ced_Cliente == entidad.Ced_Cliente);
+
+                    if (cedulaExiste)
+                    {
+                        // Devuelve que ya existe la cedula
+                        return "Existe";
+                    }
+                    else
+                    {
+                        return "NoExiste";
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
         }
     }
 }

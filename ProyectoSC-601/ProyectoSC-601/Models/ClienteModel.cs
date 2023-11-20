@@ -94,5 +94,41 @@ namespace ProyectoSC_601.Models
                 return res.Content.ReadFromJsonAsync<List<ClienteEnt>>().Result;
             }
         }
+
+        //Funcion para cambiar el estado del cliente por parte del administrador
+        public string ActualizarEstadoCliente(ClienteEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "ActualizarEstadoCliente";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PutAsync(urlApi, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<string>().Result;
+            }
+        }
+
+        //Funcion para comprobar si ya existe el correo en otra cuenta
+        public string ComprobarCorreoExistenteCliente(ClienteEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "ComprobarCorreoExistenteCliente";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PostAsync(urlApi, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<string>().Result;
+            }
+        }
+
+        //Funcion para comprobar si ya existe la cedula en otra cuenta
+        public string ComprobarCedulaExistente(ClienteEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "ComprobarCedulaExistente";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PostAsync(urlApi, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<string>().Result;
+            }
+        }
     }
 }
