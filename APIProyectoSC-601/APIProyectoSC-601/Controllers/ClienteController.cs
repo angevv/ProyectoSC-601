@@ -245,5 +245,25 @@ namespace APIProyectoSC_601.Controllers
             }
 
         }
+
+        //Funcion para contar la cantidad de clientes registrados en la pagina
+        [HttpGet]
+        [Route("ContarClientes")]
+        public int ContarClientes()
+        {
+            try
+            {
+                using (var context = new ImportadoraMoyaUlateEntities())
+                {
+                    context.Configuration.LazyLoadingEnabled = false;
+                    return context.Clientes.Count(x => x.Rol_Cliente == 2);
+                }
+            }
+            catch (Exception)
+            {
+                return 0; 
+            }
+        }
+
     }
 }

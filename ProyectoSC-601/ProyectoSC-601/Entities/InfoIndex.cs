@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ProyectoSC_601.Entities
 {
-    public class InfoContacto
+    public class InfoIndex
     {
         public string Nombre_Completo { get; set; }
         public string Correo { get; set; }

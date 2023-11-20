@@ -11,28 +11,31 @@ namespace ProyectoSC_601.Controllers
     public class HomeController : Controller
     {
 
-        ContactoModel modelContacto = new ContactoModel();
+        IndexModel modelIndex = new IndexModel();
 
         [HttpGet]
         public ActionResult Index()
         {
+            ViewBag.CantidadClientes = modelIndex.ContarClientes();
             return View();
         }
 
         //Se llama al modelo para enviar la informacion de la seccion contactenos
         [HttpPost]
-        public ActionResult Index(InfoContacto entidad)
+        public ActionResult Index(InfoIndex entidad)
         {
-            string respuesta = modelContacto.EnviarInformacion(entidad);
+            string respuesta = modelIndex.EnviarInformacion(entidad);
 
             if (respuesta == "OK")
             {
                 ViewBag.MensajeExitoso = "La información se ha enviado con éxito";
+                ViewBag.CantidadClientes = modelIndex.ContarClientes();
                 return View();
             }
             else
             {
                 ViewBag.MensajeNoExitoso = "No se ha podido enviar la informacion";
+                ViewBag.CantidadClientes = modelIndex.ContarClientes();
                 return View();
             }
         }

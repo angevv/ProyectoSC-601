@@ -1,4 +1,4 @@
-﻿@model ProyectoSC_601.Entities.InfoContacto
+﻿@model ProyectoSC_601.Entities.InfoIndex
 @{
     ViewBag.Title = "Home Page";
 }
@@ -101,7 +101,7 @@
                             <div class="col-md-6 d-md-flex align-items-md-stretch">
                                 <div class="count-box">
                                     <i class="bi bi-emoji-smile"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="95" data-purecounter-duration="2" class="purecounter"></span>
+                                    <span data-purecounter-start="0" data-purecounter-end="@ViewBag.CantidadClientes" data-purecounter-duration="2" class="purecounter"></span>
                                     <p><strong>Clientes</strong> registrados en nuestro sistema.</p>
                                 </div>
                             </div>
