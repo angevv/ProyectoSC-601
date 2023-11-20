@@ -192,7 +192,7 @@ namespace APIProyectoSC_601.Controllers
                     context.Configuration.LazyLoadingEnabled = false;
 
                     // Verificar si el correo existe antes de ejecutar la consulta
-                    bool correoExiste = context.Clientes.Any(x => x.Correo_Cliente == entidad.Correo_Cliente);
+                    bool correoExiste = context.Clientes.Any(x => x.Correo_Cliente == entidad.Correo_Cliente && x.ID_Cliente != entidad.ID_Cliente);
 
                     if (correoExiste)
                     {
@@ -225,7 +225,7 @@ namespace APIProyectoSC_601.Controllers
                     context.Configuration.LazyLoadingEnabled = false;
 
                     // Verificar si la cedula existe antes de ejecutar la consulta
-                    bool cedulaExiste = context.Clientes.Any(x => x.Ced_Cliente == entidad.Ced_Cliente);
+                    bool cedulaExiste = context.Clientes.Any(x => x.Ced_Cliente == entidad.Ced_Cliente && x.ID_Cliente != entidad.ID_Cliente);
 
                     if (cedulaExiste)
                     {

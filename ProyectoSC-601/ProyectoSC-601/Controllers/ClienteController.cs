@@ -120,16 +120,40 @@ namespace ProyectoSC_601.Controllers
         [HttpPost]
         public ActionResult PerfilCliente(ClienteEnt entidad)
         {
-            string respuesta = modelCliente.ActualizarCuentaCliente(entidad);
-
-            if (respuesta == "OK")
+            string cedulaExistente = modelCliente.ComprobarCedulaExistente(entidad);
+            if (cedulaExistente == "Existe")
             {
-                return RedirectToAction("PerfilCliente", "Cliente");
+                ViewBag.MensajeNoExitoso = "El usuario ya está registrado";
+                long q = long.Parse(Session["ID_Cliente"].ToString());
+                var datos = modelCliente.ConsultaClienteEspecifico(q);
+                Session["ID_Cliente"] = datos.ID_Cliente;
+                return View(datos);
             }
             else
             {
-                ViewBag.MensajeNoExitoso = "No se ha podido actualizar su información";
-                return View();
+                string correoExistente = modelCliente.ComprobarCorreoExistenteCliente(entidad);
+                if (correoExistente == "Existe")
+                {
+                    ViewBag.MensajeNoExitoso = "Ese correo está asociado a otra cuenta";
+                    long q = long.Parse(Session["ID_Cliente"].ToString());
+                    var datos = modelCliente.ConsultaClienteEspecifico(q);
+                    Session["ID_Cliente"] = datos.ID_Cliente;
+                    return View(datos);
+                }
+                else
+                {
+                    string respuesta = modelCliente.ActualizarCuentaCliente(entidad);
+
+                    if (respuesta == "OK")
+                    {
+                        return RedirectToAction("PerfilCliente", "Cliente");
+                    }
+                    else
+                    {
+                        ViewBag.MensajeNoExitoso = "No se ha podido actualizar su información";
+                        return View();
+                    }
+                }
             }
         }
 
