@@ -158,11 +158,13 @@
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Entities\ClienteEnt.cs" />
+    <Compile Include="Entities\InfoContacto.cs" />
     <Compile Include="Entities\ProveedorEnt.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CarritoModel.cs" />
+    <Compile Include="Models\ContactoModel.cs" />
     <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\ProveedorModel.cs" />
@@ -188,6 +190,7 @@
     <Content Include="Assets\img\testimonials\testimonials-3.jpg" />
     <Content Include="Assets\img\testimonials\testimonials-4.jpg" />
     <Content Include="Assets\img\testimonials\testimonials-5.jpg" />
+    <Content Include="Assets\js\ContactoIndex.js" />
     <Content Include="Assets\js\loginjs.js" />
     <Content Include="Assets\js\main.js" />
     <Content Include="Assets\js\Cliente.js" />
