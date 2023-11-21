@@ -1553,3 +1553,85 @@ section {
   font-size: 13px;
   color: #fff;
 }
+
+/*--------------------------------------------------------------
+# Acerca
+--------------------------------------------------------------*/
+.acerca .content {
+    padding: 30px 0;
+}
+
+    .acerca .content h3 {
+        font-weight: 700;
+        font-size: 34px;
+        color: #151515;
+    }
+
+    .acerca .content p {
+        margin-bottom: 0;
+    }
+
+    .acerca .content .count-box {
+        padding: 20px 0;
+        width: 100%;
+    }
+
+        .acerca .content .count-box i {
+            display: block;
+            font-size: 36px;
+            color: #354461;
+            float: left;
+        }
+
+        .acerca .content .count-box span {
+            font-size: 36px;
+            line-height: 30px;
+            display: block;
+            font-weight: 700;
+            color: #151515;
+            margin-left: 50px;
+        }
+
+        .acerca .content .count-box p {
+            padding: 15px 0 0 0;
+            margin: 0 0 0 50px;
+            font-family: "Raleway", sans-serif;
+            font-size: 14px;
+            color: #3b3b3b;
+        }
+
+        .acerca .content .count-box a {
+            font-weight: 600;
+            display: block;
+            margin-top: 20px;
+            color: #3b3b3b;
+            font-size: 15px;
+            font-family: "Poppins", sans-serif;
+            transition: ease-in-out 0.3s;
+        }
+
+            .acerca .content .count-box a:hover {
+                color: #626262;
+            }
+
+.acerca .image {
+    background: url("../img/acerca-imagen2.jpg") center center no-repeat;
+    background-size: cover;
+    min-height: 400px;
+}
+
+@media (max-width: 991px) {
+    .acerca .image {
+        text-align: center;
+    }
+
+        .acerca .image img {
+            max-width: 80%;
+        }
+}
+
+@media (max-width: 667px) {
+    .acerca .image img {
+        max-width: 100%;
+    }
+}
