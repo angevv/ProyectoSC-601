@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ImportadoraMoyaUlateModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="ID_Categoria" />
+          </Key>
+          <Property Name="ID_Categoria" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
         <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="ID_Cliente" />
@@ -33,6 +40,19 @@
           </Key>
           <Property Name="ID_Estado" Type="int" Nullable="false" />
           <Property Name="Tipo_Estado" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="ID_Producto" />
+          </Key>
+          <Property Name="ID_Producto" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Categoria" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="Precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Imagen" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Proveedores">
           <Key>
@@ -74,6 +94,30 @@
             </Principal>
             <Dependent Role="Clientes">
               <PropertyRef Name="Rol_Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Categoria">
+          <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="ID_Categoria" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="ID_Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Estado">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="ID_Estado" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="Estado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -155,9 +199,11 @@
           <Parameter Name="Empresa" Type="bigint" Mode="In" />
         </Function>
         <EntityContainer Name="ImportadoraMoyaUlateModelStoreContainer">
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Clientes_Estado" Association="Self.FK_Clientes_Estado">
@@ -167,6 +213,14 @@
           <AssociationSet Name="FK_Clientes_Roles" Association="Self.FK_Clientes_Roles">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Categoria" Association="Self.FK_Producto_Categoria">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Estado" Association="Self.FK_Producto_Estado">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Producto" EntitySet="Producto" />
           </AssociationSet>
           <AssociationSet Name="FK_Proveedores_Empresa" Association="Self.FK_Proveedores_Empresa">
             <End Role="Empresa" EntitySet="Empresa" />
@@ -214,6 +268,7 @@
           <Property Name="Tipo_Estado" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_Estado" FromRole="Estado" ToRole="Clientes" />
           <NavigationProperty Name="Proveedores" Relationship="Self.FK_Proveedores_Estado" FromRole="Estado" ToRole="Proveedores" />
+          <NavigationProperty Name="Producto" Relationship="ImportadoraMoyaUlateModel.FK_Producto_Estado" FromRole="Estado" ToRole="Producto" />
         </EntityType>
         <EntityType Name="Proveedores">
           <Key>
@@ -367,6 +422,25 @@
           <FunctionImport Name="VerificarCorreoExistenteSP">
           <Parameter Name="CorreoCliente" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Categorias" EntityType="ImportadoraMoyaUlateModel.Categorias" />
+          <EntitySet Name="Producto" EntityType="ImportadoraMoyaUlateModel.Producto" />
+          <AssociationSet Name="FK_Producto_Categoria" Association="ImportadoraMoyaUlateModel.FK_Producto_Categoria">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Estado" Association="ImportadoraMoyaUlateModel.FK_Producto_Estado">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <FunctionImport Name="RegistrarProductoSP">
+            <Parameter Name="Categoria" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+            <Parameter Name="Precio" Mode="In" Type="Decimal" />
+            <Parameter Name="Imagen" Mode="In" Type="String" />
+            <Parameter Name="Estado" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="IniciarSesionSP_Result">
           <Property Type="Int64" Name="ID_Cliente" Nullable="false" />
@@ -386,6 +460,53 @@
           <Property Type="String" Name="Correo_Cliente" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="Contrasenna_Cliente" Nullable="false" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="ID_Categoria" />
+          </Key>
+          <Property Name="ID_Categoria" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Producto" Relationship="ImportadoraMoyaUlateModel.FK_Producto_Categoria" FromRole="Categorias" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="ID_Producto" />
+          </Key>
+          <Property Name="ID_Producto" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Categoria" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="Precio" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Imagen" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categorias" Relationship="ImportadoraMoyaUlateModel.FK_Producto_Categoria" FromRole="Producto" ToRole="Categorias" />
+          <NavigationProperty Name="Estado1" Relationship="ImportadoraMoyaUlateModel.FK_Producto_Estado" FromRole="Producto" ToRole="Estado" />
+        </EntityType>
+        <Association Name="FK_Producto_Categoria">
+          <End Type="ImportadoraMoyaUlateModel.Categorias" Role="Categorias" Multiplicity="1" />
+          <End Type="ImportadoraMoyaUlateModel.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="ID_Categoria" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="ID_Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Estado">
+          <End Type="ImportadoraMoyaUlateModel.Estado" Role="Estado" Multiplicity="1" />
+          <End Type="ImportadoraMoyaUlateModel.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="ID_Estado" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -479,6 +600,28 @@
           <FunctionImportMapping FunctionImportName="RegistrarClienteSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarClienteSP" />
           <FunctionImportMapping FunctionImportName="RegistrarProveedorSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarProveedorSP" />
           <FunctionImportMapping FunctionImportName="ActualizarEstadoClienteSP" FunctionName="ImportadoraMoyaUlateModel.Store.ActualizarEstadoClienteSP" />
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="ImportadoraMoyaUlateModel.Categorias">
+              <MappingFragment StoreEntitySet="Categorias">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="ImportadoraMoyaUlateModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -45,28 +45,42 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @*@foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.ID_Cliente</td>
-                            <td>@item.Ced_Cliente</td>
-                            <td>@($"{item.Nombre_Cliente} {item.Apellido_Cliente}")</td>
-                            <td>@item.Correo_Cliente</td>
-                            <td>@item.Direccion_Cliente</td>
-                            <td>@item.Tel_Cliente</td>
-                            @if (item.Est_Cliente == 1)
-                            {
-                                <td>Activo</td>
-                            }
-                            else
-                            {
-                                <td>Inactivo</td>
-                            }
-                            <td class="text-center">
-                                <a href="@Url.Action("ActualizarEstadoCliente", "Cliente", new { q = item.ID_Cliente })"><i style="color: #6282a9;" class="fa fa-exchange fa-lg"></i></a>
-                            </td>
-                        </tr>
-                    }*@
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.ID_Producto</td>
+                                        @if (item.ID_Categoria == 1)
+                                        {
+                                            <td>Hombre</td>
+                                        }
+                                        else if (item.ID_Categoria == 2)
+                                        {
+                                            <td>Mujer</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Niños</td>
+                                        }
+                                        <td>@item.Nombre</td>
+                                        <td>@item.Descripcion</td>
+                                        <td>@item.Cantidad</td>
+                                        <td>@item.Precio</td>
+                                        <td style="text-align:center"><img src="@item.Imagen" style="width:100px; height:70px"></td>
+                                        @if (item.Estado == 1)
+                                        {
+                                            <td>Activo</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Inactivo</td>
+                                        }
+                                    <td class="text-center">
+                                        <a href="@Url.Action("ActualizarEstadoCliente", "Cliente", new { q = item.ID_Producto })"><i style="color: #6282a9;" class="fa fa-exchange fa-lg"></i></a>
+                                        <a href="@Url.Action("ActualizarEstadoCliente", "Cliente", new { q = item.ID_Producto })"><i style="color: forestgreen;padding-left: 10px;" class="fa fa-edit fa-lg"></i></a>
+                                       <a href="@Url.Action("ActualizarEstadoCliente", "Cliente", new { q = item.ID_Producto })"><i style="color: darkred; padding-left: 8px;" class="fa fa-trash fa-lg"></i></a>
+                                    </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                         <br />

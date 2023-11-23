@@ -32,6 +32,8 @@ namespace APIProyectoSC_601
         public virtual DbSet<Estado> Estado { get; set; }
         public virtual DbSet<Proveedores> Proveedores { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
+        public virtual DbSet<Categorias> Categorias { get; set; }
+        public virtual DbSet<Producto> Producto { get; set; }
     
         public virtual int ActualizarCuentaClienteSP(string identificacion, string nombre, string apellido, string correo, string direccion, string telefono, Nullable<long> codigoCliente)
         {
@@ -231,6 +233,39 @@ namespace APIProyectoSC_601
                 new ObjectParameter("CorreoCliente", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("VerificarCorreoExistenteSP", correoClienteParameter);
+        }
+    
+        public virtual int RegistrarProductoSP(Nullable<int> categoria, string nombre, string descripcion, Nullable<int> cantidad, Nullable<decimal> precio, string imagen, Nullable<int> estado)
+        {
+            var categoriaParameter = categoria.HasValue ?
+                new ObjectParameter("Categoria", categoria) :
+                new ObjectParameter("Categoria", typeof(int));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            var cantidadParameter = cantidad.HasValue ?
+                new ObjectParameter("Cantidad", cantidad) :
+                new ObjectParameter("Cantidad", typeof(int));
+    
+            var precioParameter = precio.HasValue ?
+                new ObjectParameter("Precio", precio) :
+                new ObjectParameter("Precio", typeof(decimal));
+    
+            var imagenParameter = imagen != null ?
+                new ObjectParameter("Imagen", imagen) :
+                new ObjectParameter("Imagen", typeof(string));
+    
+            var estadoParameter = estado.HasValue ?
+                new ObjectParameter("Estado", estado) :
+                new ObjectParameter("Estado", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarProductoSP", categoriaParameter, nombreParameter, descripcionParameter, cantidadParameter, precioParameter, imagenParameter, estadoParameter);
         }
     }
 }

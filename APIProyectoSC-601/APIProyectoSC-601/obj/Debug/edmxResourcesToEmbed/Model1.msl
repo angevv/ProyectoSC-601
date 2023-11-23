@@ -88,5 +88,27 @@
     <FunctionImportMapping FunctionImportName="RegistrarClienteSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarClienteSP" />
     <FunctionImportMapping FunctionImportName="RegistrarProveedorSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarProveedorSP" />
     <FunctionImportMapping FunctionImportName="ActualizarEstadoClienteSP" FunctionName="ImportadoraMoyaUlateModel.Store.ActualizarEstadoClienteSP" />
+    <EntitySetMapping Name="Categorias">
+      <EntityTypeMapping TypeName="ImportadoraMoyaUlateModel.Categorias">
+        <MappingFragment StoreEntitySet="Categorias">
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producto">
+      <EntityTypeMapping TypeName="ImportadoraMoyaUlateModel.Producto">
+        <MappingFragment StoreEntitySet="Producto">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+          <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -27,7 +27,7 @@
                         <div class="row gx-3 mb-3">
                             <div class="col-md-6">
                                 <label class="small mb-1" for="categoria">Categoría</label>
-                                @Html.TextBoxFor(m => m.Categoria, new { @class = "form-control", @placeholder = "Categoría", @type = "text", required = "required" })
+                                @Html.DropDownListFor(m => m.ID_Categoria, ViewBag.Categorias as List<SelectListItem>,"Seleccione una opción", new { @class = "form-control form-control-lg", required = "required" })
                             </div>
                             <div class="col-md-6">
                                 <label class="small mb-1" for="nombre">Nombre</label>
@@ -51,7 +51,7 @@
                         </div>
                         <div class="form-group">
                             <label>Imagen</label>
-                            <input type="file" class="form-control" id="ImgProducto" name="ImgProducto">
+                            <input type="file" class="form-control" id="ImgProducto" name="ImgProducto" required>
                         </div>
                         <div style="text-align:center;padding-top:4%;">
                             <button class="btn btn-success" type="submit"> Registrar <i class="bi bi-pencil-square"></i></button>
