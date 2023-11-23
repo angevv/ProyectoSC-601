@@ -1,0 +1,96 @@
+﻿@model IEnumerable<ProyectoSC_601.Entities.InventarioEnt>
+@{
+    ViewBag.Title = "ConsultaInventario";
+    Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
+    <link href="~/Assets/css/perfilClienteStyle.css" rel="stylesheet">
+    <link href="~/Assets/css/gestionClientesStyle.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+}
+<div class="container mt-5 pt-4">
+    <div class="row justify-content-center">
+        <div class="col-12 grid-margin stretch-card">
+            <br>
+            <br>
+            <br>
+            <div class="card" style="margin-bottom:80px;">
+                <div class="card-body">
+                    <div style="display:flex;">
+                        <h4 class="card-title">Productos Registrados</h4>
+                        <div style="margin-left:77%">
+                            <a class="btn btn-primary" href="@Url.Action("RegistrarProducto","Inventario")">+</a>
+                        </div>
+                        
+                    </div>
+                    <div class="table-responsive">
+                        <br><br>
+                        @if (ViewBag.MensajeNoExitoso != null)
+                        {
+                            <div class="alert alert-danger" role="alert" style="text-align: center; margin: 10px !important;margin-bottom:-40px!important;">
+                                @ViewBag.Mensaje
+                            </div>
+                        }
+                        <table id="TablaClientes" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="background-color:#eeeeee" ;>ID</th>
+                                    <th style="background-color:#eeeeee" ;>Categoría</th>
+                                    <th style="background-color:#eeeeee" ;>Nombre</th>
+                                    <th style="background-color:#eeeeee" ;>Descripción</th>
+                                    <th style="background-color:#eeeeee" ;>Cantidad</th>
+                                    <th style="background-color:#eeeeee" ;>Precio</th>
+                                    <th style="background-color:#eeeeee" ;>Imagen</th>
+                                    <th style="background-color:#eeeeee" ;>Estado</th>
+                                    <th style="background-color:#eeeeee" ;>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @*@foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ID_Cliente</td>
+                            <td>@item.Ced_Cliente</td>
+                            <td>@($"{item.Nombre_Cliente} {item.Apellido_Cliente}")</td>
+                            <td>@item.Correo_Cliente</td>
+                            <td>@item.Direccion_Cliente</td>
+                            <td>@item.Tel_Cliente</td>
+                            @if (item.Est_Cliente == 1)
+                            {
+                                <td>Activo</td>
+                            }
+                            else
+                            {
+                                <td>Inactivo</td>
+                            }
+                            <td class="text-center">
+                                <a href="@Url.Action("ActualizarEstadoCliente", "Cliente", new { q = item.ID_Cliente })"><i style="color: #6282a9;" class="fa fa-exchange fa-lg"></i></a>
+                            </td>
+                        </tr>
+                    }*@
+                            </tbody>
+                        </table>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Se agrega un data table para la consulta de clientes*@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script>var $j = jQuery.noConflict();</script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $j(document).ready(function () {
+        $j('#TablaClientes').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            },
+            "pagingType": 'simple'
+        });
+
+    });
+</script>

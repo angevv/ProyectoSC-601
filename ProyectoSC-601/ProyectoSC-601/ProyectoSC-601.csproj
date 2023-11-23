@@ -156,7 +156,9 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
+    <Compile Include="Controllers\InventarioController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
+    <Compile Include="Entities\InventarioEnt.cs" />
     <Compile Include="Entities\ClienteEnt.cs" />
     <Compile Include="Entities\InfoIndex.cs" />
     <Compile Include="Entities\ProveedorEnt.cs" />
@@ -164,6 +166,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CarritoModel.cs" />
+    <Compile Include="Models\InventarioModel.cs" />
     <Compile Include="Models\IndexModel.cs" />
     <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
@@ -174,6 +177,7 @@
     <Content Include="Assets\css\font-awesome.css" />
     <Content Include="Assets\css\gestionClientesStyle.css" />
     <Content Include="Assets\css\logstyle.css" />
+    <Content Include="Assets\css\ProductosAdminStyle.css" />
     <Content Include="Assets\css\perfilClienteStyle.css" />
     <Content Include="Assets\css\registroStyle.css" />
     <Content Include="Assets\css\style.css" />
@@ -349,11 +353,12 @@
     <Content Include="Views\Producto\Registro.cshtml" />
     <Content Include="Views\Compartido\Acerca.cshtml" />
     <Content Include="Views\Compartido\Contacto.cshtml" />
+    <Content Include="Views\Inventario\ConsultaInventario.cshtml" />
+    <Content Include="Views\Inventario\RegistrarProducto.cshtml" />
+    <Content Include="Views\Inventario\ModificarProducto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Acerca\" />
-    <Folder Include="Views\Contacto\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
