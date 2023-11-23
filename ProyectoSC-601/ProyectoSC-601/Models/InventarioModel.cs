@@ -61,5 +61,28 @@ namespace ProyectoSC_601.Models
             }
         }
 
+        //Funcion para actualizar el estado del producto
+        public string ActualizarEstadoProducto(InventarioEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "ActualizarEstadoProducto";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PutAsync(urlApi, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<string>().Result;
+            }
+        }
+
+        //Funcion para eliminar un producto
+        public string EliminarProducto(InventarioEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "EliminarProducto";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PutAsync(urlApi, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<string>().Result;
+            }
+        }
     }
 }

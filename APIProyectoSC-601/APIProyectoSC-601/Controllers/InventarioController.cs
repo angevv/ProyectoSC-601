@@ -92,5 +92,44 @@ namespace APIProyectoSC_601.Controllers
             }
         }
 
-    }
+        //Actualiza el estado del producto en la base de datos
+        [HttpPut]
+        [Route("ActualizarEstadoProducto")]
+        public string ActualizarEstadoProducto(Producto producto)
+        {
+            using (var context = new ImportadoraMoyaUlateEntities())
+            {
+                var datos = context.Producto.Where(x => x.ID_Producto == producto.ID_Producto).FirstOrDefault();
+                if (datos.Estado == 1)
+                {
+                    datos.Estado = 0;
+                }
+                else
+                {
+                    datos.Estado = 1;
+                }
+                context.SaveChanges();
+                return "OK";
+            }
+        }
+
+        //Elimina el producto en la base de datos
+        [HttpPut]
+        [Route("EliminarProducto")]
+        public string EliminarProducto(Producto producto)
+        {
+            using (var context = new ImportadoraMoyaUlateEntities())
+            {
+                var productoAEliminar = context.Producto.Find(producto.ID_Producto);
+
+                if (productoAEliminar != null)
+                {
+                    context.Producto.Remove(productoAEliminar);
+                    context.SaveChanges();
+                    return "OK";
+                }
+                return null;
+            }
+        }
+}
 }

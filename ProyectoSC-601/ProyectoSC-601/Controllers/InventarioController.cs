@@ -57,7 +57,47 @@ namespace ProyectoSC_601.Controllers
             }
             else
             {
-                ViewBag.MensajeUsuario = "No se ha podido registrar el producto";
+                ViewBag.Mensaje = "No se ha podido registrar el producto";
+                return View();
+            }
+        }
+
+        //Cambia el estado de un producto
+        [HttpGet]
+        public ActionResult ActualizarEstadoProducto(long q)
+        {
+            var entidad = new InventarioEnt();
+            entidad.ID_Producto = q;
+
+            string respuesta = modelInventario.ActualizarEstadoProducto(entidad);
+
+            if (respuesta == "OK")
+            {
+                return RedirectToAction("ConsultaInventario", "Inventario");
+            }
+            else
+            {
+                ViewBag.Mensaje = "No se ha podido cambiar el estado del producto";
+                return View();
+            }
+        }
+
+        //Cambia el estado de un producto
+        [HttpGet]
+        public ActionResult EliminarProducto(long q)
+        {
+            var entidad = new InventarioEnt();
+            entidad.ID_Producto = q;
+
+            string respuesta = modelInventario.EliminarProducto(entidad);
+
+            if (respuesta == "OK")
+            {
+                return RedirectToAction("ConsultaInventario", "Inventario");
+            }
+            else
+            {
+                ViewBag.Mensaje = "No se ha podido eliminar el producto";
                 return View();
             }
         }
