@@ -84,5 +84,39 @@ namespace ProyectoSC_601.Models
                 return res.Content.ReadFromJsonAsync<string>().Result;
             }
         }
+
+        //Funcion para mostrar un los datos de un producto especifico
+        public InventarioEnt ConsultaProductoEspecifico(long q)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "ConsultaProductoEspecifico?q=" + q;
+                var res = client.GetAsync(urlApi).Result;
+                return res.Content.ReadFromJsonAsync<InventarioEnt>().Result;
+            }
+        }
+
+        //Funcion para actualizar los datos de un producto
+        public long ActualizarProducto(InventarioEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "ActualizarProducto";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PutAsync(urlApi, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<long>().Result;
+            }
+        }
+
+        //Funcion para contar el total de recursos del inventario
+        public decimal ContarTotalInventario()
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "TotalInventario";
+                var res = client.GetAsync(urlApi).Result;
+                return res.Content.ReadFromJsonAsync<decimal>().Result;
+            }
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace ProyectoSC_601.Controllers
         [HttpGet]
         public ActionResult ConsultaInventario()
         {
+            ViewBag.TotalInventario = modelInventario.ContarTotalInventario();
             var datos = modelInventario.ConsultarInventario();
             return View(datos);
         }
@@ -102,10 +103,42 @@ namespace ProyectoSC_601.Controllers
             }
         }
 
+        //Muestra una vista con los datos del producto seleccionado para modificarlo
         [HttpGet]
-        public ActionResult ModificarProducto()
+        public ActionResult ModificarProducto(long q)
         {
-            return View();
+            var datos = modelInventario.ConsultaProductoEspecifico(q);
+            ViewBag.Categorias = modelInventario.ConsultarCategorias();
+            return View(datos);
+        }
+
+
+        //Actualiza el producto con los nuevos datos ingresados
+        [HttpPost]
+        public ActionResult ModificarProducto(HttpPostedFileBase ImgProducto, InventarioEnt entidad)
+        {
+
+            if (ImgProducto != null)
+            {
+                string extension = Path.GetExtension(ImgProducto.FileName);
+                string rutaNuevaImagen = Path.Combine(Server.MapPath("~/Images/"), entidad.ID_Producto + extension);
+
+                ImgProducto.SaveAs(rutaNuevaImagen);
+
+                entidad.Imagen = "/Images/" + entidad.ID_Producto + extension;
+            }
+
+            long ID_Producto = modelInventario.ActualizarProducto(entidad);
+
+            if (ID_Producto > 0)
+            {
+                return RedirectToAction("ConsultaInventario", "Inventario");
+            }
+            else
+            {
+                ViewBag.Mensaje = "No se ha podido actualizar el producto";
+                return View();
+            }
         }
 
     }

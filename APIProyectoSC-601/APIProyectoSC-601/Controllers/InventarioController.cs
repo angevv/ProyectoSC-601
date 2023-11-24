@@ -131,5 +131,70 @@ namespace APIProyectoSC_601.Controllers
                 return null;
             }
         }
-}
+
+        //Devuelve los datos de un producto segun su ID
+        [HttpGet]
+        [Route("ConsultaProductoEspecifico")]
+        public Producto ConsultaProductoEspecifico(long q)
+        {
+            try
+            {
+                using (var context = new ImportadoraMoyaUlateEntities())
+                {
+                    context.Configuration.LazyLoadingEnabled = false;
+                    return (from x in context.Producto
+                            where x.ID_Producto == q
+                            select x).FirstOrDefault();
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        //Actualiza los datos del producto en la base de datos
+        [HttpPut]
+        [Route("ActualizarProducto")]
+        public long ActualizarProducto(Producto producto)
+        {
+            using (var context = new ImportadoraMoyaUlateEntities())
+            {
+                var datos = context.Producto.Where(x => x.ID_Producto == producto.ID_Producto).FirstOrDefault();
+
+                if (!string.IsNullOrEmpty(producto.Imagen))
+                {
+                    datos.Imagen = producto.Imagen;
+                }
+                datos.ID_Categoria = producto.ID_Categoria;
+                datos.Nombre = producto.Nombre;
+                datos.Descripcion = producto.Descripcion;
+                datos.Cantidad = producto.Cantidad;
+                datos.Precio = producto.Precio;
+
+                context.SaveChanges();
+
+                return producto.ID_Producto;
+            }
+        }
+
+        //Devuelve la cantidad total de los recursos del inventario
+        [HttpGet]
+        [Route("TotalInventario")]
+        public decimal TotalInventario()
+        {
+            try
+            {
+                using (var context = new ImportadoraMoyaUlateEntities())
+                {
+                    context.Configuration.LazyLoadingEnabled = false;
+                    return context.Producto.Sum(x => x.Precio * x.Cantidad);
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+    }
 }

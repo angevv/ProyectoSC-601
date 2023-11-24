@@ -2,8 +2,7 @@
 @{
     ViewBag.Title = "ConsultaInventario";
     Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
-    <link href="~/Assets/css/perfilClienteStyle.css" rel="stylesheet">
-    <link href="~/Assets/css/gestionClientesStyle.css" rel="stylesheet">
+    <link href="~/Assets/css/ProductosAdminStyle.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.css">
@@ -19,11 +18,13 @@
                 <div class="card-body">
                     <div style="display:flex;">
                         <h4 class="card-title">Productos Registrados</h4>
-                        <div style="margin-left:77%">
-                            <a class="btn btn-primary" href="@Url.Action("RegistrarProducto","Inventario")">+</a>
+                        <div style="margin-left:72%">
+                            <div style="display:flex;">
+                                <a class="btn btn-primary"  href="javascript:void(0);" onclick="MostrarTotalInventario()"><i style="color: white;" class="fa fa-eye fa-lg"></i></a>
+                                <a class="btn btn-primary" href="@Url.Action("RegistrarProducto","Inventario")" style="margin-left:5%;"><i style="color: white;" class="fa fa-plus fa-lg"></i></a>
+                            </div>
                         </div>
-
-                    </div>
+                        </div>
                     <div class="table-responsive">
                         <br><br>
                         @if (ViewBag.Mensaje != null)
@@ -32,18 +33,18 @@
                                 @ViewBag.Mensaje
                             </div>
                         }
-                        <table id="TablaClientes" class="table table-bordered table-hover">
+                        <table id="TablaInventario" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th style="background-color:#eeeeee" ;>ID</th>
-                                    <th style="background-color:#eeeeee" ;>Categoría</th>
-                                    <th style="background-color:#eeeeee" ;>Nombre</th>
-                                    <th style="background-color:#eeeeee" ;>Descripción</th>
-                                    <th style="background-color:#eeeeee" ;>Cantidad</th>
-                                    <th style="background-color:#eeeeee" ;>Precio</th>
-                                    <th style="background-color:#eeeeee" ;>Imagen</th>
-                                    <th style="background-color:#eeeeee" ;>Estado</th>
-                                    <th style="background-color:#eeeeee" ;>Opciones</th>
+                                    <th style="background-color: #6282a9; color:white;">ID</th>
+                                    <th style="background-color: #6282a9;color:white; ">Categoría</th>
+                                    <th style="background-color: #6282a9;color:white; ">Nombre</th>
+                                    <th style="background-color: #6282a9;color:white;">Descripción</th>
+                                    <th style="background-color: #6282a9;color:white;">Cantidad</th>
+                                    <th style="background-color: #6282a9;color:white;">Precio</th>
+                                    <th style="background-color: #6282a9;color:white;">Imagen</th>
+                                    <th style="background-color: #6282a9;color:white;">Estado</th>
+                                    <th style="background-color: #6282a9;color:white;">Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,15 +79,15 @@
                                         <td style="text-align:center"><img src="@item.Imagen" style="width:100px; height:70px"></td>
                                         @if (item.Estado == 1)
                                         {
-                                            <td>Activo</td>
+                                            <td><span class="badge bg-success">Activo</span></td>
                                         }
                                         else
                                         {
-                                            <td>Inactivo</td>
+                                            <td><span class="badge bg-danger">Inactivo</span></td>
                                         }
                                         <td class="text-center">
                                             <a href="@Url.Action("ActualizarEstadoProducto", "Inventario", new { q = item.ID_Producto })"><i style="color: #6282a9;" class="fa fa-exchange fa-lg"></i></a>
-                                            <a href="@Url.Action("ActualizarProducto", "Inventario", new { q = item.ID_Producto })"><i style="color: forestgreen;padding-left: 10px;" class="fa fa-edit fa-lg"></i></a>
+                                            <a href="@Url.Action("ModificarProducto", "Inventario", new { q = item.ID_Producto })"><i style="color: forestgreen;padding-left: 10px;" class="fa fa-edit fa-lg"></i></a>
                                             <a href="javascript:void(0);" onclick="confirmarEliminarProducto(@item.ID_Producto)"><i style="color: darkred; padding-left: 8px;" class="fa fa-trash fa-lg"></i></a>
                                         </td>
                                     </tr>
@@ -109,7 +110,7 @@
 
 <script>
     $j(document).ready(function () {
-        $j('#TablaClientes').DataTable({
+        $j('#TablaInventario').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
             },
@@ -136,6 +137,19 @@
                 // Si el usuario confirma, redirige a la acción de inactivar cliente
                 window.location.href = '/Inventario/EliminarProducto?q=' + ID_Producto;
             }
+        });
+    }
+</script>
+
+<script>
+    // Muestra el total del Inventario
+    function MostrarTotalInventario() {
+        Swal.fire({
+            title: 'Total del Inventario',
+            text: '₡ @ViewBag.TotalInventario',
+            icon: 'info',
+            confirmButtonColor: '#6282a9',
+            confirmButtonText: 'Ok'
         });
     }
 </script>
