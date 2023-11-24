@@ -4,38 +4,21 @@
 
 @{
 
-    /*configura el título de la vista y selecciona el diseño de la página según el rol del cliente almacenado
-    en la variable de sesión. Esto permite personalizar la apariencia y la estructura de la página según el tipo
-    de usuario que está accediendo.*/
     ViewBag.Title = "RegistrarProveedor";
     Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
-    //if (Session["Rol_Cliente"] != null && (int)Session["Rol_Cliente"] == 1)
-    //{
-    //    Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
-    //}
-    //else if (Session["Rol_Cliente"] != null && (int)Session["Rol_Cliente"] == 2)
-    //{
-    //    Layout = "~/Views/Shared/_Layout_Login.cshtml";
-    //}
-    //else
-    //{
-    //    Layout = "~/Views/Shared/_Layout.cshtml";
-    //}
-}
 
-<br>
-<br>
+}
 
 <div class="content-wrapper d-flex align-items-center auth px-0">
     <div class="row w-100 mx-0">
         <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                 <br>
-                <h2>Registrar un proveedor</h2>
+                <h2 style="font-size: 30px !important;">Registrar un proveedor</h2>
 
                 @if (ViewBag.MensajeUsuario != null)
                 {
-                    <div class="alert alert-danger" role="alert" style="text-align:center">
+                    <div class="alert alert-danger" role="alert" style="text-align:center; margin: 10px !important;">
                         @ViewBag.MensajeUsuario
                     </div>
                 }
@@ -71,9 +54,9 @@
                         </a>
                     </div>
                 }
-
             </div>
         </div>
     </div>
 </div>
+
 

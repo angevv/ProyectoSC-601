@@ -12,3 +12,7 @@
 #TablaClientes_paginate .paginate_button {
     margin-top: 7px;
 }
+
+.table-info {
+    background-color: #cff4fc !important;
+}

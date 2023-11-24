@@ -2,134 +2,145 @@
 @model IEnumerable<ProyectoSC_601.Entities.ProveedorEnt>
 
 @{
-
-    /*configura el título de la vista y selecciona el diseño de la página según el rol del cliente almacenado
-    en la variable de sesión. Esto permite personalizar la apariencia y la estructura de la página según el tipo de 
-    usuario que está accediendo.*/
-
     ViewBag.Title = "ConsultaProveedores";
     ViewBag.Mensaje = TempData["Mensaje"];
     Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
-    //if (Session["Rol_Cliente"] != null && (int)Session["Rol_Cliente"] == 1)
-    //{
-    //    Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
-    //}
-    //else if (Session["Rol_Cliente"] != null && (int)Session["Rol_Cliente"] == 2)
-    //{
-    //    Layout = "~/Views/Shared/_Layout_Login.cshtml";
-    //}
-    //else
-    //{
-    //    Layout = "~/Views/Shared/_Layout.cshtml";
-    //}
+    <link href="~/Assets/css/perfilClienteStyle.css" rel="stylesheet">
+    <link href="~/Assets/css/ConsultaProveedor.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 }
-
-
 
 
 <div class="container mt-5 pt-4">
     <div class="row justify-content-center">
         <div class="col-12 grid-margin stretch-card">
-            <div class="card-body">
-                <br>
-                <br>
-                <br>
-                @if (TempData["RegistroExito"] != null)
-                {
-                    <div class="alert alert-success" role="alert" style="text-align:center">
-                        @TempData["RegistroExito"]
-                    </div>
-                }
+            <br>
+            <br>
+            <br>
+            <div class="card" style="margin-bottom:80px;">
+                <div class="card-body">
+                    @if (TempData["RegistroExito"] != null)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            @TempData["RegistroExito"]
+                        </div>
+                    }
 
-                @if (TempData["ActualizacionExito"] != null)
-                {
-                    <div class="alert alert-success" role="alert" style="text-align:center">
-                        @TempData["ActualizacionExito"]
-                    </div>
-                }
-                <h4 class="card-title">Información de Proveedores</h4>
+                    @if (TempData["ActualizacionExito"] != null)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            @TempData["ActualizacionExito"]
+                        </div>
+                    }
+                    <h4 class="card-title">Información de Proveedores</h4>
 
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Cedula</th>
-                                <th>Direccion</th>
-                                <th>Empresa</th>
-                                <th>Estado</th>
-                                <th>Cambiar Estado</th>
-                                <th>Actualizar</th>
-                                <th>Eliminar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>@item.Nombre_Proveedor</td>
-                                    <td>@item.Apellido_Proveedor</td>
-                                    <td>@item.Cedula_Proveedor</td>
-                                    <td>@item.Direccion_Exacta</td>
-                                    @if (item.Empresa == 1)
+                    @if (Model.Count() > 0)
+                    {
+                        <div class="table-responsive">
+                            <table id="TablaProveedores" class="table table-bordered table-hover">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th style="background-color: #6282a9; color:white;">Nombre</th>
+                                        <th style="background-color: #6282a9; color:white;">Apellido</th>
+                                        <th style="background-color: #6282a9; color:white;">Cédula</th>
+                                        <th style="background-color: #6282a9; color:white;">Dirección</th>
+                                        <th style="background-color: #6282a9; color:white;">Empresa</th>
+                                        <th style="background-color: #6282a9; color:white;">Estado</th>
+                                        <th style="background-color: #6282a9; color:white;">Cambiar Estado</th>
+                                        <th style="background-color: #6282a9; color:white;">Actualizar</th>
+                                        <th style="background-color: #6282a9; color:white;">Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
                                     {
-                                        <td>Seleccione una empresa</td>
+                                        <tr>
+                                            <td>@item.Nombre_Proveedor</td>
+                                            <td>@item.Apellido_Proveedor</td>
+                                            <td>@item.Cedula_Proveedor</td>
+                                            <td>@item.Direccion_Exacta</td>
+                                            <td>
+                                                @if (item.Empresa == 1)
+                                                {
+                                                    <span class="badge bg-secondary">Seleccione una empresa</span>
+                                                }
+                                                else if (item.Empresa == 2)
+                                                {
+                                                    <span class="badge bg-info">Empresa 1</span>
+                                                }
+                                                else if (item.Empresa == 3)
+                                                {
+                                                    <span class="badge bg-warning">Empresa 2</span>
+                                                }
+                                            </td>
+
+                                            @if (item.Estado_Proveedor == 1)
+                                            {
+                                                <td><span class="badge bg-success">Activo</span></td>
+                                            }
+                                            else
+                                            {
+                                                <td><span class="badge bg-danger">Inactivo</span></td>
+                                            }
+
+                                            <td class="text-center">
+                                                <a href="@Url.Action("ActualizarEstadoProveedor", "Proveedor", new { q = item.ID_Proveedor })">
+                                                    <i class="fa fa-exchange fa-lg text-primary"></i>
+                                                </a>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <a href="@Url.Action("ActualizarProveedor", "Proveedor", new { q = item.ID_Proveedor })">
+                                                    <i class="fa fa-user fa-lg text-success"></i>
+                                                </a>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <a href="@Url.Action("EliminarProveedor", "Proveedor", new { q = item.ID_Proveedor })" onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor permanentemente?');">
+                                                    <i class="fa fa-trash-alt fa-lg text-danger"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
                                     }
-                                    else if (item.Empresa == 2)
-                                    {
-                                        <td>Empresa 1</td>
-                                    }
-                                    else if (item.Empresa == 3)
-                                    {
-                                        <td>Empresa 2</td>
-                                    }
-
-                                    @if (item.Estado_Proveedor == 1)
-                                    {
-                                        <td>Activo</td>
-                                    }
-                                    else
-                                    {
-                                        <td>Inactivo</td>
-                                    }
-
-
-                                    <td class="text-center">
-                                        <a href="@Url.Action("ActualizarEstadoProveedor", "Proveedor", new { q = item.ID_Proveedor })"><i class="fa fa-exchange fa-lg"></i></a>
-                                    </td>
-
-                                    <td class="text-center">
-                                        <a href="@Url.Action("ActualizarProveedor", "Proveedor", new { q = item.ID_Proveedor })">
-                                            <i class="fa fa-user fa-lg text-success"></i>
-                                        </a>
-                                    </td>
-
-                                    <td class="text-center">
-                                        <a href="@Url.Action("EliminarProveedor", "Proveedor", new { q = item.ID_Proveedor })" onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor permanentemente?');">
-                                            <i class="fa fa-trash-alt fa-lg text-danger"></i>
-                                        </a>
-                                    </td>
-
-
-
-
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-12 alert alert-info" role="alert" style="text-align: center; margin-top: 5%;">
+                            No hay proveedores registrados en este momento
+                        </div>
+                    }
+                    <br>
                     <div class="text-center mt-4">
                         <a href="@Url.Action("RegistrarProveedor", "Proveedor")" class="btn btn-success">
                             <i class="fa fa-plus"></i> Agregar proveedor
                         </a>
                     </div>
-                    <br>
-                    <br>
                 </div>
             </div>
+            <br>
         </div>
     </div>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#TablaProveedores').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            },
+            "pagingType": 'simple'
+        });
+    });
+</script>
+
 
 
 
