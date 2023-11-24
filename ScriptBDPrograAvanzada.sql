@@ -457,3 +457,45 @@ BEGIN
     DELETE FROM dbo.Proveedores WHERE ID_Proveedor = @ID_Proveedor;
 END
 GO
+
+/************* INVENTARIO *************/
+
+CREATE TABLE [dbo].[Categorias](
+	[ID_Categoria] [int] NOT NULL,
+	[Nombre] [varchar](10) NOT NULL,
+ CONSTRAINT [PK_Tbl_Categoria] PRIMARY KEY CLUSTERED 
+(
+	[ID_Categoria] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+INSERT INTO [dbo].[Categorias] ([ID_Categoria], [Nombre])
+VALUES 
+    (1,'Hombre'),
+    (2,'Mujer'),
+    (3,'Niños');
+
+CREATE TABLE [dbo].[Producto](
+	[ID_Producto] [bigint] IDENTITY(1,1) NOT NULL,
+	[ID_Categoria] [int] NOT NULL,
+	[Nombre] [varchar](250) NOT NULL,
+	[Descripcion] [varchar](500) NOT NULL,
+	[Cantidad] [int] NOT NULL,
+	[Precio] [decimal](18, 2) NOT NULL,
+	[Imagen] [varchar](250) NOT NULL,
+	[Estado] [int] NOT NULL,
+ CONSTRAINT [PK_Producto] PRIMARY KEY CLUSTERED 
+(
+	[ID_Producto] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Producto]  WITH CHECK ADD  CONSTRAINT [FK_Producto_Categoria] FOREIGN KEY([ID_Categoria])
+REFERENCES [dbo].[Categorias] ([ID_Categoria])
+GO
+
+ALTER TABLE [dbo].[Producto]  WITH CHECK ADD  CONSTRAINT [FK_Producto_Estado] FOREIGN KEY([Estado])
+REFERENCES [dbo].[Estado] ([ID_Estado])
+GO

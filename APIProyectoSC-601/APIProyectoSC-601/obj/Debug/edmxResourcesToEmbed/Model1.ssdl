@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ImportadoraMoyaUlateModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Categorias">
+    <Key>
+      <PropertyRef Name="ID_Categoria" />
+    </Key>
+    <Property Name="ID_Categoria" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
   <EntityType Name="Clientes">
     <Key>
       <PropertyRef Name="ID_Cliente" />
@@ -28,6 +35,19 @@
     </Key>
     <Property Name="ID_Estado" Type="int" Nullable="false" />
     <Property Name="Tipo_Estado" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="ID_Producto" />
+    </Key>
+    <Property Name="ID_Producto" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_Categoria" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="Precio" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Imagen" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Proveedores">
     <Key>
@@ -69,6 +89,30 @@
       </Principal>
       <Dependent Role="Clientes">
         <PropertyRef Name="Rol_Cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Producto_Categoria">
+    <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorias">
+        <PropertyRef Name="ID_Categoria" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="ID_Categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Producto_Estado">
+    <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estado">
+        <PropertyRef Name="ID_Estado" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="Estado" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -150,9 +194,11 @@
     <Parameter Name="Empresa" Type="bigint" Mode="In" />
   </Function>
   <EntityContainer Name="ImportadoraMoyaUlateModelStoreContainer">
+    <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Clientes_Estado" Association="Self.FK_Clientes_Estado">
@@ -162,6 +208,14 @@
     <AssociationSet Name="FK_Clientes_Roles" Association="Self.FK_Clientes_Roles">
       <End Role="Roles" EntitySet="Roles" />
       <End Role="Clientes" EntitySet="Clientes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Producto_Categoria" Association="Self.FK_Producto_Categoria">
+      <End Role="Categorias" EntitySet="Categorias" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Producto_Estado" Association="Self.FK_Producto_Estado">
+      <End Role="Estado" EntitySet="Estado" />
+      <End Role="Producto" EntitySet="Producto" />
     </AssociationSet>
     <AssociationSet Name="FK_Proveedores_Empresa" Association="Self.FK_Proveedores_Empresa">
       <End Role="Empresa" EntitySet="Empresa" />
