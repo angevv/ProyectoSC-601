@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ImportadoraMoyaUlateModelStoreContainer" CdmEntityContainer="ImportadoraMoyaUlateEntities">
+    <EntitySetMapping Name="Categorias">
+      <EntityTypeMapping TypeName="ImportadoraMoyaUlateModel.Categorias">
+        <MappingFragment StoreEntitySet="Categorias">
+          <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Clientes">
       <EntityTypeMapping TypeName="ImportadoraMoyaUlateModel.Clientes">
         <MappingFragment StoreEntitySet="Clientes">
@@ -30,6 +38,20 @@
         <MappingFragment StoreEntitySet="Estado">
           <ScalarProperty Name="ID_Estado" ColumnName="ID_Estado" />
           <ScalarProperty Name="Tipo_Estado" ColumnName="Tipo_Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producto">
+      <EntityTypeMapping TypeName="ImportadoraMoyaUlateModel.Producto">
+        <MappingFragment StoreEntitySet="Producto">
+          <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+          <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
