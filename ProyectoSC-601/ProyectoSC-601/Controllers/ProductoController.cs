@@ -9,16 +9,15 @@ namespace ProyectoSC_601.Controllers
 {
     public class ProductoController : Controller
     {
-        public ActionResult Index_Prod()
-        {
-            return View();
+            ProductoModel modelProducto = new ProductoModel();
+
+            [HttpGet]
+            public ActionResult ConsultarProducto()
+            {
+                var datos = modelProducto.ConsultarProductos();
+                return View();
+            }
         }
-
-        public ActionResult Registro()
-        {
-            return View();
-        }
-
-
-    }
 }
+
+

@@ -158,6 +158,7 @@
     <Compile Include="Entities\InventarioEnt.cs" />
     <Compile Include="Entities\ClienteEnt.cs" />
     <Compile Include="Entities\InfoIndex.cs" />
+    <Compile Include="Entities\ProductoEnt.cs" />
     <Compile Include="Entities\ProveedorEnt.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
