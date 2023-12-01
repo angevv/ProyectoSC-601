@@ -14,6 +14,7 @@ namespace APIProyectoSC_601
     
     public partial class Producto
     {
+        public long conProducto { get; set; }
         public long ID_Producto { get; set; }
         public int ID_Categoria { get; set; }
         public string Nombre { get; set; }

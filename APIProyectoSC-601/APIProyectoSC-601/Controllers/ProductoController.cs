@@ -29,17 +29,33 @@ namespace APIProyectoSC_601.Controllers
 
         [HttpPost]
         [Route("RegistrarProducto")]
-        public string RegistrarProducto(Producto producto)
+        public long RegistrarProducto(Producto producto)
         {
             using (var context = new ImportadoraMoyaUlateEntities())
             {
 
                 context.Producto.Add(producto);
                 context.SaveChanges();
+                return Producto.ConProducto;
+            }
+        }
 
+        [HttpPut]
+        [Route("ActualizarProducto")]
+        public string ActualizarRutaProducto(Producto Producto)
+        {
+
+            using (var context = new ImportadoraMoyaUlateEntities())
+            {
+                var datos = context.Producto.Where(x => x.conProducto == Producto.conProducto).FirstOrDefault();
+                datos.Imagen = Producto.Imagen;
+                context.SaveChanges();
                 return "OK";
             }
         }
+
+
+
 
 
         /*private ImportadoraMoyaUlateEntities db = new ImportadoraMoyaUlateEntities();
@@ -60,39 +76,7 @@ namespace APIProyectoSC_601.Controllers
         }
 
         // PUT: api/Producto/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutProducto(long id, Producto producto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != producto.ID_Producto)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(producto).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProductoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+   
 
        
 

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ProyectoSC_601.Entities.ProductoEnt>
+@{
+    ViewBag.Title = "ConsultarProducto";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Informacion de los productos</h4>
+            <br />
+            <br />
+            <br />
+            <br />
+            <div style="text-align:right">
+                <a class="btn btn-info" href="@Url.Action("RegistrarProducto","Producto")">Agregar</a>
+            </div>
+            <table class=" table  table-bordered table-hover">
+                <br />
+                <br />
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Estado</th>
+                        <th>Vista Previa</th>
+                        <th>Cambiar Estado</th>
+                        <th>Actualizar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Nombre </td>
+                            <td>@item.Descripcion </td>
+                            <td>@item.Cantidad </td>
+                            <td>@item.Precio </td>
+                            @if(item.Estado)
+                             {
+                                <td>Activo</td>
+                             }
+                            else 
+                            { 
+                                <td>Inactivo</td>
+                            }
+
+                            <td><img src="@item.Imagen" style="width:300px; height:600px"></td>
+                            <td></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

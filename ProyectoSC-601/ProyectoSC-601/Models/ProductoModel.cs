@@ -12,35 +12,43 @@ namespace ProyectoSC_601.Models
     public class ProductoModel
     {
         public string rutaServidor = ConfigurationManager.AppSettings["RutaApi"];
-        public string RegistrarProducto(ProductoEnt entidad)
+        public long RegistrarProducto(ProductoEnt entidad)
         {
-            try
+
+            using (var client = new HttpClient())
             {
-                using (var client = new HttpClient())
-                {
-                    var urlApi = rutaServidor + "RegistrarProducto";
-                    var jsonData = JsonContent.Create(entidad);
-                    var res = client.PostAsync(urlApi, jsonData).Result;
-                    return res.Content.ReadFromJsonAsync<string>().Result;
-                }
+                var urlApi = rutaServidor + "RegistrarProducto";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PostAsync(urlApi, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<long>().Result;
             }
-            catch (Exception ex)
-            {
-                return "Error al intentar comunicarse con el servidor: " + ex.Message;
-            }
+
         }
         public List<ProductoEnt> ConsultarProductos()
         {
-            
-                using (var client = new HttpClient())
-                {
-                    var urlApi = rutaServidor + "ConsultarProductos";
-                    var res = client.GetAsync(urlApi).Result;
-                    return res.Content.ReadFromJsonAsync<List<ProductoEnt>>().Result;
-                }
+
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "ConsultarProductos";
+                var res = client.GetAsync(urlApi).Result;
+                return res.Content.ReadFromJsonAsync<List<ProductoEnt>>().Result;
+            }
+        }
+
+
+        public string ActualizarRutaProducto(ProductoEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "ActualizarRutaProducto";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PostAsync(urlApi, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<string>().Result;
+
             }
         }
     }
+ }
 
 
 
