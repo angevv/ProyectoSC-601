@@ -176,6 +176,7 @@
     <Content Include="Assets\css\font-awesome.css" />
     <Content Include="Assets\css\gestionClientesStyle.css" />
     <Content Include="Assets\css\logstyle.css" />
+    <Content Include="Assets\css\ProveedorEstilos.css" />
     <Content Include="Assets\css\ProductosAdminStyle.css" />
     <Content Include="Assets\css\perfilClienteStyle.css" />
     <Content Include="Assets\css\registroStyle.css" />
