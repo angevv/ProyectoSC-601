@@ -171,6 +171,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\css\productoDetalle.css" />
     <Content Include="Assets\css\ConsultaProveedor.css" />
     <Content Include="Assets\css\font-awesome.css" />
     <Content Include="Assets\css\gestionClientesStyle.css" />
@@ -353,6 +354,7 @@
     <Content Include="Views\Inventario\ConsultaInventario.cshtml" />
     <Content Include="Views\Inventario\RegistrarProducto.cshtml" />
     <Content Include="Views\Inventario\ModificarProducto.cshtml" />
+    <Content Include="Views\Producto\ProductoDetalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

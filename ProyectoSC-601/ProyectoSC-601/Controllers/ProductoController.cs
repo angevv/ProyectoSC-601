@@ -14,8 +14,14 @@ namespace ProyectoSC_601.Controllers
         [HttpGet]
         public ActionResult Catalogo()
         {
-            ViewBag.TotalInventario = modelInventario.ContarTotalInventario();
             var datos = modelInventario.ConsultarInventario();
+            return View(datos);
+        }
+
+        [HttpGet]
+        public ActionResult ProductoDetalle(long q)
+        {
+            var datos = modelInventario.ConsultaProductoEspecifico(q);
             return View(datos);
         }
 
