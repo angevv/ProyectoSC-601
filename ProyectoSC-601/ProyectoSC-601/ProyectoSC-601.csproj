@@ -355,6 +355,9 @@
     <Content Include="Views\Inventario\RegistrarProducto.cshtml" />
     <Content Include="Views\Inventario\ModificarProducto.cshtml" />
     <Content Include="Views\Producto\ProductoDetalle.cshtml" />
+    <Content Include="Views\Producto\CatalogoMujer.cshtml" />
+    <Content Include="Views\Producto\CatalogoHombre.cshtml" />
+    <Content Include="Views\Producto\CatalogoNinos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

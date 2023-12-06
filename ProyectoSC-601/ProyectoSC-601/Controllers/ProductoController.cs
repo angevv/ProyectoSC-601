@@ -19,6 +19,27 @@ namespace ProyectoSC_601.Controllers
         }
 
         [HttpGet]
+        public ActionResult CatalogoMujer()
+        {
+            var datos = modelInventario.ConsultarInventario();
+            return View(datos);
+        }
+
+        [HttpGet]
+        public ActionResult CatalogoHombre()
+        {
+            var datos = modelInventario.ConsultarInventario();
+            return View(datos);
+        }
+
+        [HttpGet]
+        public ActionResult CatalogoNinos()
+        {
+            var datos = modelInventario.ConsultarInventario();
+            return View(datos);
+        }
+
+        [HttpGet]
         public ActionResult ProductoDetalle(long q)
         {
             var datos = modelInventario.ConsultaProductoEspecifico(q);

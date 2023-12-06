@@ -105,9 +105,10 @@
                     <div class="col-lg-3 col-md-6 footer-links" style="margin-top:6%;margin-left:4%;">
                         <h4>Catálogo</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Mujer</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Hombre</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Niños</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a @Html.ActionLink("Mujer", "CatalogoMujer", "Producto", new { area = "" }, new { @class = "nav-link" })</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a @Html.ActionLink("Hombre", "CatalogoHombre", "Producto", new { area = "" }, new { @class = "nav-link" })</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a @Html.ActionLink("Niños", "CatalogoNinos", "Producto", new { area = "" }, new { @class = "nav-link" })</a></li>
+
                         </ul>
                     </div>
 
