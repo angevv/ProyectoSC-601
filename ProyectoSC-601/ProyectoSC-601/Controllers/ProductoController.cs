@@ -15,6 +15,7 @@ namespace ProyectoSC_601.Controllers
         public ActionResult Catalogo()
         {
             var datos = modelInventario.ConsultarInventario();
+            ViewBag.Categorias = modelInventario.ConsultarCategorias();
             return View(datos);
         }
 
