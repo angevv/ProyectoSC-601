@@ -33,7 +33,7 @@
                         @if (Model.Count() > 0)
                         {
                             var itemsPerRow = 3;
-                            var totalRows = (int)Math.Ceiling((double)Model.Count() / (itemsPerRow * 4)); // 4 filas de 3 productos cada una
+                            var totalRows = (int)Math.Ceiling((double)Model.Count() / (itemsPerRow * 4)); 
 
                             for (int row = 0; row < totalRows; row++)
                             {
@@ -50,22 +50,17 @@
                                                         {
                                                             <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem;">@currentItem.Cantidad Disponibles</div>
                                                         }
-                                                        <!-- Product image-->
                                                         <div class="text-center">
                                                             <a href="@Url.Action("ProductoDetalle", "Producto", new { q = currentItem.ID_Producto })">
                                                                 <img src="@currentItem.Imagen" class="card-img-top" alt="@currentItem.Nombre" style="max-height: 200px;">
                                                             </a>
                                                         </div>
-                                                        <!-- Product details-->
                                                         <div class="card-body p-4">
                                                             <div class="text-center">
-                                                                <!-- Product name-->
                                                                 <a href="@Url.Action("ProductoDetalle", "Producto", new { q = currentItem.ID_Producto })" style="text-decoration:none;color:black;"><h5 class="card-title">@currentItem.Nombre</h5></a>
-                                                                <!-- Product price-->
                                                                 <p class="card-text">₡@currentItem.Precio</p>
                                                             </div>
                                                         </div>
-                                                        <!-- Product actions-->
                                                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                                             <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar al Carrito</a></div>
                                                         </div>
@@ -85,8 +80,6 @@
                             </div>
                         }
                     </div>
-
-                    <!-- Botones de navegación "Anterior" y "Siguiente" para el carrusel -->
                     <button class="carousel-control-prev btn btn-primary" type="button" data-bs-target="#productoCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Anterior</span>
@@ -102,15 +95,9 @@
 </section>
 
 
-
-
-
-
-
-
 <script>
     function filtrarPorCategoria(idCategoria) {
-        // Obtener las categorías seleccionadas
+        // Categorias
         var categoriasSeleccionadas = $(":checkbox:checked").map(function () {
             return $(this).attr("id").split("-")[1];
         }).get();
@@ -122,12 +109,12 @@
                 $(".col[data-categoria='" + categoria + "']").show();
             });
         } else {
-            // Si no se selecciona ninguna categoría, mostrar todos los productos
+            // Mostrar todos los productos
             $(".col[data-categoria]").show();
         }
 
-        // Actualizar el carrusel después del filtrado por categoría
-        $('#productoCarousel').carousel(0); // Reiniciar el carrusel
+        // Actualizar el carrusel 
+        $('#productoCarousel').carousel(0); 
     }
 </script>
 
