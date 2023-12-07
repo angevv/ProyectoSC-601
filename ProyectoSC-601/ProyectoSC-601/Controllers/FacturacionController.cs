@@ -9,32 +9,41 @@ namespace ProyectoSC_601.Controllers
 {
     public class FacturacionController : Controller
     {
-        [HttpGet]
-        public ActionResult Facturacion()
-        {
-            return View();
 
-        }
+        FacturacionModel modelFacturacion = new FacturacionModel();
 
-        [HttpGet]
-        public ActionResult FacturaDetalle()
-        {
-            return View();
-
-        }
+        //Historial de Compras Cliente
 
         [HttpGet]
         public ActionResult FacturacionCliente()
         {
-            return View();
-
+            var datos = modelFacturacion.ConsultaFacturasCliente(long.Parse(Session["ID_Cliente"].ToString()));
+            return View(datos);
         }
 
         [HttpGet]
-        public ActionResult FacturaDetalleCliente()
+        public ActionResult FacturaDetalleCliente(long q)
         {
-            return View();
-
+            var datos = modelFacturacion.ConsultaDetalleFactura(q);
+            return View(datos);
         }
+
+
+        // Consulta Facturas Administrador 
+
+        [HttpGet]
+        public ActionResult Facturacion()
+        {
+            var datos = modelFacturacion.ConsultaFacturasAdmin();
+            return View(datos);
+        }
+
+        [HttpGet]
+        public ActionResult FacturaDetalle(long q)
+        {
+            var datos = modelFacturacion.ConsultaDetalleFactura(q);
+            return View(datos);
+        }
+
     }
 }

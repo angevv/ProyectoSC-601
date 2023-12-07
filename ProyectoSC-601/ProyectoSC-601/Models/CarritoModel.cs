@@ -43,5 +43,16 @@ namespace ProyectoSC_601.Models
                 var res = client.DeleteAsync(urlApi).Result;
             }
         }
+
+        public string PagarCarrito(CarritoEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "PagarCarrito";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PostAsync(urlApi, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<string>().Result;
+            }
+        }
     }
 }

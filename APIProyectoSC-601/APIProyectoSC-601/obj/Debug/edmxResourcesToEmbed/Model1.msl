@@ -121,5 +121,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Factura_Detalle">
+      <EntityTypeMapping TypeName="ImportadoraMoyaUlateModel.Factura_Detalle">
+        <MappingFragment StoreEntitySet="Factura_Detalle">
+          <ScalarProperty Name="ImpuestoPagado" ColumnName="ImpuestoPagado" />
+          <ScalarProperty Name="CantidadPagado" ColumnName="CantidadPagado" />
+          <ScalarProperty Name="PrecioPagado" ColumnName="PrecioPagado" />
+          <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+          <ScalarProperty Name="ID_Factura" ColumnName="ID_Factura" />
+          <ScalarProperty Name="ID_Detalle" ColumnName="ID_Detalle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Factura_Encabezado">
+      <EntityTypeMapping TypeName="ImportadoraMoyaUlateModel.Factura_Encabezado">
+        <MappingFragment StoreEntitySet="Factura_Encabezado">
+          <ScalarProperty Name="TotalCompra" ColumnName="TotalCompra" />
+          <ScalarProperty Name="FechaCompra" ColumnName="FechaCompra" />
+          <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+          <ScalarProperty Name="ID_Factura" ColumnName="ID_Factura" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="PagarCarritoSP" FunctionName="ImportadoraMoyaUlateModel.Store.PagarCarritoSP" />
   </EntityContainerMapping>
 </Mapping>

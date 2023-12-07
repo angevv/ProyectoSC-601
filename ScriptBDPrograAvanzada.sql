@@ -1,12 +1,12 @@
-/****** Object:  Database [ImportadoraMoyaUlate]    Script Date: 11/11/2023 8:32:27 PM ******/
+USE [master]
+GO
+/****** Object:  Database [ImportadoraMoyaUlate]    Script Date: 12/7/2023 5:38:49 PM ******/
 CREATE DATABASE [ImportadoraMoyaUlate]
  CONTAINMENT = NONE
  ON  PRIMARY 
- /*******IMPORTANTE*******/ /*******IMPORTANTE*******/ /*******IMPORTANTE*******/ /*******IMPORTANTE*******/ /*******IMPORTANTE*******/ /*******IMPORTANTE*******/ /*******IMPORTANTE*******/
- /*En caso de la version de SQL sea la express cambiar "MSSQLSERVER" a "MSSQLEXPRESS"*/
-( NAME = N'ImportadoraMoyaUlate', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\ImportadoraMoyaUlate.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+( NAME = N'ImportadoraMoyaUlate', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\ImportadoraMoyaUlate.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
  LOG ON 
-( NAME = N'ImportadoraMoyaUlate_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\ImportadoraMoyaUlate_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+( NAME = N'ImportadoraMoyaUlate_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\ImportadoraMoyaUlate_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
  WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
 GO
 ALTER DATABASE [ImportadoraMoyaUlate] SET COMPATIBILITY_LEVEL = 160
@@ -82,7 +82,38 @@ ALTER DATABASE [ImportadoraMoyaUlate] SET QUERY_STORE (OPERATION_MODE = READ_WRI
 GO
 USE [ImportadoraMoyaUlate]
 GO
-/****** Object:  Table [dbo].[Clientes]    Script Date: 11/6/2023 9:10:54 PM ******/
+/****** Object:  Table [dbo].[Carrito]    Script Date: 12/7/2023 5:38:49 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Carrito](
+	[ID_Carrito] [bigint] IDENTITY(1,1) NOT NULL,
+	[ID_Usuario] [bigint] NOT NULL,
+	[ID_Producto] [bigint] NOT NULL,
+	[Cantidad] [int] NOT NULL,
+	[FechaCarrito] [datetime] NOT NULL,
+ CONSTRAINT [PK_TCarrito] PRIMARY KEY CLUSTERED 
+(
+	[ID_Carrito] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Categorias]    Script Date: 12/7/2023 5:38:49 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Categorias](
+	[ID_Categoria] [int] NOT NULL,
+	[Nombre] [varchar](10) NOT NULL,
+ CONSTRAINT [PK_Tbl_Categoria] PRIMARY KEY CLUSTERED 
+(
+	[ID_Categoria] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Clientes]    Script Date: 12/7/2023 5:38:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -108,7 +139,21 @@ CREATE TABLE [dbo].[Clientes](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Estado]    Script Date: 11/6/2023 9:10:54 PM ******/
+/****** Object:  Table [dbo].[Empresa]    Script Date: 12/7/2023 5:38:49 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Empresa](
+	[ID_Empresa] [bigint] IDENTITY(1,1) NOT NULL,
+	[Nombre_empresa] [varchar](255) NOT NULL,
+ CONSTRAINT [PK_Empresa] PRIMARY KEY CLUSTERED 
+(
+	[ID_Empresa] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Estado]    Script Date: 12/7/2023 5:38:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -122,7 +167,80 @@ CREATE TABLE [dbo].[Estado](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Roles]    Script Date: 11/6/2023 9:10:54 PM ******/
+/****** Object:  Table [dbo].[Factura_Detalle]    Script Date: 12/7/2023 5:38:49 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Factura_Detalle](
+	[ID_Detalle] [bigint] IDENTITY(1,1) NOT NULL,
+	[ID_Factura] [bigint] NOT NULL,
+	[ID_Producto] [bigint] NOT NULL,
+	[PrecioPagado] [decimal](18, 2) NOT NULL,
+	[CantidadPagado] [int] NOT NULL,
+	[ImpuestoPagado] [decimal](18, 2) NOT NULL,
+ CONSTRAINT [PK_FacturaDetalle] PRIMARY KEY CLUSTERED 
+(
+	[ID_Detalle] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Factura_Encabezado]    Script Date: 12/7/2023 5:38:49 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Factura_Encabezado](
+	[ID_Factura] [bigint] IDENTITY(1,1) NOT NULL,
+	[ID_Usuario] [bigint] NOT NULL,
+	[FechaCompra] [datetime] NOT NULL,
+	[TotalCompra] [decimal](18, 2) NOT NULL,
+ CONSTRAINT [PK_FacturaEncabezado] PRIMARY KEY CLUSTERED 
+(
+	[ID_Factura] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Producto]    Script Date: 12/7/2023 5:38:49 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Producto](
+	[ID_Producto] [bigint] IDENTITY(1,1) NOT NULL,
+	[ID_Categoria] [int] NOT NULL,
+	[Nombre] [varchar](250) NOT NULL,
+	[Descripcion] [varchar](500) NOT NULL,
+	[Cantidad] [int] NOT NULL,
+	[Precio] [decimal](18, 2) NOT NULL,
+	[Imagen] [varchar](250) NOT NULL,
+	[Estado] [int] NOT NULL,
+ CONSTRAINT [PK_Producto] PRIMARY KEY CLUSTERED 
+(
+	[ID_Producto] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Proveedores]    Script Date: 12/7/2023 5:38:49 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Proveedores](
+	[ID_Proveedor] [bigint] IDENTITY(1,1) NOT NULL,
+	[Nombre_Proveedor] [varchar](255) NOT NULL,
+	[Apellido_Proveedor] [varchar](255) NOT NULL,
+	[Cedula_Proveedor] [varchar](15) NOT NULL,
+	[Direccion_Exacta] [varchar](255) NOT NULL,
+	[Estado_Proveedor] [int] NOT NULL,
+	[Empresa] [bigint] NOT NULL,
+ CONSTRAINT [PK_Proveedores] PRIMARY KEY CLUSTERED 
+(
+	[ID_Proveedor] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Roles]    Script Date: 12/7/2023 5:38:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -136,8 +254,16 @@ CREATE TABLE [dbo].[Roles](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
-/****** Llaves Foráneas ******/
+ALTER TABLE [dbo].[Carrito]  WITH CHECK ADD  CONSTRAINT [FK_Carrito_Clientes] FOREIGN KEY([ID_Usuario])
+REFERENCES [dbo].[Clientes] ([ID_Cliente])
+GO
+ALTER TABLE [dbo].[Carrito] CHECK CONSTRAINT [FK_Carrito_Clientes]
+GO
+ALTER TABLE [dbo].[Carrito]  WITH CHECK ADD  CONSTRAINT [FK_Carrito_Producto] FOREIGN KEY([ID_Producto])
+REFERENCES [dbo].[Producto] ([ID_Producto])
+GO
+ALTER TABLE [dbo].[Carrito] CHECK CONSTRAINT [FK_Carrito_Producto]
+GO
 ALTER TABLE [dbo].[Clientes]  WITH CHECK ADD  CONSTRAINT [FK_Clientes_Estado] FOREIGN KEY([Est_Cliente])
 REFERENCES [dbo].[Estado] ([ID_Estado])
 GO
@@ -148,86 +274,46 @@ REFERENCES [dbo].[Roles] ([ID_Rol])
 GO
 ALTER TABLE [dbo].[Clientes] CHECK CONSTRAINT [FK_Clientes_Roles]
 GO
-
-
-/****** Registros Tabla Rol ******/
-INSERT [dbo].Roles ([ID_Rol], Nombre_Rol) VALUES (1, N'Administrador')
+ALTER TABLE [dbo].[Factura_Detalle]  WITH CHECK ADD  CONSTRAINT [FK_Factura_Detalle_Factura_Encabezado] FOREIGN KEY([ID_Factura])
+REFERENCES [dbo].[Factura_Encabezado] ([ID_Factura])
 GO
-INSERT [dbo].Roles ([ID_Rol], Nombre_Rol) VALUES (2, N'Usuario')
+ALTER TABLE [dbo].[Factura_Detalle] CHECK CONSTRAINT [FK_Factura_Detalle_Factura_Encabezado]
 GO
-
-/****** Registros Tabla Estado ******/
-INSERT [dbo].Estado([ID_Estado], Tipo_Estado) VALUES (0, N'Inactivo')
+ALTER TABLE [dbo].[Factura_Detalle]  WITH CHECK ADD  CONSTRAINT [FK_Factura_Detalle_Producto] FOREIGN KEY([ID_Producto])
+REFERENCES [dbo].[Producto] ([ID_Producto])
 GO
-INSERT [dbo].Estado([ID_Estado], Tipo_Estado) VALUES (1, N'Activo')
+ALTER TABLE [dbo].[Factura_Detalle] CHECK CONSTRAINT [FK_Factura_Detalle_Producto]
 GO
-
-
-/****** PARTE CLIENTES ******/
-
-/****** Procedimiento Almacenado para Iniciar Sesión Usuarios ******/
+ALTER TABLE [dbo].[Factura_Encabezado]  WITH CHECK ADD  CONSTRAINT [FK_Factura_Encabezado_Clientes] FOREIGN KEY([ID_Usuario])
+REFERENCES [dbo].[Clientes] ([ID_Cliente])
+GO
+ALTER TABLE [dbo].[Factura_Encabezado] CHECK CONSTRAINT [FK_Factura_Encabezado_Clientes]
+GO
+ALTER TABLE [dbo].[Producto]  WITH CHECK ADD  CONSTRAINT [FK_Producto_Categoria] FOREIGN KEY([ID_Categoria])
+REFERENCES [dbo].[Categorias] ([ID_Categoria])
+GO
+ALTER TABLE [dbo].[Producto] CHECK CONSTRAINT [FK_Producto_Categoria]
+GO
+ALTER TABLE [dbo].[Producto]  WITH CHECK ADD  CONSTRAINT [FK_Producto_Estado] FOREIGN KEY([Estado])
+REFERENCES [dbo].[Estado] ([ID_Estado])
+GO
+ALTER TABLE [dbo].[Producto] CHECK CONSTRAINT [FK_Producto_Estado]
+GO
+ALTER TABLE [dbo].[Proveedores]  WITH CHECK ADD  CONSTRAINT [FK_Proveedores_Empresa] FOREIGN KEY([Empresa])
+REFERENCES [dbo].[Empresa] ([ID_Empresa])
+GO
+ALTER TABLE [dbo].[Proveedores] CHECK CONSTRAINT [FK_Proveedores_Empresa]
+GO
+ALTER TABLE [dbo].[Proveedores]  WITH CHECK ADD  CONSTRAINT [FK_Proveedores_Estado] FOREIGN KEY([Estado_Proveedor])
+REFERENCES [dbo].[Estado] ([ID_Estado])
+GO
+ALTER TABLE [dbo].[Proveedores] CHECK CONSTRAINT [FK_Proveedores_Estado]
+GO
+/****** Object:  StoredProcedure [dbo].[ActualizarCuentaClienteSP]    Script Date: 12/7/2023 5:38:49 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [dbo].[IniciarSesionSP]
-	@Correo         varchar(100),
-    @Contrasenna    varchar(50)
-AS
-BEGIN
-	
-	SELECT *
-	From Clientes
-	  WHERE Correo_Cliente = @Correo
-	  AND   Contrasenna_Cliente = @Contrasenna
-	  AND	Est_Cliente = 1
-END
-GO
-
-/****** Procedimiento Almacenado para Recuperar Cuenta Usuarios ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE PROCEDURE [dbo].[RecuperarCuentaClienteSP]
-	@Identificacion varchar(25)
-AS
-BEGIN
-	
-	SELECT Nombre_Cliente,
-			Apellido_Cliente,
-		   Correo_Cliente,
-		   Contrasenna_Cliente
-	  FROM dbo.Clientes
-	  WHERE Ced_Cliente = @Identificacion
-	  AND	Est_Cliente = 1
-
-END
-GO
-
-/****** Procedimiento Almacenado para Registrar Cuenta Usuarios ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-create PROCEDURE [dbo].[RegistrarClienteSP]
-	@Identificacion varchar(25),
-    @Nombre         varchar(60),
-	@Apellido         varchar(70),
-    @Correo         varchar(100),
-    @Contrasenna    varchar(50),
-	@Direccion   varchar(500),
-	@Telefono    varchar(20)
-AS
-BEGIN
-
-	INSERT INTO dbo.Clientes (Ced_Cliente,Nombre_Cliente,Apellido_Cliente,Correo_Cliente,Contrasenna_Cliente,Direccion_Cliente,Tel_Cliente,Est_Cliente,Rol_Cliente)
-    VALUES (@Identificacion,@Nombre,@Apellido,@Correo,@Contrasenna,@Direccion,@Telefono,1,2)
-
-END
-GO
-
-/****** Procedimiento Almacenado para Actualizar Datos de la Cuenta Usuarios ******/
 CREATE PROCEDURE [dbo].[ActualizarCuentaClienteSP]
 	@Identificacion varchar(25),
     @Nombre         varchar(60),
@@ -250,9 +336,80 @@ BEGIN
 
 END
 GO
+/****** Object:  StoredProcedure [dbo].[ActualizarEstadoClienteSP]    Script Date: 12/7/2023 5:38:49 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[ActualizarEstadoClienteSP]
+    @ID_Cliente BIGINT
+AS
+BEGIN
+    UPDATE Clientes
+    SET Est_Cliente = (CASE WHEN Est_Cliente = 1 THEN 0 ELSE 1 END)
+    WHERE ID_Cliente = @ID_Cliente;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[ActualizarEstadoProveedorSP]    Script Date: 12/7/2023 5:38:49 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 
-/****** Procedimiento Almacenado para Inactivar al Cliente ******/
-CREATE PROCEDURE [dbo].InactivarClienteSP
+CREATE PROCEDURE [dbo].[ActualizarEstadoProveedorSP]
+    @ID_Proveedor BIGINT
+AS
+BEGIN
+    UPDATE Proveedores
+    SET Estado_Proveedor = (CASE WHEN Estado_Proveedor = 1 THEN 0 ELSE 1 END)
+    WHERE ID_Proveedor = @ID_Proveedor;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[ActualizarProveedorSP]    Script Date: 12/7/2023 5:38:49 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[ActualizarProveedorSP]
+    @ID_Proveedor BIGINT,
+    @Nombre_Proveedor VARCHAR(255),
+    @Apellido_Proveedor VARCHAR(255),
+    @Cedula_Proveedor VARCHAR(15),
+    @Direccion_Exacta VARCHAR(255),
+    @Empresa BIGINT
+AS
+BEGIN
+    UPDATE dbo.Proveedores
+    SET
+        Nombre_Proveedor = @Nombre_Proveedor,
+        Apellido_Proveedor = @Apellido_Proveedor,
+        Cedula_Proveedor = @Cedula_Proveedor,
+        Direccion_Exacta = @Direccion_Exacta,
+        Empresa = @Empresa
+    WHERE ID_Proveedor = @ID_Proveedor;
+END;
+GO
+/****** Object:  StoredProcedure [dbo].[EliminarProveedorSP]    Script Date: 12/7/2023 5:38:49 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[EliminarProveedorSP]
+    @ID_Proveedor bigint
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM dbo.Proveedores WHERE ID_Proveedor = @ID_Proveedor;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[InactivarClienteSP]    Script Date: 12/7/2023 5:38:49 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[InactivarClienteSP]
 	@CodigoCliente	BIGINT
 AS
 BEGIN
@@ -263,94 +420,125 @@ BEGIN
 
 END
 GO
-
-/****** Procedimiento Almacenado para Cambiar Estado al Cliente ******/
-CREATE PROCEDURE [dbo].[ActualizarEstadoClienteSP]
-    @ID_Cliente BIGINT
+/****** Object:  StoredProcedure [dbo].[IniciarSesionSP]    Script Date: 12/7/2023 5:38:49 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[IniciarSesionSP]
+	@Correo         varchar(100),
+    @Contrasenna    varchar(50)
 AS
 BEGIN
-    UPDATE Clientes
-    SET Est_Cliente = (CASE WHEN Est_Cliente = 1 THEN 0 ELSE 1 END)
-    WHERE ID_Cliente = @ID_Cliente;
-END;
+	
+	SELECT *
+	From Clientes
+	  WHERE Correo_Cliente = @Correo
+	  AND   Contrasenna_Cliente = @Contrasenna
+	  AND	Est_Cliente = 1
+END
 GO
-
-/****** TABLAS EMPRESA Y PROVEEDORES ******/
-/*Creacion de la tabla Empresa*/
-
-USE [ImportadoraMoyaUlate]
-GO
-
+/****** Object:  StoredProcedure [dbo].[PagarCarritoSP]    Script Date: 12/7/2023 5:38:49 PM ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[Empresa](
-	[ID_Empresa] [bigint] IDENTITY(1,1) NOT NULL,
-	[Nombre_empresa] [varchar](255) NOT NULL,
- CONSTRAINT [PK_Empresa] PRIMARY KEY CLUSTERED 
-(
-	[ID_Empresa] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+CREATE PROCEDURE [dbo].[PagarCarritoSP]
+	@ID_Usuario BIGINT
+AS
+BEGIN
+	
+	IF (SELECT	TOP 1 P.Cantidad - C.Cantidad 
+		FROM	Producto	P
+		INNER	JOIN	Carrito  C	ON P.ID_Producto = C.ID_Producto
+		WHERE	ID_Usuario = @ID_Usuario) < 0
+	BEGIN
+
+		SELECT 'FALSE'
+		
+	END
+	ELSE
+	BEGIN
+
+		DECLARE @TotalCompra DECIMAL(18,2)
+		DECLARE @CodigoFactura BIGINT
+	
+		SELECT	@TotalCompra = SUM(P.Precio * C.Cantidad) + (SUM(P.Precio * C.Cantidad) * 0.13)
+		FROM	Carrito C
+		INNER	JOIN Producto P ON C.ID_Producto = P.ID_Producto
+		WHERE	ID_Usuario = @ID_Usuario
+
+		INSERT INTO dbo.Factura_Encabezado(ID_Usuario,FechaCompra,TotalCompra)
+		VALUES (@ID_Usuario, GETDATE(), @TotalCompra)
+
+		SET @CodigoFactura = @@IDENTITY
+
+		INSERT INTO dbo.Factura_Detalle(ID_Factura,ID_Producto,PrecioPagado,CantidadPagado,ImpuestoPagado)
+		SELECT	@CodigoFactura, C.ID_Producto, P.Precio, C.Cantidad, P.Precio * 0.13
+		FROM	Carrito C
+		INNER	JOIN Producto P ON C.ID_Producto = P.ID_Producto
+		WHERE	ID_Usuario = @ID_Usuario
+
+		UPDATE	P
+		SET		P.Cantidad = P.Cantidad - C.Cantidad
+		FROM	Producto P
+		INNER	JOIN Carrito C ON C.ID_Producto = P.ID_Producto
+		WHERE	ID_Usuario = @ID_Usuario
+
+		DELETE FROM Carrito
+		WHERE ID_Usuario = @ID_Usuario
+
+		SELECT 'TRUE'
+
+	END
+
+END
 GO
-
-/*Insertar empresas de ejemplo*/
-
-INSERT INTO [dbo].[Empresa] ([Nombre_empresa])
-VALUES 
-    ('Escoja una opcion'),
-    ('Empresa 1.'),
-    ('Empresa 2');
-
-
-
-/*Creacionde la tabla Proveedores*/
-USE [ImportadoraMoyaUlate]
-GO
-
+/****** Object:  StoredProcedure [dbo].[RecuperarCuentaClienteSP]    Script Date: 12/7/2023 5:38:49 PM ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
+CREATE PROCEDURE [dbo].[RecuperarCuentaClienteSP]
+	@Identificacion varchar(25)
+AS
+BEGIN
+	
+	SELECT Nombre_Cliente,
+			Apellido_Cliente,
+		   Correo_Cliente,
+		   Contrasenna_Cliente
+	  FROM dbo.Clientes
+	  WHERE Ced_Cliente = @Identificacion
+	  AND	Est_Cliente = 1
 
-CREATE TABLE [dbo].[Proveedores](
-	[ID_Proveedor] [bigint] IDENTITY(1,1) NOT NULL,
-	[Nombre_Proveedor] [varchar](255) NOT NULL,
-	[Apellido_Proveedor] [varchar](255) NOT NULL,
-	[Cedula_Proveedor] [varchar](15) NOT NULL,
-	[Direccion_Exacta] [varchar](255) NOT NULL,
-	[Estado_Proveedor] [int] NOT NULL,
-	[Empresa] [bigint] NOT NULL,
- CONSTRAINT [PK_Proveedores] PRIMARY KEY CLUSTERED 
-(
-	[ID_Proveedor] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+END
 GO
-
-ALTER TABLE [dbo].[Proveedores]  WITH CHECK ADD  CONSTRAINT [FK_Proveedores_Empresa] FOREIGN KEY([Empresa])
-REFERENCES [dbo].[Empresa] ([ID_Empresa])
-GO
-
-ALTER TABLE [dbo].[Proveedores] CHECK CONSTRAINT [FK_Proveedores_Empresa]
-GO
-
-ALTER TABLE [dbo].[Proveedores]  WITH CHECK ADD  CONSTRAINT [FK_Proveedores_Estado] FOREIGN KEY([Estado_Proveedor])
-REFERENCES [dbo].[Estado] ([ID_Estado])
-GO
-
-ALTER TABLE [dbo].[Proveedores] CHECK CONSTRAINT [FK_Proveedores_Estado]
-GO
-
-/*Procedimiento almacenado para registrar proveedores*/
-
+/****** Object:  StoredProcedure [dbo].[RegistrarClienteSP]    Script Date: 12/7/2023 5:38:49 PM ******/
 SET ANSI_NULLS ON
 GO
+SET QUOTED_IDENTIFIER ON
+GO
+create PROCEDURE [dbo].[RegistrarClienteSP]
+	@Identificacion varchar(25),
+    @Nombre         varchar(60),
+	@Apellido         varchar(70),
+    @Correo         varchar(100),
+    @Contrasenna    varchar(50),
+	 @Direccion   varchar(500),
+	  @Telefono    varchar(20)
+AS
+BEGIN
 
+	INSERT INTO dbo.Clientes (Ced_Cliente,Nombre_Cliente,Apellido_Cliente,Correo_Cliente,Contrasenna_Cliente,Direccion_Cliente,Tel_Cliente,Est_Cliente,Rol_Cliente)
+    VALUES (@Identificacion,@Nombre,@Apellido,@Correo,@Contrasenna,@Direccion,@Telefono,1,2)
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[RegistrarProveedorSP]    Script Date: 12/7/2023 5:38:49 PM ******/
+SET ANSI_NULLS ON
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 
@@ -381,122 +569,7 @@ BEGIN
     );
 END;
 GO
-
-
-/*Procedimiento almacenado para actualizar el estado de proveedor de activo a inactivo o viceversa*/
-
-USE [ImportadoraMoyaUlate]
+USE [master]
 GO
-
-SET ANSI_NULLS ON
+ALTER DATABASE [ImportadoraMoyaUlate] SET  READ_WRITE 
 GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE PROCEDURE [dbo].[ActualizarEstadoProveedorSP]
-    @ID_Proveedor BIGINT
-AS
-BEGIN
-    UPDATE Proveedores
-    SET Estado_Proveedor = (CASE WHEN Estado_Proveedor = 1 THEN 0 ELSE 1 END)
-    WHERE ID_Proveedor = @ID_Proveedor;
-END;
-GO
-
-
-/*Procedimiento almacenado para actualizar la informcion del proveedor que se haya modificado/actualizado*/
-
-USE [ImportadoraMoyaUlate]
-GO
-
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE PROCEDURE [dbo].[ActualizarProveedorSP]
-    @ID_Proveedor BIGINT,
-    @Nombre_Proveedor VARCHAR(255),
-    @Apellido_Proveedor VARCHAR(255),
-    @Cedula_Proveedor VARCHAR(15),
-    @Direccion_Exacta VARCHAR(255),
-    @Empresa BIGINT
-AS
-BEGIN
-    UPDATE dbo.Proveedores
-    SET
-        Nombre_Proveedor = @Nombre_Proveedor,
-        Apellido_Proveedor = @Apellido_Proveedor,
-        Cedula_Proveedor = @Cedula_Proveedor,
-        Direccion_Exacta = @Direccion_Exacta,
-        Empresa = @Empresa
-    WHERE ID_Proveedor = @ID_Proveedor;
-END;
-GO
-
-
-/*Procedimiento almacenado para eliminar permanentemente un proveedor del sistema*/
-
-USE [ImportadoraMoyaUlate]
-GO
-
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE PROCEDURE [dbo].[EliminarProveedorSP]
-    @ID_Proveedor bigint
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    DELETE FROM dbo.Proveedores WHERE ID_Proveedor = @ID_Proveedor;
-END
-GO
-
-/************* INVENTARIO *************/
-
-CREATE TABLE [dbo].[Categorias](
-	[ID_Categoria] [int] NOT NULL,
-	[Nombre] [varchar](10) NOT NULL,
- CONSTRAINT [PK_Tbl_Categoria] PRIMARY KEY CLUSTERED 
-(
-	[ID_Categoria] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-INSERT INTO [dbo].[Categorias] ([ID_Categoria], [Nombre])
-VALUES 
-    (1,'Hombre'),
-    (2,'Mujer'),
-    (3,'Niños');
-
-CREATE TABLE [dbo].[Producto](
-	[ID_Producto] [bigint] IDENTITY(1,1) NOT NULL,
-	[ID_Categoria] [int] NOT NULL,
-	[Nombre] [varchar](250) NOT NULL,
-	[Descripcion] [varchar](500) NOT NULL,
-	[Cantidad] [int] NOT NULL,
-	[Precio] [decimal](18, 2) NOT NULL,
-	[Imagen] [varchar](250) NOT NULL,
-	[Estado] [int] NOT NULL,
- CONSTRAINT [PK_Producto] PRIMARY KEY CLUSTERED 
-(
-	[ID_Producto] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
-ALTER TABLE [dbo].[Producto]  WITH CHECK ADD  CONSTRAINT [FK_Producto_Categoria] FOREIGN KEY([ID_Categoria])
-REFERENCES [dbo].[Categorias] ([ID_Categoria])
-GO
-
-ALTER TABLE [dbo].[Producto]  WITH CHECK ADD  CONSTRAINT [FK_Producto_Estado] FOREIGN KEY([Estado])
-REFERENCES [dbo].[Estado] ([ID_Estado])
-GO
-

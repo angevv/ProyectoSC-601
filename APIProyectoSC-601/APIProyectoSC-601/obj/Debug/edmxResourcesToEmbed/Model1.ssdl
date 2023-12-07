@@ -46,6 +46,26 @@
     <Property Name="ID_Estado" Type="int" Nullable="false" />
     <Property Name="Tipo_Estado" Type="varchar" MaxLength="10" Nullable="false" />
   </EntityType>
+  <EntityType Name="Factura_Detalle">
+    <Key>
+      <PropertyRef Name="ID_Detalle" />
+    </Key>
+    <Property Name="ID_Detalle" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_Factura" Type="bigint" Nullable="false" />
+    <Property Name="ID_Producto" Type="bigint" Nullable="false" />
+    <Property Name="PrecioPagado" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="CantidadPagado" Type="int" Nullable="false" />
+    <Property Name="ImpuestoPagado" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Factura_Encabezado">
+    <Key>
+      <PropertyRef Name="ID_Factura" />
+    </Key>
+    <Property Name="ID_Factura" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_Usuario" Type="bigint" Nullable="false" />
+    <Property Name="FechaCompra" Type="datetime" Nullable="false" />
+    <Property Name="TotalCompra" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
   <EntityType Name="Producto">
     <Key>
       <PropertyRef Name="ID_Producto" />
@@ -123,6 +143,42 @@
       </Principal>
       <Dependent Role="Clientes">
         <PropertyRef Name="Rol_Cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Factura_Detalle_Factura_Encabezado">
+    <End Role="Factura_Encabezado" Type="Self.Factura_Encabezado" Multiplicity="1" />
+    <End Role="Factura_Detalle" Type="Self.Factura_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factura_Encabezado">
+        <PropertyRef Name="ID_Factura" />
+      </Principal>
+      <Dependent Role="Factura_Detalle">
+        <PropertyRef Name="ID_Factura" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Factura_Detalle_Producto">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="Factura_Detalle" Type="Self.Factura_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="ID_Producto" />
+      </Principal>
+      <Dependent Role="Factura_Detalle">
+        <PropertyRef Name="ID_Producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Factura_Encabezado_Clientes">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+    <End Role="Factura_Encabezado" Type="Self.Factura_Encabezado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="ID_Cliente" />
+      </Principal>
+      <Dependent Role="Factura_Encabezado">
+        <PropertyRef Name="ID_Usuario" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -207,6 +263,9 @@
     <Parameter Name="Correo" Type="varchar" Mode="In" />
     <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="PagarCarritoSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_Usuario" Type="bigint" Mode="In" />
+  </Function>
   <Function Name="RecuperarCuentaClienteSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Identificacion" Type="varchar" Mode="In" />
   </Function>
@@ -233,6 +292,8 @@
     <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Factura_Detalle" EntityType="Self.Factura_Detalle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Factura_Encabezado" EntityType="Self.Factura_Encabezado" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
@@ -251,6 +312,18 @@
     <AssociationSet Name="FK_Clientes_Roles" Association="Self.FK_Clientes_Roles">
       <End Role="Roles" EntitySet="Roles" />
       <End Role="Clientes" EntitySet="Clientes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Factura_Detalle_Factura_Encabezado" Association="Self.FK_Factura_Detalle_Factura_Encabezado">
+      <End Role="Factura_Encabezado" EntitySet="Factura_Encabezado" />
+      <End Role="Factura_Detalle" EntitySet="Factura_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Factura_Detalle_Producto" Association="Self.FK_Factura_Detalle_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Factura_Detalle" EntitySet="Factura_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Factura_Encabezado_Clientes" Association="Self.FK_Factura_Encabezado_Clientes">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Factura_Encabezado" EntitySet="Factura_Encabezado" />
     </AssociationSet>
     <AssociationSet Name="FK_Producto_Categoria" Association="Self.FK_Producto_Categoria">
       <End Role="Categorias" EntitySet="Categorias" />

@@ -158,6 +158,7 @@
     <Compile Include="Controllers\InventarioController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Entities\CarritoEnt.cs" />
+    <Compile Include="Entities\FacturaEnt.cs" />
     <Compile Include="Entities\InventarioEnt.cs" />
     <Compile Include="Entities\ClienteEnt.cs" />
     <Compile Include="Entities\InfoIndex.cs" />

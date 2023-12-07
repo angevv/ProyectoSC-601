@@ -12,28 +12,20 @@ namespace APIProyectoSC_601
     using System;
     using System.Collections.Generic;
     
-    public partial class Producto
+    public partial class Factura_Encabezado
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Producto()
+        public Factura_Encabezado()
         {
-            this.Carrito = new HashSet<Carrito>();
             this.Factura_Detalle = new HashSet<Factura_Detalle>();
         }
     
-        public long ID_Producto { get; set; }
-        public int ID_Categoria { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
-        public int Cantidad { get; set; }
-        public decimal Precio { get; set; }
-        public string Imagen { get; set; }
-        public int Estado { get; set; }
+        public long ID_Factura { get; set; }
+        public long ID_Usuario { get; set; }
+        public System.DateTime FechaCompra { get; set; }
+        public decimal TotalCompra { get; set; }
     
-        public virtual Categorias Categorias { get; set; }
-        public virtual Estado Estado1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Carrito> Carrito { get; set; }
+        public virtual Clientes Clientes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Factura_Detalle> Factura_Detalle { get; set; }
     }

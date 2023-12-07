@@ -51,6 +51,26 @@
           <Property Name="ID_Estado" Type="int" Nullable="false" />
           <Property Name="Tipo_Estado" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="Factura_Detalle">
+          <Key>
+            <PropertyRef Name="ID_Detalle" />
+          </Key>
+          <Property Name="ID_Detalle" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Factura" Type="bigint" Nullable="false" />
+          <Property Name="ID_Producto" Type="bigint" Nullable="false" />
+          <Property Name="PrecioPagado" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="CantidadPagado" Type="int" Nullable="false" />
+          <Property Name="ImpuestoPagado" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Factura_Encabezado">
+          <Key>
+            <PropertyRef Name="ID_Factura" />
+          </Key>
+          <Property Name="ID_Factura" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Usuario" Type="bigint" Nullable="false" />
+          <Property Name="FechaCompra" Type="datetime" Nullable="false" />
+          <Property Name="TotalCompra" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="Producto">
           <Key>
             <PropertyRef Name="ID_Producto" />
@@ -128,6 +148,42 @@
             </Principal>
             <Dependent Role="Clientes">
               <PropertyRef Name="Rol_Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Factura_Detalle_Factura_Encabezado">
+          <End Role="Factura_Encabezado" Type="Self.Factura_Encabezado" Multiplicity="1" />
+          <End Role="Factura_Detalle" Type="Self.Factura_Detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura_Encabezado">
+              <PropertyRef Name="ID_Factura" />
+            </Principal>
+            <Dependent Role="Factura_Detalle">
+              <PropertyRef Name="ID_Factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Factura_Detalle_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Factura_Detalle" Type="Self.Factura_Detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ID_Producto" />
+            </Principal>
+            <Dependent Role="Factura_Detalle">
+              <PropertyRef Name="ID_Producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Factura_Encabezado_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Factura_Encabezado" Type="Self.Factura_Encabezado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="ID_Cliente" />
+            </Principal>
+            <Dependent Role="Factura_Encabezado">
+              <PropertyRef Name="ID_Usuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -212,6 +268,9 @@
           <Parameter Name="Correo" Type="varchar" Mode="In" />
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="PagarCarritoSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_Usuario" Type="bigint" Mode="In" />
+        </Function>
         <Function Name="RecuperarCuentaClienteSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Identificacion" Type="varchar" Mode="In" />
         </Function>
@@ -238,6 +297,8 @@
           <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Factura_Detalle" EntityType="Self.Factura_Detalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Factura_Encabezado" EntityType="Self.Factura_Encabezado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
@@ -256,6 +317,18 @@
           <AssociationSet Name="FK_Clientes_Roles" Association="Self.FK_Clientes_Roles">
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Factura_Detalle_Factura_Encabezado" Association="Self.FK_Factura_Detalle_Factura_Encabezado">
+            <End Role="Factura_Encabezado" EntitySet="Factura_Encabezado" />
+            <End Role="Factura_Detalle" EntitySet="Factura_Detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Factura_Detalle_Producto" Association="Self.FK_Factura_Detalle_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Factura_Detalle" EntitySet="Factura_Detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Factura_Encabezado_Clientes" Association="Self.FK_Factura_Encabezado_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Factura_Encabezado" EntitySet="Factura_Encabezado" />
           </AssociationSet>
           <AssociationSet Name="FK_Producto_Categoria" Association="Self.FK_Producto_Categoria">
             <End Role="Categorias" EntitySet="Categorias" />
@@ -303,6 +376,7 @@
           <NavigationProperty Name="Estado" Relationship="Self.FK_Clientes_Estado" FromRole="Clientes" ToRole="Estado" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_Clientes_Roles" FromRole="Clientes" ToRole="Roles" />
           <NavigationProperty Name="Carrito" Relationship="ImportadoraMoyaUlateModel.FK_Carrito_Clientes" FromRole="Clientes" ToRole="Carrito" />
+          <NavigationProperty Name="Factura_Encabezado" Relationship="ImportadoraMoyaUlateModel.FK_Factura_Encabezado_Clientes" FromRole="Clientes" ToRole="Factura_Encabezado" />
         </EntityType>
         <EntityType Name="Empresa">
           <Key>
@@ -337,6 +411,7 @@
           <NavigationProperty Name="Categorias" Relationship="Self.FK_Producto_Categoria" FromRole="Producto" ToRole="Categorias" />
           <NavigationProperty Name="Estado1" Relationship="Self.FK_Producto_Estado" FromRole="Producto" ToRole="Estado" />
           <NavigationProperty Name="Carrito" Relationship="ImportadoraMoyaUlateModel.FK_Carrito_Producto" FromRole="Producto" ToRole="Carrito" />
+          <NavigationProperty Name="Factura_Detalle" Relationship="ImportadoraMoyaUlateModel.FK_Factura_Detalle_Producto" FromRole="Producto" ToRole="Factura_Detalle" />
         </EntityType>
         <EntityType Name="Proveedores">
           <Key>
@@ -526,6 +601,23 @@
             <End Role="Producto" EntitySet="Producto" />
             <End Role="Carrito" EntitySet="Carrito" />
           </AssociationSet>
+          <EntitySet Name="Factura_Detalle" EntityType="ImportadoraMoyaUlateModel.Factura_Detalle" />
+          <EntitySet Name="Factura_Encabezado" EntityType="ImportadoraMoyaUlateModel.Factura_Encabezado" />
+          <FunctionImport Name="PagarCarritoSP" ReturnType="Collection(String)">
+          <Parameter Name="ID_Usuario" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <AssociationSet Name="FK_Factura_Encabezado_Clientes" Association="ImportadoraMoyaUlateModel.FK_Factura_Encabezado_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Factura_Encabezado" EntitySet="Factura_Encabezado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Factura_Detalle_Factura_Encabezado" Association="ImportadoraMoyaUlateModel.FK_Factura_Detalle_Factura_Encabezado">
+            <End Role="Factura_Encabezado" EntitySet="Factura_Encabezado" />
+            <End Role="Factura_Detalle" EntitySet="Factura_Detalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Factura_Detalle_Producto" Association="ImportadoraMoyaUlateModel.FK_Factura_Detalle_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Factura_Detalle" EntitySet="Factura_Detalle" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="IniciarSesionSP_Result">
           <Property Type="Int64" Name="ID_Cliente" Nullable="false" />
@@ -577,6 +669,66 @@
               <PropertyRef Name="ID_Producto" />
             </Principal>
             <Dependent Role="Carrito">
+              <PropertyRef Name="ID_Producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Factura_Detalle">
+          <Key>
+            <PropertyRef Name="ID_Detalle" />
+          </Key>
+          <Property Name="ID_Detalle" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Factura" Type="Int64" Nullable="false" />
+          <Property Name="ID_Producto" Type="Int64" Nullable="false" />
+          <Property Name="PrecioPagado" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="CantidadPagado" Type="Int32" Nullable="false" />
+          <Property Name="ImpuestoPagado" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Factura_Encabezado" Relationship="ImportadoraMoyaUlateModel.FK_Factura_Detalle_Factura_Encabezado" FromRole="Factura_Detalle" ToRole="Factura_Encabezado" />
+          <NavigationProperty Name="Producto" Relationship="ImportadoraMoyaUlateModel.FK_Factura_Detalle_Producto" FromRole="Factura_Detalle" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Factura_Encabezado">
+          <Key>
+            <PropertyRef Name="ID_Factura" />
+          </Key>
+          <Property Name="ID_Factura" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Usuario" Type="Int64" Nullable="false" />
+          <Property Name="FechaCompra" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TotalCompra" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Clientes" Relationship="ImportadoraMoyaUlateModel.FK_Factura_Encabezado_Clientes" FromRole="Factura_Encabezado" ToRole="Clientes" />
+          <NavigationProperty Name="Factura_Detalle" Relationship="ImportadoraMoyaUlateModel.FK_Factura_Detalle_Factura_Encabezado" FromRole="Factura_Encabezado" ToRole="Factura_Detalle" />
+        </EntityType>
+        <Association Name="FK_Factura_Encabezado_Clientes">
+          <End Type="ImportadoraMoyaUlateModel.Clientes" Role="Clientes" Multiplicity="1" />
+          <End Type="ImportadoraMoyaUlateModel.Factura_Encabezado" Role="Factura_Encabezado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="ID_Cliente" />
+            </Principal>
+            <Dependent Role="Factura_Encabezado">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Factura_Detalle_Factura_Encabezado">
+          <End Type="ImportadoraMoyaUlateModel.Factura_Encabezado" Role="Factura_Encabezado" Multiplicity="1" />
+          <End Type="ImportadoraMoyaUlateModel.Factura_Detalle" Role="Factura_Detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factura_Encabezado">
+              <PropertyRef Name="ID_Factura" />
+            </Principal>
+            <Dependent Role="Factura_Detalle">
+              <PropertyRef Name="ID_Factura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Factura_Detalle_Producto">
+          <End Type="ImportadoraMoyaUlateModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="ImportadoraMoyaUlateModel.Factura_Detalle" Role="Factura_Detalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ID_Producto" />
+            </Principal>
+            <Dependent Role="Factura_Detalle">
               <PropertyRef Name="ID_Producto" />
             </Dependent>
           </ReferentialConstraint>
@@ -707,6 +859,29 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Factura_Detalle">
+            <EntityTypeMapping TypeName="ImportadoraMoyaUlateModel.Factura_Detalle">
+              <MappingFragment StoreEntitySet="Factura_Detalle">
+                <ScalarProperty Name="ImpuestoPagado" ColumnName="ImpuestoPagado" />
+                <ScalarProperty Name="CantidadPagado" ColumnName="CantidadPagado" />
+                <ScalarProperty Name="PrecioPagado" ColumnName="PrecioPagado" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="ID_Factura" ColumnName="ID_Factura" />
+                <ScalarProperty Name="ID_Detalle" ColumnName="ID_Detalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Factura_Encabezado">
+            <EntityTypeMapping TypeName="ImportadoraMoyaUlateModel.Factura_Encabezado">
+              <MappingFragment StoreEntitySet="Factura_Encabezado">
+                <ScalarProperty Name="TotalCompra" ColumnName="TotalCompra" />
+                <ScalarProperty Name="FechaCompra" ColumnName="FechaCompra" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="ID_Factura" ColumnName="ID_Factura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PagarCarritoSP" FunctionName="ImportadoraMoyaUlateModel.Store.PagarCarritoSP" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -54,6 +54,28 @@ namespace ProyectoSC_601.Controllers
             return RedirectToAction("Carrito", "Carrito");
         }
 
+        [HttpPost]
+        public ActionResult PagarCarrito()
+        {
+            var entidad = new CarritoEnt();
+            entidad.ID_Usuario = long.Parse(Session["ID_Cliente"].ToString());
+
+            var respuesta = modelCarrito.PagarCarrito(entidad);
+            var datos = modelCarrito.ConsultarCarrito(long.Parse(Session["ID_Cliente"].ToString()));
+            Session["Cant"] = datos.AsEnumerable().Sum(x => x.Cantidad);
+            Session["SubT"] = datos.AsEnumerable().Sum(x => x.SubTotal);
+
+            if (respuesta == "TRUE")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewBag.MensajeUsuario = "No se ha podido procesar su pago, verifique las unidades disponibles";
+                return View("Carrito", datos);
+            }
+        }
+
     }
 }
 

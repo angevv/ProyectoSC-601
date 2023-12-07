@@ -76,5 +76,15 @@ namespace APIProyectoSC_601.Controllers
                 context.SaveChanges();
             }
         }
+
+        [HttpPost]
+        [Route("PagarCarrito")]
+        public string PagarCarrito(Carrito carrito)
+        {
+            using (var context = new ImportadoraMoyaUlateEntities())
+            {
+                return context.PagarCarritoSP(carrito.ID_Usuario).FirstOrDefault();
+            }
+        }
     }
 }

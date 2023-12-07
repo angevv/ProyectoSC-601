@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProyectoSC_601.Entities.ClienteEnt>
+﻿@model IEnumerable<ProyectoSC_601.Entities.FacturaEnt>
 @{
     ViewBag.Title = "Facturacion";
     Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
@@ -16,45 +16,56 @@
             <div class="card" style="margin-bottom:80px;">
                 <div class="card-body">
                     <h4 class="card-title">Facturas Registrados</h4><br />
-                    <div class="table-responsive">
-                        @if (ViewBag.MensajeNoExitoso != null)
-                        {
-                            <div class="alert alert-danger" role="alert" style="text-align: center; margin: 10px !important;margin-bottom:-40px!important;">
-                                @ViewBag.Mensaje
-                            </div>
-                        }
-                      
-                            <table id="TablaClientes" class="table table-bordered table-hover">
-                                <thead class="table-info">
-                                    <tr>
-                                        <th style="background-color: #6282a9; color:white;">ID</th>
-                                        <th style="background-color: #6282a9; color:white;">Fecha</th>
-                                        <th style="background-color: #6282a9; color:white;">Nombre Completo</th>
-                                        <th style="background-color: #6282a9; color:white;">Correo Electrónico</th>
-                                        <th style="background-color: #6282a9; color:white;">Monto</th>
-                                        <th style="background-color: #6282a9; color:white;">Monto con IVA</th>
-                                        <th style="background-color: #6282a9; color:white;">Tipo</th>
-                                        <th style="background-color: #6282a9; color:white;">Ver Detalles</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="alert" role="alert">
-                                        <th scope="row">FE001</th>
-                                        <td>06/12/2023</td>
-                                        <td>Mark Otto</td>
-                                        <td>markotto@email.com</td>
-                                        <td>₡4601</td>
-                                        <td>₡5200</td>
-                                        <td>Factura Electronica</td>
-                                        <td style="text-align:center;">
-                                            <a href="@Url.Action("FacturaDetalle", "Facturacion")"><i style="color: #6282a9;" class="fa fa-search fa-lg"></i></a>
-                                           
-                                        </td>
-                                          
-                                    </tr>
-                                   
-                                </tbody>
-                            </table>
+                        <div class="table-responsive">
+
+                            @if (Model.Count() > 0)
+                            {
+
+                                <table id="TablaClientes" class="table table-bordered table-hover">
+                                    <thead class="table table-bordered table-hover">
+                                        <tr>
+                                            <th  style="background-color: #6282a9; color:white;">Número de Factura</th>
+                                            <th  style="background-color: #6282a9; color:white;">Cliente</th>
+                                            <th  style="background-color: #6282a9; color:white;">Fecha de Compra</th>
+                                            <th  style="background-color: #6282a9; color:white;">Total de la compra</th>
+                                            <th  style="background-color: #6282a9; color:white;">Ver detalle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td># @item.ID_Factura</td>
+                                                <td>@item.NombreCliente @item.ApellidoCliente</td>
+                                                <td>@item.FechaCompra</td>
+                                                <td>₡ @item.TotalCompra.ToString("N2")</td>
+
+                                                <td style="text-align:center">
+                                                    <a href="@Url.Action("FacturaDetalle", "Facturacion", new { q = item.ID_Factura })"><i class="fa fa-search fa-lg" style="color:#6282a9;"></i></a>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <table id="TablaClientes" class="table table-bordered table-hover">
+                                    <thead class="table table-bordered table-hover">
+                                        <tr>
+                                            <th style="background-color: #6282a9; color:white;">Número de Factura</th>
+                                            <th style="background-color: #6282a9; color:white;">Cliente</th>
+                                            <th style="background-color: #6282a9; color:white;">Fecha de Compra</th>
+                                            <th style="background-color: #6282a9; color:white;">Total de la compra</th>
+                                            <th style="background-color: #6282a9; color:white;">Ver detalle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            }
+
                         <br>
                     </div>
                 </div>
