@@ -10,10 +10,10 @@
 <section id="cata" class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row">
-            <div class="col-md-3 mb-4">
+            <div class="col-sm-2 mb-3" style="margin-left:-4rem;">
                 <div class="card">
                     <div class="card-header" style="background-color: #6282a9; color:white;">
-                        <h4 class="mb-0">Categorías</h4>
+                        <h6 class="mb-0">Categorías</h6>
                     </div>
                     <div class="card-body">
                         @foreach (var categoria in ViewBag.Categorias)
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-8" style="margin-left:6%;">
                 <div id="productoCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
 
@@ -44,7 +44,7 @@
                                         {
                                             if (currentItem.Estado == 1)
                                             {
-                                                <div class="col mb-5" data-categoria="@currentItem.ID_Categoria">
+                                                <div class="col mb-4" data-categoria="@currentItem.ID_Categoria">
                                                     <div class="card h-100">
                                                         @if (currentItem.Cantidad <= 5)
                                                         {
@@ -52,7 +52,7 @@
                                                         }
                                                         <div class="text-center">
                                                             <a href="@Url.Action("ProductoDetalle", "Producto", new { q = currentItem.ID_Producto })">
-                                                                <img src="@currentItem.Imagen" class="card-img-top" alt="@currentItem.Nombre" style="max-height: 200px;">
+                                                                <img src="@currentItem.Imagen" class="card-img-top" alt="@currentItem.Nombre" style="width:250px; height:175px">
                                                             </a>
                                                         </div>
                                                         <div class="card-body p-4">
