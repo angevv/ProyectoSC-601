@@ -20,6 +20,7 @@
                         <h4 class="card-title">Facturas Registradas</h4>
                         <div style="margin-left:72%">
                             <div style="display:flex;">
+                                <!-- <a class="btn btn-primary" href="javascript:void(0);" onclick="MostrarTotalInventario()"><i style="color: white;" class="fa fa-eye fa-lg"></i></a> -->
                                 <a class="btn btn-primary" href="javascript:void(0);" onclick="MostrarTotalInventario()"><i style="color: white;" class="fa fa-eye fa-lg"></i></a>
                                 <a class="btn btn-primary" href="@Url.Action("RegistrarProducto","Inventario")" style="margin-left:5%;"><i style="color: white;" class="fa fa-plus fa-lg"></i></a>
                             </div>
@@ -32,10 +33,12 @@
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>ID no.</th>
+                                            <th>Fecha</th>
                                             <th>Nombre</th>
                                             <th>Apellido</th>
                                             <th>Email</th>
                                             <th>Monto</th>
+                                            <th>Monto IVA</th>
                                             <th>Tipo</th>
                                             <th>&nbsp;</th>
                                         </tr>
@@ -43,9 +46,11 @@
                                     <tbody>
                                         <tr class="alert" role="alert">
                                             <th scope="row">FE001</th>
+                                            <td>06/12/2023</td>
                                             <td>Mark</td>
                                             <td>Otto</td>
                                             <td>markotto@email.com</td>
+                                            <td>₡4601</td>
                                             <td>₡5200</td>
                                             <td>Factura Electronica</td>
                                             <td>
@@ -56,9 +61,11 @@
                                         </tr>
                                         <tr class="alert" role="alert">
                                             <th scope="row">FE002</th>
+                                            <td>06/12/2023</td>
                                             <td>Jacob</td>
                                             <td>Thornton</td>
                                             <td>jacobthornton@email.com</td>
+                                            <td>₡6106</td>
                                             <td>₡6900</td>
                                             <td>Factura Electronica</td>
                                             <td>
@@ -69,9 +76,11 @@
                                         </tr>
                                         <tr class="alert" role="alert">
                                             <th scope="row">FE003</th>
+                                            <td>04/12/2023</td>
                                             <td>Larry</td>
                                             <td>the Bird</td>
                                             <td>larrybird@email.com</td>
+                                            <td>₡9026</td>
                                             <td>₡10200</td>
                                             <td>Factura Electronica</td>
                                             <td>
@@ -82,9 +91,11 @@
                                         </tr>
                                         <tr class="alert" role="alert">
                                             <th scope="row">FE004</th>
+                                            <td>08/12/2023</td>
                                             <td>John</td>
                                             <td>Doe</td>
                                             <td>johndoe@email.com</td>
+                                            <td>₡163717</td>
                                             <td>₡185000</td>
                                             <td>Factura Electronica</td>
                                             <td>
@@ -95,9 +106,11 @@
                                         </tr>
                                         <tr class="alert" role="alert">
                                             <th scope="row">NC001</th>
+                                            <td>01/12/2023</td>
                                             <td>Gary</td>
                                             <td>Bird</td>
                                             <td>garybird@email.com</td>
+                                            <td>₡70796</td>
                                             <td>₡80000</td>
                                             <td>Nota de Credito</td>
                                             <td>
