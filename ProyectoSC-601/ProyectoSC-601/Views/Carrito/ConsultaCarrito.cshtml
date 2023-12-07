@@ -1,0 +1,86 @@
+﻿
+@{
+  ViewBag.Title = "ConsultaProductos";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Información del Carrito</h4>
+            <br>
+
+            @*@if (ViewBag.MensajeUsuario != null) *@
+
+            @*div class="alert alert-danger" role="alert" style="text-align:center">*@
+        </div>
+        @*@ViewBag.MensajeUsuario*@
+        </div>
+        
+
+        @* @if (Model.Count() > 0)*@
+            
+
+            <table id="tableShow" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>SubTotal</th>
+                        <th>Impuesto</th>
+                        <th>Total</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @*@foreach (var item in Model)*@
+                    
+                    <tr>
+                        <td>Juan</td>
+                        <td>1</td>
+                        <td>500</td>
+                        <td>500</td>
+                        <td>65</td>
+                        <td>565</td>
+                        <td style="text-align:center">
+                            @* <a href="@Url.Action("EliminarRegistroCarrito", "Carrito", new { q = item.ConCarrito })"><i class="fa fa-remove fa-lg"></i></a>*@
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+            <div class="row" style="margin-top: 2%;">
+                <div class="col-3">
+                    <p style="font-weight:bold; text-align:center; line-height: 40px;"> El monto total a pagar es de: </p>
+                </div>
+                <div class="col-4">
+                    @using (Html.BeginForm("PagarCarrito", "Carrito", FormMethod.Post))
+                    {
+                        <input type="submit" class="btn btn-primary" value="Pagar">
+                    }
+                </div>
+            </div>
+           
+            
+            
+            <div class="col-12 alert alert-info" role="alert" style="text-align: center; margin-top: 5%;">
+                No hay productos agregados en este momento
+            </div>
+            
+
+        </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#tableShow').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                    }
+                });
+            });
+        </script>

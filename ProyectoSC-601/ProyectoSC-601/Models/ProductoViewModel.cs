@@ -5,7 +5,9 @@ using System.Web;
 
 namespace ProyectoSC_601.Models
 {
-    public class ProductoModel
+    public class ProductoViewModel
     {
+        public string Nombre { get; set; }
+        public double Precio { get; set; }
     }
 }

@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ImportadoraMoyaUlateModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Carrito">
+    <Key>
+      <PropertyRef Name="ID_Carrito" />
+    </Key>
+    <Property Name="ID_Carrito" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_Usuario" Type="bigint" Nullable="false" />
+    <Property Name="ID_Producto" Type="bigint" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="FechaCarrito" Type="datetime" />
+  </EntityType>
   <EntityType Name="Categorias">
     <Key>
       <PropertyRef Name="ID_Categoria" />
@@ -163,6 +173,17 @@
     <Parameter Name="Direccion_Exacta" Type="varchar" Mode="In" />
     <Parameter Name="Empresa" Type="bigint" Mode="In" />
   </Function>
+  <Function Name="AgregarAlCarritoSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_Usuario" Type="bigint" Mode="In" />
+    <Parameter Name="ID_Producto" Type="bigint" Mode="In" />
+    <Parameter Name="Cantidad" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ConsultarCarritoSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_Usuario" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="EliminarDelCarritoSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_Carrito" Type="bigint" Mode="In" />
+  </Function>
   <Function Name="EliminarProveedorSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ID_Proveedor" Type="bigint" Mode="In" />
   </Function>
@@ -172,6 +193,9 @@
   <Function Name="IniciarSesionSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Correo" Type="varchar" Mode="In" />
     <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="PagarCarritoSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_Usuario" Type="bigint" Mode="In" />
   </Function>
   <Function Name="RecuperarCuentaClienteSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Identificacion" Type="varchar" Mode="In" />
@@ -193,7 +217,11 @@
     <Parameter Name="Estado_Proveedor" Type="int" Mode="In" />
     <Parameter Name="Empresa" Type="bigint" Mode="In" />
   </Function>
+  <Function Name="VaciarCarritoSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_Usuario" Type="bigint" Mode="In" />
+  </Function>
   <EntityContainer Name="ImportadoraMoyaUlateModelStoreContainer">
+    <EntitySet Name="Carrito" EntityType="Self.Carrito" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />

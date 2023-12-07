@@ -1,6 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ImportadoraMoyaUlateModelStoreContainer" CdmEntityContainer="ImportadoraMoyaUlateEntities">
+    <EntitySetMapping Name="Carrito">
+      <EntityTypeMapping TypeName="ImportadoraMoyaUlateModel.Carrito">
+        <MappingFragment StoreEntitySet="Carrito">
+          <ScalarProperty Name="ID_Carrito" ColumnName="ID_Carrito" />
+          <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+          <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="FechaCarrito" ColumnName="FechaCarrito" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Categorias">
       <EntityTypeMapping TypeName="ImportadoraMoyaUlateModel.Categorias">
         <MappingFragment StoreEntitySet="Categorias">
@@ -80,6 +91,19 @@
     <FunctionImportMapping FunctionImportName="ActualizarEstadoClienteSP" FunctionName="ImportadoraMoyaUlateModel.Store.ActualizarEstadoClienteSP" />
     <FunctionImportMapping FunctionImportName="ActualizarEstadoProveedorSP" FunctionName="ImportadoraMoyaUlateModel.Store.ActualizarEstadoProveedorSP" />
     <FunctionImportMapping FunctionImportName="ActualizarProveedorSP" FunctionName="ImportadoraMoyaUlateModel.Store.ActualizarProveedorSP" />
+    <FunctionImportMapping FunctionImportName="AgregarAlCarritoSP" FunctionName="ImportadoraMoyaUlateModel.Store.AgregarAlCarritoSP" />
+    <FunctionImportMapping FunctionImportName="ConsultarCarritoSP" FunctionName="ImportadoraMoyaUlateModel.Store.ConsultarCarritoSP">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ImportadoraMoyaUlateModel.ConsultarCarritoSP_Result">
+          <ScalarProperty Name="ID_Carrito" ColumnName="ID_Carrito" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="EliminarDelCarritoSP" FunctionName="ImportadoraMoyaUlateModel.Store.EliminarDelCarritoSP" />
     <FunctionImportMapping FunctionImportName="EliminarProveedorSP" FunctionName="ImportadoraMoyaUlateModel.Store.EliminarProveedorSP" />
     <FunctionImportMapping FunctionImportName="InactivarClienteSP" FunctionName="ImportadoraMoyaUlateModel.Store.InactivarClienteSP" />
     <FunctionImportMapping FunctionImportName="IniciarSesionSP" FunctionName="ImportadoraMoyaUlateModel.Store.IniciarSesionSP">
@@ -98,6 +122,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="PagarCarritoSP" FunctionName="ImportadoraMoyaUlateModel.Store.PagarCarritoSP" />
     <FunctionImportMapping FunctionImportName="RecuperarCuentaClienteSP" FunctionName="ImportadoraMoyaUlateModel.Store.RecuperarCuentaClienteSP">
       <ResultMapping>
         <ComplexTypeMapping TypeName="ImportadoraMoyaUlateModel.RecuperarCuentaClienteSP_Result">
@@ -110,5 +135,6 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="RegistrarClienteSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarClienteSP" />
     <FunctionImportMapping FunctionImportName="RegistrarProveedorSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarProveedorSP" />
+    <FunctionImportMapping FunctionImportName="VaciarCarritoSP" FunctionName="ImportadoraMoyaUlateModel.Store.VaciarCarritoSP" />
   </EntityContainerMapping>
 </Mapping>

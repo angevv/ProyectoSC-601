@@ -18,57 +18,57 @@
                     <h4 class="card-title">Clientes Registrados</h4><br />
                     <div class="table-responsive">
                         @if (ViewBag.MensajeNoExitoso != null)
-{
+                        {
                             <div class="alert alert-danger" role="alert" style="text-align: center; margin: 10px !important;margin-bottom:-40px!important;">
                                 @ViewBag.Mensaje
                             </div>
                         }
                         @if (Model.Count() > 0)
                         {
-                        <table id="TablaClientes" class="table table-bordered table-hover">
-                            <thead class="table-info">
-                                <tr>
-                                    <th style="background-color: #6282a9; color:white;">ID</th>
-                                    <th style="background-color: #6282a9; color:white;">Cédula</th>
-                                    <th style="background-color: #6282a9; color:white;">Nombre Completo</th>
-                                    <th style="background-color: #6282a9; color:white;">Correo Electrónico</th>
-                                    <th style="background-color: #6282a9; color:white;">Dirección Exacta</th>
-                                    <th style="background-color: #6282a9; color:white;">Teléfono</th>
-                                    <th style="background-color: #6282a9; color:white;">Estado</th>
-                                    <th style="background-color: #6282a9; color:white;">Opciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
+                            <table id="TablaClientes" class="table table-bordered table-hover">
+                                <thead class="table-info">
                                     <tr>
-                                        <td>@item.ID_Cliente</td>
-                                        <td>@item.Ced_Cliente</td>
-                                        <td>@($"{item.Nombre_Cliente} {item.Apellido_Cliente}")</td>
-                                        <td>@item.Correo_Cliente</td>
-                                        <td>@item.Direccion_Cliente</td>
-                                        <td>@item.Tel_Cliente</td>
-                                        @if (item.Est_Cliente == 1)
-                                        {
-                                            <td><span class="badge bg-success">Activo</span></td>
-                                        }
-                                        else
-                                        {
-                                            <td><span class="badge bg-danger">Inactivo</span></td>
-                                        }
-                                        <td class="text-center">
-                                            <a href="@Url.Action("ActualizarEstadoCliente", "Cliente", new { q = item.ID_Cliente })"><i class="fa fa-exchange fa-lg text-primary"></i></a>
-                                        </td>
+                                        <th style="background-color: #6282a9; color:white;">ID</th>
+                                        <th style="background-color: #6282a9; color:white;">Cédula</th>
+                                        <th style="background-color: #6282a9; color:white;">Nombre Completo</th>
+                                        <th style="background-color: #6282a9; color:white;">Correo Electrónico</th>
+                                        <th style="background-color: #6282a9; color:white;">Dirección Exacta</th>
+                                        <th style="background-color: #6282a9; color:white;">Teléfono</th>
+                                        <th style="background-color: #6282a9; color:white;">Estado</th>
+                                        <th style="background-color: #6282a9; color:white;">Opciones</th>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.ID_Cliente</td>
+                                            <td>@item.Ced_Cliente</td>
+                                            <td>@($"{item.Nombre_Cliente} {item.Apellido_Cliente}")</td>
+                                            <td>@item.Correo_Cliente</td>
+                                            <td>@item.Direccion_Cliente</td>
+                                            <td>@item.Tel_Cliente</td>
+                                            @if (item.Est_Cliente == 1)
+                                            {
+                                                <td><span class="badge bg-success">Activo</span></td>
+                                            }
+                                            else
+                                            {
+                                                <td><span class="badge bg-danger">Inactivo</span></td>
+                                            }
+                                            <td class="text-center">
+                                                <a href="@Url.Action("ActualizarEstadoCliente", "Cliente", new { q = item.ID_Cliente })"><i class="fa fa-exchange fa-lg text-primary"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
                         }
                         else
-                         {
-                        <div class="col-12 alert alert-info" role="alert" style="text-align: center; margin-top: 5%;">
-                        No hay clientes registrados en este momento
-                        </div>
+                        {
+                            <div class="col-12 alert alert-info" role="alert" style="text-align: center; margin-top: 5%;">
+                                No hay clientes registrados en este momento
+                            </div>
                         }
                         <br>
                     </div>

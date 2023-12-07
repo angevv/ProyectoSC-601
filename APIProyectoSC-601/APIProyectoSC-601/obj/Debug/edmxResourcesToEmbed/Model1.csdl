@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ImportadoraMoyaUlateModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Carrito">
+    <Key>
+      <PropertyRef Name="ID_Carrito" />
+    </Key>
+    <Property Name="ID_Carrito" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_Usuario" Type="Int64" Nullable="false" />
+    <Property Name="ID_Producto" Type="Int64" Nullable="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="FechaCarrito" Type="DateTime" Precision="3" />
+  </EntityType>
   <EntityType Name="Categorias">
     <Key>
       <PropertyRef Name="ID_Categoria" />
@@ -153,6 +163,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="ImportadoraMoyaUlateEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Carrito" EntityType="Self.Carrito" />
     <EntitySet Name="Categorias" EntityType="Self.Categorias" />
     <EntitySet Name="Clientes" EntityType="Self.Clientes" />
     <EntitySet Name="Empresa" EntityType="Self.Empresa" />
@@ -207,6 +218,17 @@
       <Parameter Name="Direccion_Exacta" Mode="In" Type="String" />
       <Parameter Name="Empresa" Mode="In" Type="Int64" />
     </FunctionImport>
+    <FunctionImport Name="AgregarAlCarritoSP">
+      <Parameter Name="ID_Usuario" Mode="In" Type="Int64" />
+      <Parameter Name="ID_Producto" Mode="In" Type="Int64" />
+      <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ConsultarCarritoSP" ReturnType="Collection(ImportadoraMoyaUlateModel.ConsultarCarritoSP_Result)">
+      <Parameter Name="ID_Usuario" Mode="In" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="EliminarDelCarritoSP">
+      <Parameter Name="ID_Carrito" Mode="In" Type="Int64" />
+    </FunctionImport>
     <FunctionImport Name="EliminarProveedorSP">
       <Parameter Name="ID_Proveedor" Mode="In" Type="Int64" />
     </FunctionImport>
@@ -216,6 +238,9 @@
     <FunctionImport Name="IniciarSesionSP" ReturnType="Collection(ImportadoraMoyaUlateModel.IniciarSesionSP_Result)">
       <Parameter Name="Correo" Mode="In" Type="String" />
       <Parameter Name="Contrasenna" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="PagarCarritoSP" ReturnType="Collection(Decimal)">
+      <Parameter Name="ID_Usuario" Mode="In" Type="Int64" />
     </FunctionImport>
     <FunctionImport Name="RecuperarCuentaClienteSP" ReturnType="Collection(ImportadoraMoyaUlateModel.RecuperarCuentaClienteSP_Result)">
       <Parameter Name="Identificacion" Mode="In" Type="String" />
@@ -237,7 +262,17 @@
       <Parameter Name="Estado_Proveedor" Mode="In" Type="Int32" />
       <Parameter Name="Empresa" Mode="In" Type="Int64" />
     </FunctionImport>
+    <FunctionImport Name="VaciarCarritoSP">
+      <Parameter Name="ID_Usuario" Mode="In" Type="Int64" />
+    </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="ConsultarCarritoSP_Result">
+    <Property Type="Int64" Name="ID_Carrito" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="250" />
+    <Property Type="Decimal" Name="Precio" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="Cantidad" Nullable="false" />
+    <Property Type="Decimal" Name="SubTotal" Nullable="true" Precision="29" Scale="2" />
+  </ComplexType>
   <ComplexType Name="IniciarSesionSP_Result">
     <Property Type="Int64" Name="ID_Cliente" Nullable="false" />
     <Property Type="String" Name="Ced_Cliente" Nullable="false" MaxLength="25" />

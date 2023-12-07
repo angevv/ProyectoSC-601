@@ -148,8 +148,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\CompartidoController.cs" />
     <Compile Include="Controllers\CarritoController.cs" />
+    <Compile Include="Controllers\CompartidoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\FacturacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -164,10 +164,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CarritoModel.cs" />
+<<<<<<< Updated upstream
     <Compile Include="Models\FacturacionModel.cs" />
+=======
+    <Compile Include="Models\FacturaModel.cs" />
+>>>>>>> Stashed changes
     <Compile Include="Models\InventarioModel.cs" />
     <Compile Include="Models\IndexModel.cs" />
-    <Compile Include="Models\ProductoModel.cs" />
+    <Compile Include="Models\ProductoViewModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\ProveedorModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -347,7 +351,6 @@
     <Content Include="Views\Cliente\Login.cshtml" />
     <Content Include="Views\Shared\_Layout_Login.cshtml" />
     <Content Include="Views\Cliente\RecuperarCuentaCliente.cshtml" />
-    <Content Include="Views\carrito\carrito.cshtml" />
     <Content Include="Views\Home\IndexAdmin.cshtml" />
     <Content Include="Views\Shared\_Layout_deAdmin.cshtml" />
     <Content Include="Views\Proveedor\RegistrarProveedor.cshtml" />
@@ -364,7 +367,15 @@
     <Content Include="Views\Producto\CatalogoMujer.cshtml" />
     <Content Include="Views\Producto\CatalogoHombre.cshtml" />
     <Content Include="Views\Producto\CatalogoNinos.cshtml" />
+<<<<<<< Updated upstream
     <Content Include="Views\Facturacion\Facturacion.cshtml" />
+=======
+    <Content Include="Views\Proveedor\ComprasProveedores.cshtml" />
+    <Content Include="Views\Producto\AdquisicionesProductos.cshtml" />
+    <Content Include="Views\Carrito\ConsultaCarrito.cshtml" />
+    <Content Include="Views\Carrito\ConsultaDetalleFactura.cshtml" />
+    <Content Include="Views\Carrito\ConsultaFacturas.cshtml" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

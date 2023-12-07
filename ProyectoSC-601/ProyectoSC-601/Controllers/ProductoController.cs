@@ -40,6 +40,20 @@ namespace ProyectoSC_601.Controllers
             return View(datos);
         }
 
+
+        [HttpGet]
+        public ActionResult AdquisicionesProductos()
+        {
+           
+            var productos = new List<ProductoViewModel>
+        {
+            new ProductoViewModel { Nombre = "Producto 1", Precio = 20.0 },
+            new ProductoViewModel { Nombre = "Producto 2", Precio = 30.0 },
+          
+        };
+            return View();
+        }
+
         [HttpGet]
         public ActionResult ProductoDetalle(long q)
         {

@@ -27,6 +27,7 @@ namespace APIProyectoSC_601
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Carrito> Carrito { get; set; }
         public virtual DbSet<Categorias> Categorias { get; set; }
         public virtual DbSet<Clientes> Clientes { get; set; }
         public virtual DbSet<Empresa> Empresa { get; set; }
@@ -115,6 +116,41 @@ namespace APIProyectoSC_601
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarProveedorSP", iD_ProveedorParameter, nombre_ProveedorParameter, apellido_ProveedorParameter, cedula_ProveedorParameter, direccion_ExactaParameter, empresaParameter);
         }
     
+        public virtual int AgregarAlCarritoSP(Nullable<long> iD_Usuario, Nullable<long> iD_Producto, Nullable<int> cantidad)
+        {
+            var iD_UsuarioParameter = iD_Usuario.HasValue ?
+                new ObjectParameter("ID_Usuario", iD_Usuario) :
+                new ObjectParameter("ID_Usuario", typeof(long));
+    
+            var iD_ProductoParameter = iD_Producto.HasValue ?
+                new ObjectParameter("ID_Producto", iD_Producto) :
+                new ObjectParameter("ID_Producto", typeof(long));
+    
+            var cantidadParameter = cantidad.HasValue ?
+                new ObjectParameter("Cantidad", cantidad) :
+                new ObjectParameter("Cantidad", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AgregarAlCarritoSP", iD_UsuarioParameter, iD_ProductoParameter, cantidadParameter);
+        }
+    
+        public virtual ObjectResult<ConsultarCarritoSP_Result> ConsultarCarritoSP(Nullable<long> iD_Usuario)
+        {
+            var iD_UsuarioParameter = iD_Usuario.HasValue ?
+                new ObjectParameter("ID_Usuario", iD_Usuario) :
+                new ObjectParameter("ID_Usuario", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarCarritoSP_Result>("ConsultarCarritoSP", iD_UsuarioParameter);
+        }
+    
+        public virtual int EliminarDelCarritoSP(Nullable<long> iD_Carrito)
+        {
+            var iD_CarritoParameter = iD_Carrito.HasValue ?
+                new ObjectParameter("ID_Carrito", iD_Carrito) :
+                new ObjectParameter("ID_Carrito", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EliminarDelCarritoSP", iD_CarritoParameter);
+        }
+    
         public virtual int EliminarProveedorSP(Nullable<long> iD_Proveedor)
         {
             var iD_ProveedorParameter = iD_Proveedor.HasValue ?
@@ -144,6 +180,15 @@ namespace APIProyectoSC_601
                 new ObjectParameter("Contrasenna", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<IniciarSesionSP_Result>("IniciarSesionSP", correoParameter, contrasennaParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> PagarCarritoSP(Nullable<long> iD_Usuario)
+        {
+            var iD_UsuarioParameter = iD_Usuario.HasValue ?
+                new ObjectParameter("ID_Usuario", iD_Usuario) :
+                new ObjectParameter("ID_Usuario", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("PagarCarritoSP", iD_UsuarioParameter);
         }
     
         public virtual ObjectResult<RecuperarCuentaClienteSP_Result> RecuperarCuentaClienteSP(string identificacion)
@@ -215,6 +260,15 @@ namespace APIProyectoSC_601
                 new ObjectParameter("Empresa", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarProveedorSP", nombre_ProveedorParameter, apellido_ProveedorParameter, cedula_ProveedorParameter, direccion_ExactaParameter, estado_ProveedorParameter, empresaParameter);
+        }
+    
+        public virtual int VaciarCarritoSP(Nullable<long> iD_Usuario)
+        {
+            var iD_UsuarioParameter = iD_Usuario.HasValue ?
+                new ObjectParameter("ID_Usuario", iD_Usuario) :
+                new ObjectParameter("ID_Usuario", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("VaciarCarritoSP", iD_UsuarioParameter);
         }
     }
 }

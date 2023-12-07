@@ -48,9 +48,23 @@
 
                     <li><a class="nav-link scrollto" @Html.ActionLink("Catálogo", "Catalogo", "Producto", new { area = "" }, new { @class = "nav-link" })</a></li>
 
-                    <li><a class="nav-link scrollto " @Html.ActionLink("Carrito", "carrito", "carrito", new { area = "" }, new { @class = "nav-link" })</a></li>
+                    <!--<li>@Html.ActionLink("Carrito", "ConsultaCarrito", "Carrito", new { area = "" }, new { @class = "nav-link" })</li>-->
+
+                    <!-- <li><a class="nav-link scrollto " @Html.ActionLink("Carrito", "carrito", "carrito", new { area = "" }, new { @class = "nav-link" })</a></li>-->
 
                     <li><a class="nav-link scrollto" @Html.ActionLink("Contacto", "Contacto", "Compartido", new { area = "" }, new { @class = "nav-link" })</a></li>
+
+                    <li>@Html.ActionLink("Compras a Proveedores", "ComprasProveedores", "Compras", new { area = "" }, new { @class = "nav-link" })</li>
+
+                    <!--  <li><a href="@Url.Action("AdquisicionesProductos", "Producto")">Productos proveedor</a></li>-->
+
+                    <li><a href="@Url.Action("ConsultaCarrito", "Carrito")">Carrito</a></li>
+
+                    <li><a href="@Url.Action("ConsultaFacturas", "Carrito")">Factura</a></li>
+
+                    <!-- <li class="nav-item" style="margin-top:10px"><a class="nav-link" href="@Url.Action("ConsultaCarrito", "Carrito")"><i class="icon-grid menu-icon"></i> <span class="menu-title">Pagos</span></a></li> -->
+                    <!--<li class="nav-item" style="margin-top:10px"> <a class="nav-link" href="@Url.Action("ConsultaFacturas", "Carrito")"><i class="icon-grid menu-icon"></i><span class="menu-title">Facturas</span></a> -->
+
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
@@ -138,15 +152,15 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- JS Files -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="~/Assets/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="~/Assets/vendor/aos/aos.js"></script>
-    <script src="~/Assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/Assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="~/Assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="~/Assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="~/Assets/vendor/php-email-form/validate.js"></script>
-    <script src="~/Assets/js/main.js"></script>
+                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                    <script src="~/Assets/vendor/purecounter/purecounter_vanilla.js"></script>
+                    <script src="~/Assets/vendor/aos/aos.js"></script>
+                    <script src="~/Assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                    <script src="~/Assets/vendor/glightbox/js/glightbox.min.js"></script>
+                    <script src="~/Assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+                    <script src="~/Assets/vendor/swiper/swiper-bundle.min.js"></script>
+                    <script src="~/Assets/vendor/php-email-form/validate.js"></script>
+                    <script src="~/Assets/js/main.js"></script>
 
 </body>
 

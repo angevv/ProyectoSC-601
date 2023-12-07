@@ -141,6 +141,7 @@ namespace ProyectoSC_601.Models
 
 
 
+
         /*Esta parte del código realiza una solicitud HTTP DELETE a una API para eliminar un proveedor. 
         Utiliza el ID del proveedor en la URL de la solicitud como en el actualizar y utilizar la variable q para mantener la privacidad de los nombres*/
         public string EliminarProveedor(long idProveedor)
