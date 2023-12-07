@@ -43,6 +43,17 @@ namespace ProyectoSC_601.Controllers
          
         }
 
+        [HttpGet]
+        public ActionResult EliminarRegistroCarrito(long q)
+        {
+            modelCarrito.EliminarRegistroCarrito(q);
+
+            var datos = modelCarrito.ConsultarCarrito(long.Parse(Session["ID_Cliente"].ToString()));
+            Session["Cant"] = datos.AsEnumerable().Sum(x => x.Cantidad);
+            Session["SubT"] = datos.AsEnumerable().Sum(x => x.SubTotal);
+            return RedirectToAction("Carrito", "Carrito");
+        }
+
     }
 }
 

@@ -34,5 +34,14 @@ namespace ProyectoSC_601.Models
             }
 
         }
+
+        public void EliminarRegistroCarrito(long q)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "EliminarRegistroCarrito?q=" + q;
+                var res = client.DeleteAsync(urlApi).Result;
+            }
+        }
     }
 }

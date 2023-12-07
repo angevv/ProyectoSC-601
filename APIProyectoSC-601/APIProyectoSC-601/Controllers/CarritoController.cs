@@ -61,5 +61,20 @@ namespace APIProyectoSC_601.Controllers
                         }).ToList();
             }
         }
+
+        [HttpDelete]
+        [Route("EliminarRegistroCarrito")]
+        public void EliminarRegistroCarrito(long q)
+        {
+            using (var context = new ImportadoraMoyaUlateEntities())
+            {
+                var datos = (from x in context.Carrito
+                             where x.ID_Carrito == q
+                             select x).FirstOrDefault();
+
+                context.Carrito.Remove(datos);
+                context.SaveChanges();
+            }
+        }
     }
 }

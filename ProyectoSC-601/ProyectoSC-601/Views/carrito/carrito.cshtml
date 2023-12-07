@@ -18,12 +18,6 @@
                 <div class="card-body">
                     <div style="display:flex;">
                         <h4 class="card-title">Información del Carrito</h4>
-                        @*<div style="margin-left:72%">
-                            <div style="display:flex;">
-                                <a class="btn btn-primary" href="javascript:void(0);" onclick="MostrarTotalInventario()"><i style="color: white;" class="fa fa-eye fa-lg"></i></a>
-                                <a class="btn btn-primary" href="@Url.Action("RegistrarProducto","Inventario")" style="margin-left:5%;"><i style="color: white;" class="fa fa-plus fa-lg"></i></a>
-                            </div>
-                        </div>*@
                     </div>
                     <div class="table-responsive">
                         <br><br>
@@ -62,7 +56,7 @@
                                             <td>@item.Impuesto.ToString("N2")</td>
                                             <td>@item.Total.ToString("N2")</td>
                                             <td style="text-align:center">
-                                                <a href="@Url.Action("EliminarRegistroCarrito", "Carrito", new { q = item.ID_Carrito })"><i class="fa fa-remove fa-lg"></i></a>
+                                                <a href="@Url.Action("EliminarRegistroCarrito", "Carrito", new { q = item.ID_Carrito })"><i class="fa fa-remove fa-lg" style="color:#6282a9;"></i></a>
                                             </td>
                                         </tr>
                                     }
@@ -70,14 +64,14 @@
                             </table>
 
 
-                            <div class="row" style="margin-top: 2%;">
-                                <div class="col-3">
-                                    <p style="font-weight:bold; text-align:center; line-height: 40px;"> El monto total a pagar es de: @decimal.Parse(Session["TotalPago"].ToString()).ToString("N2") </p>
+                            <div style="margin-top: 2%;">
+                                <div class="col-12">
+                                    <p style="font-weight:bold; text-align:center; line-height: 40px;"> Total a Pagar: ₡@decimal.Parse(Session["TotalPago"].ToString()).ToString("N2") </p>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-12" style="text-align: center; ">
                                     @using (Html.BeginForm("PagarCarrito", "Carrito", FormMethod.Post))
                                     {
-                                        <input type="submit" class="btn btn-primary" value="Pagar">
+                                        <input type="submit" class="btn btn-primary" style="background-color:#6282a9;border:none;" value="Pagar">
                                     }
                                 </div>
                             </div>
