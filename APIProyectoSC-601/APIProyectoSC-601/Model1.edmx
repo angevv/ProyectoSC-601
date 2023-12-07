@@ -4,7 +4,17 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ImportadoraMoyaUlateModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ImportadoraMoyaUlateModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Carrito">
+          <Key>
+            <PropertyRef Name="ID_Carrito" />
+          </Key>
+          <Property Name="ID_Carrito" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Usuario" Type="bigint" Nullable="false" />
+          <Property Name="ID_Producto" Type="bigint" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="FechaCarrito" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Categorias">
           <Key>
             <PropertyRef Name="ID_Categoria" />
@@ -73,6 +83,30 @@
           <Property Name="ID_Rol" Type="int" Nullable="false" />
           <Property Name="Nombre_Rol" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Carrito_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Carrito" Type="Self.Carrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="ID_Cliente" />
+            </Principal>
+            <Dependent Role="Carrito">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carrito_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Carrito" Type="Self.Carrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ID_Producto" />
+            </Principal>
+            <Dependent Role="Carrito">
+              <PropertyRef Name="ID_Producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Clientes_Estado">
           <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
@@ -199,6 +233,7 @@
           <Parameter Name="Empresa" Type="bigint" Mode="In" />
         </Function>
         <EntityContainer Name="ImportadoraMoyaUlateModelStoreContainer">
+          <EntitySet Name="Carrito" EntityType="Self.Carrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
@@ -206,6 +241,14 @@
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Carrito_Clientes" Association="Self.FK_Carrito_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Carrito" EntitySet="Carrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carrito_Producto" Association="Self.FK_Carrito_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Carrito" EntitySet="Carrito" />
+          </AssociationSet>
           <AssociationSet Name="FK_Clientes_Estado" Association="Self.FK_Clientes_Estado">
             <End Role="Estado" EntitySet="Estado" />
             <End Role="Clientes" EntitySet="Clientes" />
@@ -231,8 +274,7 @@
             <End Role="Proveedores" EntitySet="Proveedores" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ImportadoraMoyaUlateModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -260,6 +302,7 @@
           <Property Name="Rol_Cliente" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Estado" Relationship="Self.FK_Clientes_Estado" FromRole="Clientes" ToRole="Estado" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_Clientes_Roles" FromRole="Clientes" ToRole="Roles" />
+          <NavigationProperty Name="Carrito" Relationship="ImportadoraMoyaUlateModel.FK_Carrito_Clientes" FromRole="Clientes" ToRole="Carrito" />
         </EntityType>
         <EntityType Name="Empresa">
           <Key>
@@ -293,6 +336,7 @@
           <Property Name="Estado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Categorias" Relationship="Self.FK_Producto_Categoria" FromRole="Producto" ToRole="Categorias" />
           <NavigationProperty Name="Estado1" Relationship="Self.FK_Producto_Estado" FromRole="Producto" ToRole="Estado" />
+          <NavigationProperty Name="Carrito" Relationship="ImportadoraMoyaUlateModel.FK_Carrito_Producto" FromRole="Producto" ToRole="Carrito" />
         </EntityType>
         <EntityType Name="Proveedores">
           <Key>
@@ -430,10 +474,10 @@
             <Parameter Name="CodigoCliente" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="ActualizarEstadoClienteSP">
-            <Parameter Name="ID_Cliente" Mode="In" Type="Int64" />
+          <Parameter Name="ID_Cliente" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="ActualizarEstadoProveedorSP">
-            <Parameter Name="ID_Proveedor" Mode="In" Type="Int64" />
+          <Parameter Name="ID_Proveedor" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="ActualizarProveedorSP">
             <Parameter Name="ID_Proveedor" Mode="In" Type="Int64" />
@@ -444,17 +488,17 @@
             <Parameter Name="Empresa" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="EliminarProveedorSP">
-            <Parameter Name="ID_Proveedor" Mode="In" Type="Int64" />
+          <Parameter Name="ID_Proveedor" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="InactivarClienteSP">
-            <Parameter Name="CodigoCliente" Mode="In" Type="Int64" />
+          <Parameter Name="CodigoCliente" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="IniciarSesionSP" ReturnType="Collection(ImportadoraMoyaUlateModel.IniciarSesionSP_Result)">
             <Parameter Name="Correo" Mode="In" Type="String" />
             <Parameter Name="Contrasenna" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="RecuperarCuentaClienteSP" ReturnType="Collection(ImportadoraMoyaUlateModel.RecuperarCuentaClienteSP_Result)">
-            <Parameter Name="Identificacion" Mode="In" Type="String" />
+          <Parameter Name="Identificacion" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="RegistrarClienteSP">
             <Parameter Name="Identificacion" Mode="In" Type="String" />
@@ -473,6 +517,15 @@
             <Parameter Name="Estado_Proveedor" Mode="In" Type="Int32" />
             <Parameter Name="Empresa" Mode="In" Type="Int64" />
           </FunctionImport>
+          <EntitySet Name="Carrito" EntityType="ImportadoraMoyaUlateModel.Carrito" />
+          <AssociationSet Name="FK_Carrito_Clientes" Association="ImportadoraMoyaUlateModel.FK_Carrito_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Carrito" EntitySet="Carrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carrito_Producto" Association="ImportadoraMoyaUlateModel.FK_Carrito_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Carrito" EntitySet="Carrito" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="IniciarSesionSP_Result">
           <Property Type="Int64" Name="ID_Cliente" Nullable="false" />
@@ -492,6 +545,42 @@
           <Property Type="String" Name="Correo_Cliente" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="Contrasenna_Cliente" Nullable="false" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="Carrito">
+          <Key>
+            <PropertyRef Name="ID_Carrito" />
+          </Key>
+          <Property Name="ID_Carrito" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Usuario" Type="Int64" Nullable="false" />
+          <Property Name="ID_Producto" Type="Int64" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="FechaCarrito" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Clientes" Relationship="ImportadoraMoyaUlateModel.FK_Carrito_Clientes" FromRole="Carrito" ToRole="Clientes" />
+          <NavigationProperty Name="Producto" Relationship="ImportadoraMoyaUlateModel.FK_Carrito_Producto" FromRole="Carrito" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK_Carrito_Clientes">
+          <End Type="ImportadoraMoyaUlateModel.Clientes" Role="Clientes" Multiplicity="1" />
+          <End Type="ImportadoraMoyaUlateModel.Carrito" Role="Carrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="ID_Cliente" />
+            </Principal>
+            <Dependent Role="Carrito">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carrito_Producto">
+          <End Type="ImportadoraMoyaUlateModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="ImportadoraMoyaUlateModel.Carrito" Role="Carrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="ID_Producto" />
+            </Principal>
+            <Dependent Role="Carrito">
+              <PropertyRef Name="ID_Producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -607,6 +696,17 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="RegistrarClienteSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarClienteSP" />
           <FunctionImportMapping FunctionImportName="RegistrarProveedorSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarProveedorSP" />
+          <EntitySetMapping Name="Carrito">
+            <EntityTypeMapping TypeName="ImportadoraMoyaUlateModel.Carrito">
+              <MappingFragment StoreEntitySet="Carrito">
+                <ScalarProperty Name="FechaCarrito" ColumnName="FechaCarrito" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="ID_Carrito" ColumnName="ID_Carrito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

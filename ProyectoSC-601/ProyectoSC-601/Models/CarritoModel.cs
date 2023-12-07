@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ProyectoSC_601.Entities;
+using System.Collections.Generic;
 using System.Configuration;
 using System.EnterpriseServices.Internal;
 using System.Net.Http;
@@ -12,16 +13,26 @@ namespace ProyectoSC_601.Models
     {
         public string rutaServidor = ConfigurationManager.AppSettings["RutaApi"];
 
-        public string RegistroCliente(ClienteEnt entidad)
+        public string RegistrarCarrito(CarritoEnt entidad)
         {
             using (var client = new HttpClient())
             {
-                var urlApi = rutaServidor + "carrito";
+                var urlApi = rutaServidor + "RegistrarCarrito";
                 var jsonData = JsonContent.Create(entidad);
                 var res = client.PostAsync(urlApi, jsonData).Result;
                 return res.Content.ReadFromJsonAsync<string>().Result;
             }
         }
 
+        public List<CarritoEnt> ConsultarCarrito(long q)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "ConsultarCarrito?q=" + q;
+                var res = client.GetAsync(urlApi).Result;
+                return res.Content.ReadFromJsonAsync<List<CarritoEnt>>().Result;
+            }
+
+        }
     }
 }

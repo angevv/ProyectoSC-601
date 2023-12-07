@@ -33,7 +33,7 @@
                         @if (Model.Count() > 0)
                         {
                             var itemsPerRow = 3;
-                            var totalRows = (int)Math.Ceiling((double)Model.Count() / (itemsPerRow * 4)); 
+                            var totalRows = (int)Math.Ceiling((double)Model.Count() / (itemsPerRow * 4));
 
                             for (int row = 0; row < totalRows; row++)
                             {
@@ -62,7 +62,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar al Carrito</a></div>
+                                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="@Url.Action("ProductoDetalle", "Producto", new { q = currentItem.ID_Producto })">Ver Detalles</a></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -113,10 +113,7 @@
             $(".col[data-categoria]").show();
         }
 
-        // Actualizar el carrusel 
-        $('#productoCarousel').carousel(0); 
+        // Actualizar el carrusel
+        $('#productoCarousel').carousel(0);
     }
 </script>
-
-
-

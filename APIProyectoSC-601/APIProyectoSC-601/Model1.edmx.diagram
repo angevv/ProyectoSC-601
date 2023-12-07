@@ -18,6 +18,9 @@
         <AssociationConnector Association="ImportadoraMoyaUlateModel.FK_Proveedores_Empresa" ManuallyRouted="false" />
         <AssociationConnector Association="ImportadoraMoyaUlateModel.FK_Producto_Estado" ManuallyRouted="false" />
         <AssociationConnector Association="ImportadoraMoyaUlateModel.FK_Proveedores_Estado" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ImportadoraMoyaUlateModel.Carrito" Width="1.5" PointX="8.25" PointY="5.625" />
+        <AssociationConnector Association="ImportadoraMoyaUlateModel.FK_Carrito_Clientes" />
+        <AssociationConnector Association="ImportadoraMoyaUlateModel.FK_Carrito_Producto" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

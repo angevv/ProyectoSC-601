@@ -24,6 +24,7 @@
     <Property Name="Rol_Cliente" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Estado" Relationship="Self.FK_Clientes_Estado" FromRole="Clientes" ToRole="Estado" />
     <NavigationProperty Name="Roles" Relationship="Self.FK_Clientes_Roles" FromRole="Clientes" ToRole="Roles" />
+    <NavigationProperty Name="Carrito" Relationship="ImportadoraMoyaUlateModel.FK_Carrito_Clientes" FromRole="Clientes" ToRole="Carrito" />
   </EntityType>
   <EntityType Name="Empresa">
     <Key>
@@ -57,6 +58,7 @@
     <Property Name="Estado" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Categorias" Relationship="Self.FK_Producto_Categoria" FromRole="Producto" ToRole="Categorias" />
     <NavigationProperty Name="Estado1" Relationship="Self.FK_Producto_Estado" FromRole="Producto" ToRole="Estado" />
+    <NavigationProperty Name="Carrito" Relationship="ImportadoraMoyaUlateModel.FK_Carrito_Producto" FromRole="Producto" ToRole="Carrito" />
   </EntityType>
   <EntityType Name="Proveedores">
     <Key>
@@ -237,6 +239,15 @@
       <Parameter Name="Estado_Proveedor" Mode="In" Type="Int32" />
       <Parameter Name="Empresa" Mode="In" Type="Int64" />
     </FunctionImport>
+    <EntitySet Name="Carrito" EntityType="ImportadoraMoyaUlateModel.Carrito" />
+    <AssociationSet Name="FK_Carrito_Clientes" Association="ImportadoraMoyaUlateModel.FK_Carrito_Clientes">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Carrito" EntitySet="Carrito" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Carrito_Producto" Association="ImportadoraMoyaUlateModel.FK_Carrito_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Carrito" EntitySet="Carrito" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="IniciarSesionSP_Result">
     <Property Type="Int64" Name="ID_Cliente" Nullable="false" />
@@ -256,4 +267,40 @@
     <Property Type="String" Name="Correo_Cliente" Nullable="false" MaxLength="100" />
     <Property Type="String" Name="Contrasenna_Cliente" Nullable="false" MaxLength="50" />
   </ComplexType>
+  <EntityType Name="Carrito">
+    <Key>
+      <PropertyRef Name="ID_Carrito" />
+    </Key>
+    <Property Name="ID_Carrito" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_Usuario" Type="Int64" Nullable="false" />
+    <Property Name="ID_Producto" Type="Int64" Nullable="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="FechaCarrito" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Clientes" Relationship="ImportadoraMoyaUlateModel.FK_Carrito_Clientes" FromRole="Carrito" ToRole="Clientes" />
+    <NavigationProperty Name="Producto" Relationship="ImportadoraMoyaUlateModel.FK_Carrito_Producto" FromRole="Carrito" ToRole="Producto" />
+  </EntityType>
+  <Association Name="FK_Carrito_Clientes">
+    <End Type="ImportadoraMoyaUlateModel.Clientes" Role="Clientes" Multiplicity="1" />
+    <End Type="ImportadoraMoyaUlateModel.Carrito" Role="Carrito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="ID_Cliente" />
+      </Principal>
+      <Dependent Role="Carrito">
+        <PropertyRef Name="ID_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Carrito_Producto">
+    <End Type="ImportadoraMoyaUlateModel.Producto" Role="Producto" Multiplicity="1" />
+    <End Type="ImportadoraMoyaUlateModel.Carrito" Role="Carrito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="ID_Producto" />
+      </Principal>
+      <Dependent Role="Carrito">
+        <PropertyRef Name="ID_Producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

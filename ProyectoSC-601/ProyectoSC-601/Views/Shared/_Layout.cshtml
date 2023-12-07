@@ -48,8 +48,10 @@
 
                     <li><a class="nav-link scrollto" @Html.ActionLink("Catálogo", "Catalogo", "Producto", new { area = "" }, new { @class = "nav-link" })</a></li>
 
-                    <li><a class="nav-link scrollto " @Html.ActionLink("Carrito", "carrito", "carrito", new { area = "" }, new { @class = "nav-link" })</a></li>
-
+                    @if(Session["ID_Cliente"] != null)
+                    {
+                        @Html.ActionLink("Carrito", "carrito", "carrito", new { area = "" }, new { @class = "nav-link scrollto" })
+                    }
                     <li><a class="nav-link scrollto" @Html.ActionLink("Contacto", "Contacto", "Compartido", new { area = "" }, new { @class = "nav-link" })</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>

@@ -14,6 +14,12 @@ namespace APIProyectoSC_601
     
     public partial class Clientes
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Clientes()
+        {
+            this.Carrito = new HashSet<Carrito>();
+        }
+    
         public long ID_Cliente { get; set; }
         public string Ced_Cliente { get; set; }
         public string Nombre_Cliente { get; set; }
@@ -27,5 +33,7 @@ namespace APIProyectoSC_601
     
         public virtual Estado Estado { get; set; }
         public virtual Roles Roles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Carrito> Carrito { get; set; }
     }
 }

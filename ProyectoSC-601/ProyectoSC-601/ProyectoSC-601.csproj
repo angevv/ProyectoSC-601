@@ -157,6 +157,7 @@
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\InventarioController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
+    <Compile Include="Entities\CarritoEnt.cs" />
     <Compile Include="Entities\InventarioEnt.cs" />
     <Compile Include="Entities\ClienteEnt.cs" />
     <Compile Include="Entities\InfoIndex.cs" />
@@ -348,7 +349,7 @@
     <Content Include="Views\Cliente\Login.cshtml" />
     <Content Include="Views\Shared\_Layout_Login.cshtml" />
     <Content Include="Views\Cliente\RecuperarCuentaCliente.cshtml" />
-    <Content Include="Views\carrito\carrito.cshtml" />
+    <Content Include="Views\Carrito\Carrito.cshtml" />
     <Content Include="Views\Home\IndexAdmin.cshtml" />
     <Content Include="Views\Shared\_Layout_deAdmin.cshtml" />
     <Content Include="Views\Proveedor\RegistrarProveedor.cshtml" />

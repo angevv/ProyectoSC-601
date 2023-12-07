@@ -110,5 +110,16 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="RegistrarClienteSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarClienteSP" />
     <FunctionImportMapping FunctionImportName="RegistrarProveedorSP" FunctionName="ImportadoraMoyaUlateModel.Store.RegistrarProveedorSP" />
+    <EntitySetMapping Name="Carrito">
+      <EntityTypeMapping TypeName="ImportadoraMoyaUlateModel.Carrito">
+        <MappingFragment StoreEntitySet="Carrito">
+          <ScalarProperty Name="FechaCarrito" ColumnName="FechaCarrito" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+          <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+          <ScalarProperty Name="ID_Carrito" ColumnName="ID_Carrito" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

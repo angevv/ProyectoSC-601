@@ -34,6 +34,7 @@ namespace APIProyectoSC_601
         public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<Proveedores> Proveedores { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
+        public virtual DbSet<Carrito> Carrito { get; set; }
     
         public virtual int ActualizarCuentaClienteSP(string identificacion, string nombre, string apellido, string correo, string direccion, string telefono, Nullable<long> codigoCliente)
         {

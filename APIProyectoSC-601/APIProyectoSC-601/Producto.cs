@@ -14,6 +14,12 @@ namespace APIProyectoSC_601
     
     public partial class Producto
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Producto()
+        {
+            this.Carrito = new HashSet<Carrito>();
+        }
+    
         public long ID_Producto { get; set; }
         public int ID_Categoria { get; set; }
         public string Nombre { get; set; }
@@ -25,5 +31,7 @@ namespace APIProyectoSC_601
     
         public virtual Categorias Categorias { get; set; }
         public virtual Estado Estado1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Carrito> Carrito { get; set; }
     }
 }
