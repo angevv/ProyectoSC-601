@@ -1,0 +1,170 @@
+﻿@model IEnumerable<ProyectoSC_601.Entities.InventarioEnt>
+@{
+    ViewBag.Title = "ConsultaInventario";
+    Layout = "~/Views/Shared/_Layout_deAdmin.cshtml";
+    <link href="~/Assets/css/ProductosAdminStyle.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.js"></script>
+}
+<div class="container mt-5 pt-4">
+    <div class="row justify-content-center">
+        <div class="col-12 grid-margin stretch-card">
+            <br>
+            <br>
+            <br>
+            <div class="card" style="margin-bottom:80px;">
+                <div class="card-body">
+                    <div style="display:flex;">
+                        <h4 class="card-title">Facturas Registradas</h4>
+                        <div style="margin-left:72%">
+                            <div style="display:flex;">
+                                <a class="btn btn-primary" href="javascript:void(0);" onclick="MostrarTotalInventario()"><i style="color: white;" class="fa fa-eye fa-lg"></i></a>
+                                <a class="btn btn-primary" href="@Url.Action("RegistrarProducto","Inventario")" style="margin-left:5%;"><i style="color: white;" class="fa fa-plus fa-lg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-wrap">
+                                <table class="table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>ID no.</th>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>Email</th>
+                                            <th>Monto</th>
+                                            <th>Tipo</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="alert" role="alert">
+                                            <th scope="row">FE001</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>markotto@email.com</td>
+                                            <td>₡5200</td>
+                                            <td>Factura Electronica</td>
+                                            <td>
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true"><i class="fa fa-search" aria-hidden="true"></i></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="alert" role="alert">
+                                            <th scope="row">FE002</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>jacobthornton@email.com</td>
+                                            <td>₡6900</td>
+                                            <td>Factura Electronica</td>
+                                            <td>
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true"><i class="fa fa-search" aria-hidden="true"></i></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="alert" role="alert">
+                                            <th scope="row">FE003</th>
+                                            <td>Larry</td>
+                                            <td>the Bird</td>
+                                            <td>larrybird@email.com</td>
+                                            <td>₡10200</td>
+                                            <td>Factura Electronica</td>
+                                            <td>
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true"><i class="fa fa-search" aria-hidden="true"></i></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="alert" role="alert">
+                                            <th scope="row">FE004</th>
+                                            <td>John</td>
+                                            <td>Doe</td>
+                                            <td>johndoe@email.com</td>
+                                            <td>₡185000</td>
+                                            <td>Factura Electronica</td>
+                                            <td>
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true"><i class="fa fa-search" aria-hidden="true"></i></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="alert" role="alert">
+                                            <th scope="row">NC001</th>
+                                            <td>Gary</td>
+                                            <td>Bird</td>
+                                            <td>garybird@email.com</td>
+                                            <td>₡80000</td>
+                                            <td>Nota de Credito</td>
+                                            <td>
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true"><i class="fa fa-search" aria-hidden="true"></i></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Se agrega un data table para la consulta de clientes*@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script>var $j = jQuery.noConflict();</script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $j(document).ready(function () {
+        $j('#TablaInventario').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            },
+            "pagingType": 'simple'
+        });
+
+    });
+</script>
+
+<script>
+    //Funcion para mostrar mensaje de alerta
+    function confirmarEliminarProducto(ID_Producto) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Si lo eliminas vas a perder la información relacionada a este producto',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#6282a9',
+            cancelButtonColor: '#354461',
+            confirmButtonText: 'Sí, Eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, redirige a la acción de inactivar cliente
+                window.location.href = '/Inventario/EliminarProducto?q=' + ID_Producto;
+            }
+        });
+    }
+</script>
+
+<script>
+    // Muestra el total del Inventario
+    function MostrarTotalInventario() {
+        Swal.fire({
+            title: 'Total del Inventario',
+            text: '₡ @ViewBag.TotalInventario',
+            icon: 'info',
+            confirmButtonColor: '#6282a9',
+            confirmButtonText: 'Ok'
+        });
+    }
+</script>

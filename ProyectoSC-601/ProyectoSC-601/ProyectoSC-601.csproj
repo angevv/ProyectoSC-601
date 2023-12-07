@@ -151,6 +151,7 @@
     <Compile Include="Controllers\CompartidoController.cs" />
     <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\FacturacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\InventarioController.cs" />
@@ -163,6 +164,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CarritoModel.cs" />
+    <Compile Include="Models\FacturacionModel.cs" />
     <Compile Include="Models\InventarioModel.cs" />
     <Compile Include="Models\IndexModel.cs" />
     <Compile Include="Models\ProductoModel.cs" />
@@ -171,6 +173,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\css\facturacion.css" />
     <Content Include="Assets\css\productoDetalle.css" />
     <Content Include="Assets\css\ConsultaProveedor.css" />
     <Content Include="Assets\css\font-awesome.css" />
@@ -195,9 +198,11 @@
     <Content Include="Assets\img\testimonials\testimonials-4.jpg" />
     <Content Include="Assets\img\testimonials\testimonials-5.jpg" />
     <Content Include="Assets\js\ContactoIndex.js" />
+    <Content Include="Assets\js\jquery.min.js" />
     <Content Include="Assets\js\loginjs.js" />
     <Content Include="Assets\js\main.js" />
     <Content Include="Assets\js\Cliente.js" />
+    <Content Include="Assets\js\popper.js" />
     <Content Include="Assets\scss\Readme.txt" />
     <Content Include="Assets\vendor\aos\aos.cjs.js" />
     <Content Include="Assets\vendor\aos\aos.css" />
@@ -359,6 +364,7 @@
     <Content Include="Views\Producto\CatalogoMujer.cshtml" />
     <Content Include="Views\Producto\CatalogoHombre.cshtml" />
     <Content Include="Views\Producto\CatalogoNinos.cshtml" />
+    <Content Include="Views\Facturacion\Facturacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
