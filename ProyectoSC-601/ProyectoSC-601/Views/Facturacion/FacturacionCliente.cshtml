@@ -1,0 +1,78 @@
+﻿@model IEnumerable<ProyectoSC_601.Entities.ClienteEnt>
+@{
+    ViewBag.Title = "FacturacionCliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link href="~/Assets/css/perfilClienteStyle.css" rel="stylesheet">
+    <link href="~/Assets/css/gestionClientesStyle.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+}
+<div class="container mt-5 pt-4">
+    <div class="row justify-content-center">
+        <div class="col-12 grid-margin stretch-card">
+            <br>
+            <br>
+            <br>
+            <div class="card" style="margin-bottom:80px;">
+                <div class="card-body">
+                    <h4 class="card-title">Historial de Compras</h4><br />
+                    <div class="table-responsive">
+                        @if (ViewBag.MensajeNoExitoso != null)
+                        {
+                            <div class="alert alert-danger" role="alert" style="text-align: center; margin: 10px !important;margin-bottom:-40px!important;">
+                                @ViewBag.Mensaje
+                            </div>
+                        }
+                      
+                            <table id="TablaClientes" class="table table-bordered table-hover">
+                                <thead class="table-info">
+                                    <tr>
+                                        <th style="background-color: #6282a9; color:white;">ID</th>
+                                        <th style="background-color: #6282a9; color:white;">Fecha</th>
+                                        <th style="background-color: #6282a9; color:white;">Monto</th>
+                                        <th style="background-color: #6282a9; color:white;">Monto con IVA</th>
+                                        <th style="background-color: #6282a9; color:white;">Tipo</th>
+                                        <th style="background-color: #6282a9; color:white;">Ver Detalles</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="alert" role="alert">
+                                        <th scope="row">FE001</th>
+                                        <td>06/12/2023</td>
+                                        <td>₡4601</td>
+                                        <td>₡5200</td>
+                                        <td>Factura Electronica</td>
+                                        <td style="text-align:center;">
+                                            <a href="@Url.Action("FacturaDetalleCliente", "Facturacion")"><i style="color: #6282a9;" class="fa fa-search fa-lg"></i></a>
+                                           
+                                        </td>
+                                          
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Se agrega un data table para la consulta de clientes*@
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script>var $j = jQuery.noConflict();</script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $j(document).ready(function () {
+        $j('#TablaClientes').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            },
+            "pagingType": 'simple'
+        });
+
+    });
+</script>
