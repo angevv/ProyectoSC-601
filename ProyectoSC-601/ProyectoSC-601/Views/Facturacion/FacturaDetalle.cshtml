@@ -15,8 +15,15 @@
             <br>
             <div class="card" style="margin-bottom:80px;">
                 <div class="card-body">
-                    <h4 class="card-title">Detalles Factura</h4><br />
-                    <div class="table-responsive">
+                    <div style="display:flex;">
+                        <h4 class="card-title">Detalles Factura</h4>
+                        <div style="margin-left:82%">
+                            <div style="display:flex;">
+                                <a class="btn btn-primary" style="background-color: #6282a9;border:none; " href="@Url.Action("Facturacion","Facturacion")" style="margin-left:5%;"><i style="color: white;" class="fa fa-arrow-left fa-lg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive" style=" margin-top: 40px !important;">
                         @if (Model.Count() > 0)
                         {
 

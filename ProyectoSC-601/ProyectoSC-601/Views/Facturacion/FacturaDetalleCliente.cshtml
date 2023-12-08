@@ -15,63 +15,70 @@
             <br>
             <div class="card" style="margin-bottom:80px;">
                 <div class="card-body">
-                    <h4 class="card-title">Detalles Factura</h4><br />
-                    <div class="table-responsive">
+                    <div style="display:flex;">
+                        <h4 class="card-title">Detalles Factura</h4>
+                        <div style="margin-left:82%">
+                            <div style="display:flex;">
+                                <a class="btn btn-primary" style="background-color: #6282a9;border:none; " href="@Url.Action("FacturacionCliente","Facturacion")" style="margin-left:5%;"><i style="color: white;" class="fa fa-arrow-left fa-lg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive" style=" margin-top: 40px !important;">
                         @if (Model.Count() > 0)
                         {
 
-                                <table id="TablaClientes" class="table table-bordered table-hover">
-                                    <thead class="table-info">
-                                        <tr>
-                                            <th style="background-color: #6282a9; color:white;">Factura</th>
-                                            <th style="background-color: #6282a9; color:white;">Nombre</th>
-                                            <th style="background-color: #6282a9; color:white;">Precio Unidad</th>
-                                            <th style="background-color: #6282a9; color:white;">Impuesto Unidad</th>
-                                            <th style="background-color: #6282a9; color:white;">Cantidad</th>
-                                            <th style="background-color: #6282a9; color:white;">SubTotal</th>
-                                            <th style="background-color: #6282a9; color:white;">Impuesto</th>
-                                            <th style="background-color: #6282a9; color:white;">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                            <table id="TablaClientes" class="table table-bordered table-hover">
+                                <thead class="table-info">
+                                    <tr>
+                                        <th style="background-color: #6282a9; color:white;">Factura</th>
+                                        <th style="background-color: #6282a9; color:white;">Nombre</th>
+                                        <th style="background-color: #6282a9; color:white;">Precio Unidad</th>
+                                        <th style="background-color: #6282a9; color:white;">Impuesto Unidad</th>
+                                        <th style="background-color: #6282a9; color:white;">Cantidad</th>
+                                        <th style="background-color: #6282a9; color:white;">SubTotal</th>
+                                        <th style="background-color: #6282a9; color:white;">Impuesto</th>
+                                        <th style="background-color: #6282a9; color:white;">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                                        @foreach (var item in Model)
-                                        {
-                                            <tr>
-                                                <td>@item.ID_Factura</td>
-                                                <td>@item.Nombre</td>
-                                                <td>₡ @item.PrecioPagado.ToString("N2")</td>
-                                                <td>
-                                                    ₡ @item.ImpuestoPagado.ToString("N2")
-                                                </td>
-                                                <td>@item.CantidadPagado</td>
-                                                <td>₡ @item.SubTotal.ToString("N2")</td>
-                                                <td>₡ @item.Impuesto.ToString("N2")</td>
-                                                <td>₡ @item.Total.ToString("N2")</td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            }
-                            else
-                            {
-                                <table id="TablaClientes" class="table table-bordered table-hover">
-                                    <thead class="table table-bordered table-hover">
+                                    @foreach (var item in Model)
+                                    {
                                         <tr>
-                                            <th style="background-color: #6282a9; color:white;">Factura</th>
-                                            <th style="background-color: #6282a9; color:white;">Nombre</th>
-                                            <th style="background-color: #6282a9; color:white;">Precio Unidad</th>
-                                            <th style="background-color: #6282a9; color:white;">Impuesto Unidad</th>
-                                            <th style="background-color: #6282a9; color:white;">Cantidad</th>
-                                            <th style="background-color: #6282a9; color:white;">SubTotal</th>
-                                            <th style="background-color: #6282a9; color:white;">Impuesto</th>
-                                            <th style="background-color: #6282a9; color:white;">Total</th>
+                                            <td>@item.ID_Factura</td>
+                                            <td>@item.Nombre</td>
+                                            <td>₡ @item.PrecioPagado.ToString("N2")</td>
+                                            <td>
+                                                ₡ @item.ImpuestoPagado.ToString("N2")
+                                            </td>
+                                            <td>@item.CantidadPagado</td>
+                                            <td>₡ @item.SubTotal.ToString("N2")</td>
+                                            <td>₡ @item.Impuesto.ToString("N2")</td>
+                                            <td>₡ @item.Total.ToString("N2")</td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            }
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <table id="TablaClientes" class="table table-bordered table-hover">
+                                <thead class="table table-bordered table-hover">
+                                    <tr>
+                                        <th style="background-color: #6282a9; color:white;">Factura</th>
+                                        <th style="background-color: #6282a9; color:white;">Nombre</th>
+                                        <th style="background-color: #6282a9; color:white;">Precio Unidad</th>
+                                        <th style="background-color: #6282a9; color:white;">Impuesto Unidad</th>
+                                        <th style="background-color: #6282a9; color:white;">Cantidad</th>
+                                        <th style="background-color: #6282a9; color:white;">SubTotal</th>
+                                        <th style="background-color: #6282a9; color:white;">Impuesto</th>
+                                        <th style="background-color: #6282a9; color:white;">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        }
 
                         <br>
                     </div>
