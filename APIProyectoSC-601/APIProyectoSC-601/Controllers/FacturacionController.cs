@@ -30,9 +30,6 @@ namespace APIProyectoSC_601.Controllers
         {
             using (var context = new ImportadoraMoyaUlateEntities())
             {
-                //context.Configuration.LazyLoadingEnabled = false;
-                //return (from x in context.Factura_Encabezado
-                //        select x).ToList();
 
                 context.Configuration.LazyLoadingEnabled = false;
                 return (from x in context.Factura_Encabezado
@@ -69,6 +66,24 @@ namespace APIProyectoSC_601.Controllers
                             Impuesto = (x.ImpuestoPagado * x.CantidadPagado),
                             Total = (x.PrecioPagado * x.CantidadPagado) + (x.ImpuestoPagado * x.CantidadPagado),
                         }).ToList();
+            }
+        }
+
+        [HttpGet]
+        [Route("ContarVentas")]
+        public int ContarVentas()
+        {
+            try
+            {
+                using (var context = new ImportadoraMoyaUlateEntities())
+                {
+                    context.Configuration.LazyLoadingEnabled = false;
+                    return context.Factura_Encabezado.Count();
+                }
+            }
+            catch (Exception)
+            {
+                return 0;
             }
         }
     }

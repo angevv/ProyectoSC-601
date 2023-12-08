@@ -17,6 +17,7 @@ namespace ProyectoSC_601.Controllers
         public ActionResult Index()
         {
             ViewBag.CantidadClientes = modelIndex.ContarClientes();
+            ViewBag.CantidadVentas = modelIndex.ContarVentas();
             return View();
         }
 

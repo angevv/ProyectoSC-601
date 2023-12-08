@@ -39,5 +39,15 @@ namespace ProyectoSC_601.Models
             }
         }
 
+        public int ContarVentas()
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "ContarVentas";
+                var res = client.GetAsync(urlApi).Result;
+                return res.Content.ReadFromJsonAsync<int>().Result;
+            }
+        }
+
     }
 }
