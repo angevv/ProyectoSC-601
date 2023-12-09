@@ -32,10 +32,10 @@ namespace APIProyectoSC_601
         public int Est_Cliente { get; set; }
         public int Rol_Cliente { get; set; }
     
-        public virtual Estado Estado { get; set; }
-        public virtual Roles Roles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Carrito> Carrito { get; set; }
+        public virtual Estado Estado { get; set; }
+        public virtual Roles Roles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Factura_Encabezado> Factura_Encabezado { get; set; }
     }

@@ -27,16 +27,16 @@ namespace APIProyectoSC_601
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Carrito> Carrito { get; set; }
         public virtual DbSet<Categorias> Categorias { get; set; }
         public virtual DbSet<Clientes> Clientes { get; set; }
         public virtual DbSet<Empresa> Empresa { get; set; }
         public virtual DbSet<Estado> Estado { get; set; }
+        public virtual DbSet<Factura_Detalle> Factura_Detalle { get; set; }
+        public virtual DbSet<Factura_Encabezado> Factura_Encabezado { get; set; }
         public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<Proveedores> Proveedores { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
-        public virtual DbSet<Carrito> Carrito { get; set; }
-        public virtual DbSet<Factura_Detalle> Factura_Detalle { get; set; }
-        public virtual DbSet<Factura_Encabezado> Factura_Encabezado { get; set; }
     
         public virtual int ActualizarCuentaClienteSP(string identificacion, string nombre, string apellido, string correo, string direccion, string telefono, Nullable<long> codigoCliente)
         {
@@ -149,6 +149,15 @@ namespace APIProyectoSC_601
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<IniciarSesionSP_Result>("IniciarSesionSP", correoParameter, contrasennaParameter);
         }
     
+        public virtual ObjectResult<string> PagarCarritoSP(Nullable<long> iD_Usuario)
+        {
+            var iD_UsuarioParameter = iD_Usuario.HasValue ?
+                new ObjectParameter("ID_Usuario", iD_Usuario) :
+                new ObjectParameter("ID_Usuario", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("PagarCarritoSP", iD_UsuarioParameter);
+        }
+    
         public virtual ObjectResult<RecuperarCuentaClienteSP_Result> RecuperarCuentaClienteSP(string identificacion)
         {
             var identificacionParameter = identificacion != null ?
@@ -218,15 +227,6 @@ namespace APIProyectoSC_601
                 new ObjectParameter("Empresa", typeof(long));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegistrarProveedorSP", nombre_ProveedorParameter, apellido_ProveedorParameter, cedula_ProveedorParameter, direccion_ExactaParameter, estado_ProveedorParameter, empresaParameter);
-        }
-    
-        public virtual ObjectResult<string> PagarCarritoSP(Nullable<long> iD_Usuario)
-        {
-            var iD_UsuarioParameter = iD_Usuario.HasValue ?
-                new ObjectParameter("ID_Usuario", iD_Usuario) :
-                new ObjectParameter("ID_Usuario", typeof(long));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("PagarCarritoSP", iD_UsuarioParameter);
         }
     }
 }

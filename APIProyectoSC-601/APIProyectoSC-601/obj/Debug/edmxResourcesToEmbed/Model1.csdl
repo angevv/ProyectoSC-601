@@ -1,5 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ImportadoraMoyaUlateModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Carrito">
+    <Key>
+      <PropertyRef Name="ID_Carrito" />
+    </Key>
+    <Property Name="ID_Carrito" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_Usuario" Type="Int64" Nullable="false" />
+    <Property Name="ID_Producto" Type="Int64" Nullable="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="FechaCarrito" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Clientes" Relationship="Self.FK_Carrito_Clientes" FromRole="Carrito" ToRole="Clientes" />
+    <NavigationProperty Name="Producto" Relationship="Self.FK_Carrito_Producto" FromRole="Carrito" ToRole="Producto" />
+  </EntityType>
   <EntityType Name="Categorias">
     <Key>
       <PropertyRef Name="ID_Categoria" />
@@ -22,10 +34,10 @@
     <Property Name="Tel_Cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="Est_Cliente" Type="Int32" Nullable="false" />
     <Property Name="Rol_Cliente" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Carrito" Relationship="Self.FK_Carrito_Clientes" FromRole="Clientes" ToRole="Carrito" />
     <NavigationProperty Name="Estado" Relationship="Self.FK_Clientes_Estado" FromRole="Clientes" ToRole="Estado" />
     <NavigationProperty Name="Roles" Relationship="Self.FK_Clientes_Roles" FromRole="Clientes" ToRole="Roles" />
-    <NavigationProperty Name="Carrito" Relationship="ImportadoraMoyaUlateModel.FK_Carrito_Clientes" FromRole="Clientes" ToRole="Carrito" />
-    <NavigationProperty Name="Factura_Encabezado" Relationship="ImportadoraMoyaUlateModel.FK_Factura_Encabezado_Clientes" FromRole="Clientes" ToRole="Factura_Encabezado" />
+    <NavigationProperty Name="Factura_Encabezado" Relationship="Self.FK_Factura_Encabezado_Clientes" FromRole="Clientes" ToRole="Factura_Encabezado" />
   </EntityType>
   <EntityType Name="Empresa">
     <Key>
@@ -45,6 +57,30 @@
     <NavigationProperty Name="Producto" Relationship="Self.FK_Producto_Estado" FromRole="Estado" ToRole="Producto" />
     <NavigationProperty Name="Proveedores" Relationship="Self.FK_Proveedores_Estado" FromRole="Estado" ToRole="Proveedores" />
   </EntityType>
+  <EntityType Name="Factura_Detalle">
+    <Key>
+      <PropertyRef Name="ID_Detalle" />
+    </Key>
+    <Property Name="ID_Detalle" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_Factura" Type="Int64" Nullable="false" />
+    <Property Name="ID_Producto" Type="Int64" Nullable="false" />
+    <Property Name="PrecioPagado" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="CantidadPagado" Type="Int32" Nullable="false" />
+    <Property Name="ImpuestoPagado" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <NavigationProperty Name="Factura_Encabezado" Relationship="Self.FK_Factura_Detalle_Factura_Encabezado" FromRole="Factura_Detalle" ToRole="Factura_Encabezado" />
+    <NavigationProperty Name="Producto" Relationship="Self.FK_Factura_Detalle_Producto" FromRole="Factura_Detalle" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Factura_Encabezado">
+    <Key>
+      <PropertyRef Name="ID_Factura" />
+    </Key>
+    <Property Name="ID_Factura" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_Usuario" Type="Int64" Nullable="false" />
+    <Property Name="FechaCompra" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TotalCompra" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <NavigationProperty Name="Clientes" Relationship="Self.FK_Factura_Encabezado_Clientes" FromRole="Factura_Encabezado" ToRole="Clientes" />
+    <NavigationProperty Name="Factura_Detalle" Relationship="Self.FK_Factura_Detalle_Factura_Encabezado" FromRole="Factura_Encabezado" ToRole="Factura_Detalle" />
+  </EntityType>
   <EntityType Name="Producto">
     <Key>
       <PropertyRef Name="ID_Producto" />
@@ -57,10 +93,10 @@
     <Property Name="Precio" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
     <Property Name="Imagen" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Carrito" Relationship="Self.FK_Carrito_Producto" FromRole="Producto" ToRole="Carrito" />
     <NavigationProperty Name="Categorias" Relationship="Self.FK_Producto_Categoria" FromRole="Producto" ToRole="Categorias" />
     <NavigationProperty Name="Estado1" Relationship="Self.FK_Producto_Estado" FromRole="Producto" ToRole="Estado" />
-    <NavigationProperty Name="Carrito" Relationship="ImportadoraMoyaUlateModel.FK_Carrito_Producto" FromRole="Producto" ToRole="Carrito" />
-    <NavigationProperty Name="Factura_Detalle" Relationship="ImportadoraMoyaUlateModel.FK_Factura_Detalle_Producto" FromRole="Producto" ToRole="Factura_Detalle" />
+    <NavigationProperty Name="Factura_Detalle" Relationship="Self.FK_Factura_Detalle_Producto" FromRole="Producto" ToRole="Factura_Detalle" />
   </EntityType>
   <EntityType Name="Proveedores">
     <Key>
@@ -84,6 +120,30 @@
     <Property Name="Nombre_Rol" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_Roles" FromRole="Roles" ToRole="Clientes" />
   </EntityType>
+  <Association Name="FK_Carrito_Clientes">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+    <End Role="Carrito" Type="Self.Carrito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="ID_Cliente" />
+      </Principal>
+      <Dependent Role="Carrito">
+        <PropertyRef Name="ID_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Carrito_Producto">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="Carrito" Type="Self.Carrito" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="ID_Producto" />
+      </Principal>
+      <Dependent Role="Carrito">
+        <PropertyRef Name="ID_Producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Producto_Categoria">
     <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
     <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
@@ -117,6 +177,18 @@
       </Principal>
       <Dependent Role="Clientes">
         <PropertyRef Name="Rol_Cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Factura_Encabezado_Clientes">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+    <End Role="Factura_Encabezado" Type="Self.Factura_Encabezado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="ID_Cliente" />
+      </Principal>
+      <Dependent Role="Factura_Encabezado">
+        <PropertyRef Name="ID_Usuario" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -156,14 +228,49 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Factura_Detalle_Factura_Encabezado">
+    <End Role="Factura_Encabezado" Type="Self.Factura_Encabezado" Multiplicity="1" />
+    <End Role="Factura_Detalle" Type="Self.Factura_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factura_Encabezado">
+        <PropertyRef Name="ID_Factura" />
+      </Principal>
+      <Dependent Role="Factura_Detalle">
+        <PropertyRef Name="ID_Factura" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Factura_Detalle_Producto">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="Factura_Detalle" Type="Self.Factura_Detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="ID_Producto" />
+      </Principal>
+      <Dependent Role="Factura_Detalle">
+        <PropertyRef Name="ID_Producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="ImportadoraMoyaUlateEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Carrito" EntityType="Self.Carrito" />
     <EntitySet Name="Categorias" EntityType="Self.Categorias" />
     <EntitySet Name="Clientes" EntityType="Self.Clientes" />
     <EntitySet Name="Empresa" EntityType="Self.Empresa" />
     <EntitySet Name="Estado" EntityType="Self.Estado" />
+    <EntitySet Name="Factura_Detalle" EntityType="Self.Factura_Detalle" />
+    <EntitySet Name="Factura_Encabezado" EntityType="Self.Factura_Encabezado" />
     <EntitySet Name="Producto" EntityType="Self.Producto" />
     <EntitySet Name="Proveedores" EntityType="Self.Proveedores" />
     <EntitySet Name="Roles" EntityType="Self.Roles" />
+    <AssociationSet Name="FK_Carrito_Clientes" Association="Self.FK_Carrito_Clientes">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Carrito" EntitySet="Carrito" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Carrito_Producto" Association="Self.FK_Carrito_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Carrito" EntitySet="Carrito" />
+    </AssociationSet>
     <AssociationSet Name="FK_Producto_Categoria" Association="Self.FK_Producto_Categoria">
       <End Role="Categorias" EntitySet="Categorias" />
       <End Role="Producto" EntitySet="Producto" />
@@ -176,6 +283,10 @@
       <End Role="Roles" EntitySet="Roles" />
       <End Role="Clientes" EntitySet="Clientes" />
     </AssociationSet>
+    <AssociationSet Name="FK_Factura_Encabezado_Clientes" Association="Self.FK_Factura_Encabezado_Clientes">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Factura_Encabezado" EntitySet="Factura_Encabezado" />
+    </AssociationSet>
     <AssociationSet Name="FK_Proveedores_Empresa" Association="Self.FK_Proveedores_Empresa">
       <End Role="Empresa" EntitySet="Empresa" />
       <End Role="Proveedores" EntitySet="Proveedores" />
@@ -187,6 +298,14 @@
     <AssociationSet Name="FK_Proveedores_Estado" Association="Self.FK_Proveedores_Estado">
       <End Role="Estado" EntitySet="Estado" />
       <End Role="Proveedores" EntitySet="Proveedores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Factura_Detalle_Factura_Encabezado" Association="Self.FK_Factura_Detalle_Factura_Encabezado">
+      <End Role="Factura_Encabezado" EntitySet="Factura_Encabezado" />
+      <End Role="Factura_Detalle" EntitySet="Factura_Detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Factura_Detalle_Producto" Association="Self.FK_Factura_Detalle_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Factura_Detalle" EntitySet="Factura_Detalle" />
     </AssociationSet>
     <FunctionImport Name="ActualizarCuentaClienteSP">
       <Parameter Name="Identificacion" Mode="In" Type="String" />
@@ -221,6 +340,9 @@
       <Parameter Name="Correo" Mode="In" Type="String" />
       <Parameter Name="Contrasenna" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="PagarCarritoSP" ReturnType="Collection(String)">
+      <Parameter Name="ID_Usuario" Mode="In" Type="Int64" />
+    </FunctionImport>
     <FunctionImport Name="RecuperarCuentaClienteSP" ReturnType="Collection(ImportadoraMoyaUlateModel.RecuperarCuentaClienteSP_Result)">
       <Parameter Name="Identificacion" Mode="In" Type="String" />
     </FunctionImport>
@@ -241,32 +363,6 @@
       <Parameter Name="Estado_Proveedor" Mode="In" Type="Int32" />
       <Parameter Name="Empresa" Mode="In" Type="Int64" />
     </FunctionImport>
-    <EntitySet Name="Carrito" EntityType="ImportadoraMoyaUlateModel.Carrito" />
-    <AssociationSet Name="FK_Carrito_Clientes" Association="ImportadoraMoyaUlateModel.FK_Carrito_Clientes">
-      <End Role="Clientes" EntitySet="Clientes" />
-      <End Role="Carrito" EntitySet="Carrito" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Carrito_Producto" Association="ImportadoraMoyaUlateModel.FK_Carrito_Producto">
-      <End Role="Producto" EntitySet="Producto" />
-      <End Role="Carrito" EntitySet="Carrito" />
-    </AssociationSet>
-    <EntitySet Name="Factura_Detalle" EntityType="ImportadoraMoyaUlateModel.Factura_Detalle" />
-    <EntitySet Name="Factura_Encabezado" EntityType="ImportadoraMoyaUlateModel.Factura_Encabezado" />
-    <FunctionImport Name="PagarCarritoSP" ReturnType="Collection(String)">
-      <Parameter Name="ID_Usuario" Mode="In" Type="Int64" />
-    </FunctionImport>
-    <AssociationSet Name="FK_Factura_Encabezado_Clientes" Association="ImportadoraMoyaUlateModel.FK_Factura_Encabezado_Clientes">
-      <End Role="Clientes" EntitySet="Clientes" />
-      <End Role="Factura_Encabezado" EntitySet="Factura_Encabezado" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Factura_Detalle_Factura_Encabezado" Association="ImportadoraMoyaUlateModel.FK_Factura_Detalle_Factura_Encabezado">
-      <End Role="Factura_Encabezado" EntitySet="Factura_Encabezado" />
-      <End Role="Factura_Detalle" EntitySet="Factura_Detalle" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Factura_Detalle_Producto" Association="ImportadoraMoyaUlateModel.FK_Factura_Detalle_Producto">
-      <End Role="Producto" EntitySet="Producto" />
-      <End Role="Factura_Detalle" EntitySet="Factura_Detalle" />
-    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="IniciarSesionSP_Result">
     <Property Type="Int64" Name="ID_Cliente" Nullable="false" />
@@ -286,100 +382,4 @@
     <Property Type="String" Name="Correo_Cliente" Nullable="false" MaxLength="100" />
     <Property Type="String" Name="Contrasenna_Cliente" Nullable="false" MaxLength="50" />
   </ComplexType>
-  <EntityType Name="Carrito">
-    <Key>
-      <PropertyRef Name="ID_Carrito" />
-    </Key>
-    <Property Name="ID_Carrito" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ID_Usuario" Type="Int64" Nullable="false" />
-    <Property Name="ID_Producto" Type="Int64" Nullable="false" />
-    <Property Name="Cantidad" Type="Int32" Nullable="false" />
-    <Property Name="FechaCarrito" Type="DateTime" Nullable="false" Precision="3" />
-    <NavigationProperty Name="Clientes" Relationship="ImportadoraMoyaUlateModel.FK_Carrito_Clientes" FromRole="Carrito" ToRole="Clientes" />
-    <NavigationProperty Name="Producto" Relationship="ImportadoraMoyaUlateModel.FK_Carrito_Producto" FromRole="Carrito" ToRole="Producto" />
-  </EntityType>
-  <Association Name="FK_Carrito_Clientes">
-    <End Type="ImportadoraMoyaUlateModel.Clientes" Role="Clientes" Multiplicity="1" />
-    <End Type="ImportadoraMoyaUlateModel.Carrito" Role="Carrito" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Clientes">
-        <PropertyRef Name="ID_Cliente" />
-      </Principal>
-      <Dependent Role="Carrito">
-        <PropertyRef Name="ID_Usuario" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Carrito_Producto">
-    <End Type="ImportadoraMoyaUlateModel.Producto" Role="Producto" Multiplicity="1" />
-    <End Type="ImportadoraMoyaUlateModel.Carrito" Role="Carrito" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Producto">
-        <PropertyRef Name="ID_Producto" />
-      </Principal>
-      <Dependent Role="Carrito">
-        <PropertyRef Name="ID_Producto" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="Factura_Detalle">
-    <Key>
-      <PropertyRef Name="ID_Detalle" />
-    </Key>
-    <Property Name="ID_Detalle" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ID_Factura" Type="Int64" Nullable="false" />
-    <Property Name="ID_Producto" Type="Int64" Nullable="false" />
-    <Property Name="PrecioPagado" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-    <Property Name="CantidadPagado" Type="Int32" Nullable="false" />
-    <Property Name="ImpuestoPagado" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-    <NavigationProperty Name="Factura_Encabezado" Relationship="ImportadoraMoyaUlateModel.FK_Factura_Detalle_Factura_Encabezado" FromRole="Factura_Detalle" ToRole="Factura_Encabezado" />
-    <NavigationProperty Name="Producto" Relationship="ImportadoraMoyaUlateModel.FK_Factura_Detalle_Producto" FromRole="Factura_Detalle" ToRole="Producto" />
-  </EntityType>
-  <EntityType Name="Factura_Encabezado">
-    <Key>
-      <PropertyRef Name="ID_Factura" />
-    </Key>
-    <Property Name="ID_Factura" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ID_Usuario" Type="Int64" Nullable="false" />
-    <Property Name="FechaCompra" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="TotalCompra" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-    <NavigationProperty Name="Clientes" Relationship="ImportadoraMoyaUlateModel.FK_Factura_Encabezado_Clientes" FromRole="Factura_Encabezado" ToRole="Clientes" />
-    <NavigationProperty Name="Factura_Detalle" Relationship="ImportadoraMoyaUlateModel.FK_Factura_Detalle_Factura_Encabezado" FromRole="Factura_Encabezado" ToRole="Factura_Detalle" />
-  </EntityType>
-  <Association Name="FK_Factura_Encabezado_Clientes">
-    <End Type="ImportadoraMoyaUlateModel.Clientes" Role="Clientes" Multiplicity="1" />
-    <End Type="ImportadoraMoyaUlateModel.Factura_Encabezado" Role="Factura_Encabezado" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Clientes">
-        <PropertyRef Name="ID_Cliente" />
-      </Principal>
-      <Dependent Role="Factura_Encabezado">
-        <PropertyRef Name="ID_Usuario" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Factura_Detalle_Factura_Encabezado">
-    <End Type="ImportadoraMoyaUlateModel.Factura_Encabezado" Role="Factura_Encabezado" Multiplicity="1" />
-    <End Type="ImportadoraMoyaUlateModel.Factura_Detalle" Role="Factura_Detalle" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Factura_Encabezado">
-        <PropertyRef Name="ID_Factura" />
-      </Principal>
-      <Dependent Role="Factura_Detalle">
-        <PropertyRef Name="ID_Factura" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Factura_Detalle_Producto">
-    <End Type="ImportadoraMoyaUlateModel.Producto" Role="Producto" Multiplicity="1" />
-    <End Type="ImportadoraMoyaUlateModel.Factura_Detalle" Role="Factura_Detalle" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Producto">
-        <PropertyRef Name="ID_Producto" />
-      </Principal>
-      <Dependent Role="Factura_Detalle">
-        <PropertyRef Name="ID_Producto" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>

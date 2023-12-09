@@ -4,9 +4,9 @@ GO
 CREATE DATABASE [ImportadoraMoyaUlate]
  CONTAINMENT = NONE
  ON  PRIMARY 
-( NAME = N'ImportadoraMoyaUlate', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\ImportadoraMoyaUlate.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+( NAME = N'ImportadoraMoyaUlate', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\ImportadoraMoyaUlate.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
  LOG ON 
-( NAME = N'ImportadoraMoyaUlate_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\ImportadoraMoyaUlate_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+( NAME = N'ImportadoraMoyaUlate_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\ImportadoraMoyaUlate_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
  WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
 GO
 ALTER DATABASE [ImportadoraMoyaUlate] SET COMPATIBILITY_LEVEL = 160
@@ -309,6 +309,20 @@ REFERENCES [dbo].[Estado] ([ID_Estado])
 GO
 ALTER TABLE [dbo].[Proveedores] CHECK CONSTRAINT [FK_Proveedores_Estado]
 GO
+
+
+/****** Registros Tabla Rol ******/
+INSERT [dbo].Roles ([ID_Rol], Nombre_Rol) VALUES (1, N'Administrador')
+GO
+INSERT [dbo].Roles ([ID_Rol], Nombre_Rol) VALUES (2, N'Usuario')
+GO
+
+/****** Registros Tabla Estado ******/
+INSERT [dbo].Estado([ID_Estado], Tipo_Estado) VALUES (0, N'Inactivo')
+GO
+INSERT [dbo].Estado([ID_Estado], Tipo_Estado) VALUES (1, N'Activo')
+GO
+
 /****** Object:  StoredProcedure [dbo].[ActualizarCuentaClienteSP]    Script Date: 12/7/2023 5:38:49 PM ******/
 SET ANSI_NULLS ON
 GO
