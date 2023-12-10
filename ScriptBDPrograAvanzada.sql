@@ -113,6 +113,14 @@ CREATE TABLE [dbo].[Categorias](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+
+INSERT INTO [dbo].[Categorias] ([ID_Categoria], [Nombre])
+VALUES 
+    (1,'Hombre'),
+    (2,'Mujer'),
+    (3,'Niños');
+
 /****** Object:  Table [dbo].[Clientes]    Script Date: 12/7/2023 5:38:49 PM ******/
 SET ANSI_NULLS ON
 GO
@@ -240,6 +248,14 @@ CREATE TABLE [dbo].[Proveedores](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+
+INSERT INTO [dbo].[Empresa] ([Nombre_empresa])
+VALUES 
+    ('Escoja una opcion'),
+    ('Empresa 1.'),
+    ('Empresa 2');
+
 /****** Object:  Table [dbo].[Roles]    Script Date: 12/7/2023 5:38:49 PM ******/
 SET ANSI_NULLS ON
 GO
