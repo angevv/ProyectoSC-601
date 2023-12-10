@@ -22,12 +22,12 @@
                     <div class="table-responsive">
                         <br><br>
                         @*@if (ViewBag.Mensaje != null)
-              {
-                  <div class="alert alert-danger" role="alert" style="text-align: center; margin: 10px !important;margin-bottom:-40px!important;">
-                      @ViewBag.Mensaje
-                  </div>  @if (Model.Count() > 0)
-        {
-              }*@
+                                  {
+                                      <div class="alert alert-danger" role="alert" style="text-align: center; margin: 10px !important;margin-bottom:-40px!important;">
+                                          @ViewBag.Mensaje
+                                      </div>  @if (Model.Count() > 0)
+                            {
+                                  }*@
                         @if (Model.Count() > 0)
                         {
                             <table id="TablaInventario" class="table table-bordered table-hover">
@@ -105,21 +105,75 @@
     </div>
 </div>
 
-@*Se agrega un data table para la consulta de clientes*@
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script>var $j = jQuery.noConflict();</script>
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+@section scripts{
 
-<script>
-    $j(document).ready(function () {
-        $j('#TablaInventario').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-            },
-            "pagingType": 'simple'
+    @*Se agrega un data table para la consulta de clientes*@
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script>var $j = jQuery.noConflict();</script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $j(document).ready(function () {
+            $j('#TablaInventario').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                },
+                "pagingType": 'simple'
+            });
+
         });
+    </script>
 
-    });
-</script>
+    <script>
 
+        function pagar() {
+
+
+            var body = {
+                precio: $("#precio").val(),
+                producto: "Microfono Hyperx Quadcast"
+            }
+
+
+
+            jQuery.ajax({
+                url: '@Url.Action("Paypal", "Home")',
+                type: "POST",
+                data: JSON.stringify(body),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                     console.log(data);
+                     $("div.jumbotron").LoadingOverlay("hide");
+
+                     if (data.status) {
+
+                         var jsonresult = JSON.parse(data.respuesta);
+
+                         console.log(jsonresult);
+
+                         var links = jsonresult.links;
+
+                        var resultado = links.find(item => item.rel === "approve")
+
+                         window.location.href = resultado.href
+
+                         /*console.log(links)*/
+                         /*console.log(resultado)*/
+                     } else {
+                        alert("Vuelva a intentarlo más tarde")
+                     }
+
+
+                },
+                beforeSend: function () {
+                    $("div.jumbotron").LoadingOverlay("show");
+                }
+            });
+
+
+        }
+
+    </script>
