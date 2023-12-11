@@ -171,7 +171,6 @@
     <Compile Include="Models\FacturacionModel.cs" />
     <Compile Include="Models\InventarioModel.cs" />
     <Compile Include="Models\IndexModel.cs" />
-    <Compile Include="Models\MetodoPago.cs" />
     <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\ProveedorModel.cs" />

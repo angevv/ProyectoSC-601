@@ -14,6 +14,7 @@ namespace ProyectoSC_601.Entities
 
         public string NombreCliente { get; set; }
         public string ApellidoCliente { get; set; }
+        public string CorreoCliente { get; set; }
         public string Nombre { get; set; }
         public decimal PrecioPagado { get; set; }
         public int CantidadPagado { get; set; }

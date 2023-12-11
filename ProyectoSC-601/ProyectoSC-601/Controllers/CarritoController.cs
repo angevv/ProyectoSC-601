@@ -13,6 +13,7 @@ namespace ProyectoSC_601.Controllers
 
 
         CarritoModel modelCarrito = new CarritoModel();
+        FacturacionModel modelFacturacion = new FacturacionModel();
 
 
         [HttpGet]
@@ -73,7 +74,30 @@ namespace ProyectoSC_601.Controllers
 
             if (respuesta == "TRUE")
             {
-                return RedirectToAction("MetodoPago", "Carrito");
+
+                var datosCorreo = modelFacturacion.ConsultarDatosEnviarCorreo(long.Parse(Session["ID_Cliente"].ToString()));
+                var entidadFactura = new FacturaEnt();
+                entidadFactura.ID_Factura = datosCorreo.ID_Factura;
+                entidadFactura.NombreCliente = datosCorreo.NombreCliente;
+                entidadFactura.ApellidoCliente = datosCorreo.ApellidoCliente;
+                entidadFactura.CorreoCliente = datosCorreo.CorreoCliente;
+                entidadFactura.FechaCompra = datosCorreo.FechaCompra;
+                entidadFactura.TotalCompra = datosCorreo.TotalCompra;
+                entidadFactura.SubTotal = datosCorreo.SubTotal;
+                entidadFactura.Impuesto = datosCorreo.Impuesto;
+
+                string respuestaFacturaCorreo = modelFacturacion.EnviarFacturaCorreo(entidadFactura);
+
+                if (respuestaFacturaCorreo == "OK")
+                {
+                    return RedirectToAction("MetodoPago", "Carrito");
+                }
+                else
+                {
+                    ViewBag.MensajeUsuario = "No se ha podido enviar la factura electrónica al correo";
+                    return View("Carrito", datos);
+                }
+
             }
             else
             {
@@ -84,3 +108,5 @@ namespace ProyectoSC_601.Controllers
 
     }
 }
+
+

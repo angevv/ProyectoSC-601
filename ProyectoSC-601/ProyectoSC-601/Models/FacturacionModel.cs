@@ -41,5 +41,26 @@ namespace ProyectoSC_601.Models
                 return res.Content.ReadFromJsonAsync<List<FacturaEnt>>().Result;
             }
         }
+
+        public string EnviarFacturaCorreo(FacturaEnt entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "EnviarFacturaCorreo";
+                var jsonData = JsonContent.Create(entidad);
+                var res = client.PostAsync(urlApi, jsonData).Result;
+                return res.Content.ReadFromJsonAsync<string>().Result;
+            }
+        }
+
+        public FacturaEnt ConsultarDatosEnviarCorreo(long q)
+        {
+            using (var client = new HttpClient())
+            {
+                var urlApi = rutaServidor + "ConsultarDatosEnviarCorreo?q=" + q;
+                var res = client.GetAsync(urlApi).Result;
+                return res.Content.ReadFromJsonAsync<FacturaEnt>().Result;
+            }
+        }
     }
 }
