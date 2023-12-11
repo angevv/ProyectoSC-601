@@ -44,6 +44,12 @@ namespace ProyectoSC_601.Controllers
         }
 
         [HttpGet]
+        public ActionResult MetodoPago()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult EliminarRegistroCarrito(long q)
         {
             modelCarrito.EliminarRegistroCarrito(q);
@@ -67,7 +73,7 @@ namespace ProyectoSC_601.Controllers
 
             if (respuesta == "TRUE")
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("MetodoPago", "Carrito");
             }
             else
             {
@@ -78,5 +84,3 @@ namespace ProyectoSC_601.Controllers
 
     }
 }
-
-
