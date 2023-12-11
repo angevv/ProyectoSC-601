@@ -74,29 +74,60 @@ namespace APIProyectoSC_601.Controllers
 
         [HttpGet]
         [Route("ConsultarDatosEnviarCorreo")]
-        public object ConsultarDatosEnviarCorreo(long q)
+        public string ConsultarDatosEnviarCorreo(long q)
         {
             using (var context = new ImportadoraMoyaUlateEntities())
             {
                 context.Configuration.LazyLoadingEnabled = false;
-                return (from x in context.Factura_Encabezado
-                        join y in context.Clientes on x.ID_Usuario equals y.ID_Cliente
-                        join z in context.Factura_Detalle on x.ID_Factura equals z.ID_Factura
-                        where x.ID_Usuario == q
-                        select new
-                        {
 
-                            x.ID_Factura,
-                            NombreCliente = y.Nombre_Cliente,
-                            ApellidoCliente = y.Apellido_Cliente,
-                            CorreoCliente = y.Correo_Cliente,
-                            x.FechaCompra,
-                            x.TotalCompra,
-                            Subtotal = (x.TotalCompra / Decimal.Parse(Convert.ToString(1, 13))),
-                            Impuesto = (x.TotalCompra - (x.TotalCompra / Decimal.Parse(Convert.ToString(1, 13))))
-                        });
+                decimal factor = 1.13m;
+
+                var facturaData = (from x in context.Factura_Encabezado
+                                   join y in context.Clientes on x.ID_Usuario equals y.ID_Cliente
+                                   join z in context.Factura_Detalle on x.ID_Factura equals z.ID_Factura
+                                   where x.ID_Usuario == q
+                                   select new FacturaEnt
+                                   {
+                                       ID_Factura = x.ID_Factura,
+                                       NombreCliente = y.Nombre_Cliente,
+                                       ApellidoCliente = y.Apellido_Cliente,
+                                       CorreoCliente = y.Correo_Cliente,
+                                       FechaCompra = x.FechaCompra,
+                                       TotalCompra = x.TotalCompra,
+                                       SubTotal = (x.TotalCompra / factor),
+                                       Impuesto = (x.TotalCompra - (x.TotalCompra / factor)),
+                                   }).OrderByDescending(x => x.FechaCompra).FirstOrDefault();
+
+                if (facturaData != null)
+                {
+                    string rutaArchivo = AppDomain.CurrentDomain.BaseDirectory + "Templates\\FacturaCorreo.html";
+                    string html = File.ReadAllText(rutaArchivo);
+
+                    string numFactura = facturaData.ID_Factura.ToString();
+                    string cliente = facturaData.NombreCliente + " " + facturaData.ApellidoCliente;
+                    string fecha = facturaData.FechaCompra.ToString();
+                    string subtotal = facturaData.SubTotal.ToString("N2");
+                    string impuesto = facturaData.Impuesto.ToString("N2");
+                    string total = facturaData.TotalCompra.ToString();
+
+                    html = html.Replace("@@Factura", numFactura);
+                    html = html.Replace("@@Cliente", cliente);
+                    html = html.Replace("@@Fecha", fecha);
+                    html = html.Replace("@@Subtotal", subtotal);
+                    html = html.Replace("@@Impuesto", impuesto);
+                    html = html.Replace("@@Total", total);
+
+                    util.EnviarCorreo(facturaData.CorreoCliente, "Factura Electrónica", html);
+
+                    return "OK";
+                }
+                else
+                {
+                    return string.Empty;
+                }
             }
         }
+
 
         [HttpGet]
         [Route("ContarVentas")]
@@ -116,45 +147,6 @@ namespace APIProyectoSC_601.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("EnviarFacturaCorreo")]
-        public string EnviarFacturaCorreo(FacturaEnt entidad, string correo)
-        {
-            try
-            {
 
-                if (entidad != null)
-                {
-                    string rutaArchivo = AppDomain.CurrentDomain.BaseDirectory + "Templates\\FacturaCorreo.html";
-                    string html = File.ReadAllText(rutaArchivo);
-
-                    string numFactura = entidad.ID_Factura.ToString();
-                    string cliente = entidad.NombreCliente + " " + entidad.ApellidoCliente;
-                    string fecha = entidad.FechaCompra.ToString();
-                    string subtotal = entidad.SubTotal.ToString();
-                    string impuesto = entidad.Impuesto.ToString();
-                    string total = entidad.Total.ToString();
-
-                    html = html.Replace("@@factutra", numFactura);
-                    html = html.Replace("@@Cliente", cliente);
-                    html = html.Replace("@@Fecha", fecha);
-                    html = html.Replace("@@Subtotal", subtotal);
-                    html = html.Replace("@@Subtotal", impuesto);
-                    html = html.Replace("@@Subtotal", total);
-
-                    util.EnviarCorreo(correo, "Factura Electrónica", html);
-                    return "OK";
-                }
-                else
-                {
-                    return string.Empty;
-                }
-
-            }
-            catch (Exception)
-            {
-                return string.Empty;
-            }
-        }
     }
 }

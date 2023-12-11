@@ -7,7 +7,7 @@ namespace APIProyectoSC_601.Entities
 {
     public class FacturaEnt
     {
-
+        public string CorreoCliente { get; set; }
         public long ID_Factura { get; set; }
         public long ID_Usuario { get; set; }
         public DateTime FechaCompra { get; set; }

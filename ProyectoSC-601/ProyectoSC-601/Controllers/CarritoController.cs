@@ -37,11 +37,11 @@ namespace ProyectoSC_601.Controllers
         [HttpGet]
         public ActionResult Carrito()
         {
-            
-                var datos = modelCarrito.ConsultarCarrito(long.Parse(Session["ID_Cliente"].ToString()));
-                Session["TotalPago"] = datos.AsEnumerable().Sum(x => x.Total);
-                return View(datos);
-         
+
+            var datos = modelCarrito.ConsultarCarrito(long.Parse(Session["ID_Cliente"].ToString()));
+            Session["TotalPago"] = datos.AsEnumerable().Sum(x => x.Total);
+            return View(datos);
+
         }
 
         [HttpGet]
@@ -49,6 +49,7 @@ namespace ProyectoSC_601.Controllers
         {
             return View();
         }
+         
 
         [HttpGet]
         public ActionResult EliminarRegistroCarrito(long q)
@@ -74,21 +75,10 @@ namespace ProyectoSC_601.Controllers
 
             if (respuesta == "TRUE")
             {
-
                 var datosCorreo = modelFacturacion.ConsultarDatosEnviarCorreo(long.Parse(Session["ID_Cliente"].ToString()));
-                var entidadFactura = new FacturaEnt();
-                entidadFactura.ID_Factura = datosCorreo.ID_Factura;
-                entidadFactura.NombreCliente = datosCorreo.NombreCliente;
-                entidadFactura.ApellidoCliente = datosCorreo.ApellidoCliente;
-                entidadFactura.CorreoCliente = datosCorreo.CorreoCliente;
-                entidadFactura.FechaCompra = datosCorreo.FechaCompra;
-                entidadFactura.TotalCompra = datosCorreo.TotalCompra;
-                entidadFactura.SubTotal = datosCorreo.SubTotal;
-                entidadFactura.Impuesto = datosCorreo.Impuesto;
 
-                string respuestaFacturaCorreo = modelFacturacion.EnviarFacturaCorreo(entidadFactura);
 
-                if (respuestaFacturaCorreo == "OK")
+                if (datosCorreo == "OK")
                 {
                     return RedirectToAction("MetodoPago", "Carrito");
                 }
