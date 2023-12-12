@@ -82,12 +82,16 @@
 
 <script>
     $j(document).ready(function () {
-        $j('#TablaClientes').DataTable({
+
+        var tabla = $j('#TablaClientes').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
             },
             "pagingType": 'simple'
         });
 
+        // Se quita el ordenamiento por defecto del dataTable para que se vea reflejado el orden de la lista
+        tabla.order([]).draw();
     });
+
 </script>

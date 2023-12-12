@@ -23,7 +23,7 @@ namespace APIProyectoSC_601.Controllers
                 context.Configuration.LazyLoadingEnabled = false;
                 return (from x in context.Factura_Encabezado
                         where x.ID_Usuario == q
-                        select x).ToList();
+                        select x).OrderByDescending(x => x.FechaCompra).ToList();
             }
         }
 
@@ -44,7 +44,7 @@ namespace APIProyectoSC_601.Controllers
                             ApellidoCliente = y.Apellido_Cliente,
                             x.FechaCompra,
                             x.TotalCompra,
-                        }).ToList();
+                        }).OrderByDescending(x => x.FechaCompra).ToList();
             }
         }
 
